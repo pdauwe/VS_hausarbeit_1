@@ -7,7 +7,6 @@ import java.util.Collection;
 import javax.swing.table.AbstractTableModel;
 
 import awk.AnwendungskernException;
-import awk.kundenverwaltung.entity.GeschaeftskundeTO;
 import awk.kundenverwaltung.entity.KundeTO;
 import awk.kundenverwaltung.entity.PrivatkundeTO;
 import awk.kundenverwaltung.usecase.IKundenlisteErstellenRemote;
@@ -70,10 +69,7 @@ public class KundenTableModel extends AbstractTableModel {
 					return "";
 			}
 			else
-				if ( kundenTOListe.get(row) instanceof GeschaeftskundeTO)
-					return ((GeschaeftskundeTO) kundenTOListe.get(row)).getUstID();
-				else 
-					return "";
+				return "";
 		}
 	
 	public String getColumnName (int col) {

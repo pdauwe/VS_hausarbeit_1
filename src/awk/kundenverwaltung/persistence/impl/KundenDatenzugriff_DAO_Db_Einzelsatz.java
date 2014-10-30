@@ -8,7 +8,6 @@ import java.util.Collection;
 
 
 import awk.Persistence.Persistence;
-import awk.kundenverwaltung.entity.GeschaeftskundeTO;
 import awk.kundenverwaltung.entity.KundeTO;
 import awk.kundenverwaltung.entity.PrivatkundeTO;
 import awk.kundenverwaltung.persistence.IKundenDatenzugriff;
@@ -39,20 +38,6 @@ public class KundenDatenzugriff_DAO_Db_Einzelsatz implements IKundenDatenzugriff
 						privatkundeTO.getKundennummer() +")");
 				}
 			
-				if (kundeTO instanceof GeschaeftskundeTO) {
-					GeschaeftskundeTO geschaeftskundeTO = (GeschaeftskundeTO) kundeTO;
-					Persistence.executeUpdateStatement(
-							aConnection, 
-							"INSERT INTO kundenverw_geschaeftskunde VALUES ( " +
-							"'"+ geschaeftskundeTO.getVorname() + "'," +
-							"'"+ geschaeftskundeTO.getNachname() + "'," +
-							"'"+ geschaeftskundeTO.getStr() + "'," +
-							"'"+ geschaeftskundeTO.getNr() + "'," +
-							"'"+ geschaeftskundeTO.getPlz() + "',"+
-							"'"+ geschaeftskundeTO.getOrt() + "'," +
-							"'"+ geschaeftskundeTO.getUstID() + "'," + 
-							geschaeftskundeTO.getKundennummer() +")");
-				}
 				for (Integer kontonr:kundeTO.getKonten()) {
 					Persistence.executeUpdateStatement(aConnection,
 							"INSERT INTO kundenverw_kontonummer VALUES (" +
@@ -209,24 +194,6 @@ public class KundenDatenzugriff_DAO_Db_Einzelsatz implements IKundenDatenzugriff
 				}
 			}
 		
-		
-			if (kundeTO instanceof GeschaeftskundeTO) {
-			
-				if ( ((GeschaeftskundeTO) kundeTO).getUstID() != null && !((GeschaeftskundeTO) kundeTO).getUstID().isEmpty() )
-				suchString = " vatid = '" + ((GeschaeftskundeTO) kundeTO).getUstID() +"'";
-		
-				if (suchString.isEmpty()) 
-					suchString = "SELECT * FROM kundenverw_geschaeftskunde";
-				else
-					suchString = "SELECT * FROM kundenverw_geschaeftskunde WHERE " + suchString;
-				resultSet = 
-						Persistence.executeQueryStatement(aConnection,suchString);
-				while (resultSet.next()) {
-					foundKundeTO = this.resultToKundeTO(resultSet, 'G');
-					kundenTOListe.add(foundKundeTO);
-				}
-			}
-		
 			
 			for (KundeTO kTO:kundenTOListe) {
 				resultSet = 
@@ -251,19 +218,12 @@ public class KundenDatenzugriff_DAO_Db_Einzelsatz implements IKundenDatenzugriff
 
 	private KundeTO resultToKundeTO(ResultSet resultSet, char typ) throws DatenhaltungsException {
 		PrivatkundeTO privatkundeTO;
-		GeschaeftskundeTO geschaeftskundeTO;
 		KundeTO kundeTO;
 		try {
-			if (typ =='G') {
-				geschaeftskundeTO = new GeschaeftskundeTO();
-					geschaeftskundeTO.setUstId(resultSet.getString("VATID"));
-				kundeTO = geschaeftskundeTO;
-			}
-			else {
-				privatkundeTO = new PrivatkundeTO();
-				privatkundeTO.setGeschlecht(resultSet.getString("SEX"));
-				kundeTO = privatkundeTO;
-			}
+			privatkundeTO = new PrivatkundeTO();
+			privatkundeTO.setGeschlecht(resultSet.getString("SEX"));
+			kundeTO = privatkundeTO;
+			
 			kundeTO.setKundennummer(resultSet.getInt("CUSNUMBER"));
 			kundeTO.setNachname(resultSet.getString("LASTNAME"));		
 			kundeTO.setVorname(resultSet.getString("FIRSTNAME"));

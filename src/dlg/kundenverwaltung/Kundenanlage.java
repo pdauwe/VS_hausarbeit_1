@@ -33,13 +33,9 @@ public class Kundenanlage extends JFrame {
 	private JTextField tf_plz;
 	private JTextField tf_ort;
 	
-	private JLabel lb_ustid;
 	private JLabel lb_geschlecht;
 
 	private IKundenPflegenRemote kundenPflegen;
-	private JTextField tf_ustid;
-	private JRadioButton rdbtnPrivatkunde;
-	private JRadioButton rdbtnGeschaeftskunde;
 	
 	/**
 	 * Launch the application.
@@ -71,25 +67,6 @@ public class Kundenanlage extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		rdbtnPrivatkunde = new JRadioButton("Privatkunde");
-		rdbtnPrivatkunde.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				rdbtnGeschaeftskunde.setSelected(false);
-				actionPerformedPrivatkunde(arg0);
-			}
-		});
-		rdbtnPrivatkunde.setBounds(31, 21, 141, 23);
-		contentPane.add(rdbtnPrivatkunde);
-		
-		rdbtnGeschaeftskunde = new JRadioButton("Gesch\u00E4ftskunde");
-		rdbtnGeschaeftskunde.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				rdbtnPrivatkunde.setSelected(false);
-				actionPerformedGeschaeftskunde(e);
-			}
-		});
-		rdbtnGeschaeftskunde.setBounds(204, 21, 141, 23);
-		contentPane.add(rdbtnGeschaeftskunde);
 		
 		lb_geschlecht = new JLabel("Geschlecht:");
 		lb_geschlecht.setBounds(41, 55, 89, 16);
@@ -168,32 +145,8 @@ public class Kundenanlage extends JFrame {
 		jb_anlegen.setBounds(284, 243, 117, 29);
 		contentPane.add(jb_anlegen);
 		
-		lb_ustid = new JLabel("Ust-ID:");
-		lb_ustid.setBounds(41, 209, 61, 16);
-		contentPane.add(lb_ustid);
-		
-		tf_ustid = new JTextField();
-		tf_ustid.setBounds(126, 199, 134, 28);
-		contentPane.add(tf_ustid);
-		tf_ustid.setColumns(10);
-	}
-	
-	private void actionPerformedPrivatkunde(ActionEvent arg0) {
-		System.out.println("rb_Privatkunde.actionPerformed, event="+arg0);
-		this.rdbtnGeschaeftskunde.setSelected(false);
-		tf_ustid.setVisible(false);
-		lb_ustid.setVisible(false);
 		tf_geschlecht.setVisible(true);
 		lb_geschlecht.setVisible(true);
-	}
-	
-	private void actionPerformedGeschaeftskunde(ActionEvent arg0) {
-		System.out.println("rb_Privatkunde.actionPerformed, event="+arg0);
-		this.rdbtnPrivatkunde.setSelected(false);
-		tf_ustid.setVisible(true);
-		lb_ustid.setVisible(true);
-		tf_geschlecht.setVisible(false);
-		lb_geschlecht.setVisible(false);
 	}
 	
 	public void actionPerformedKundeAnlegen(ActionEvent evt) throws RemoteException {
@@ -206,23 +159,14 @@ public class Kundenanlage extends JFrame {
 		String ort = tf_ort.getText();
 		
 		boolean ok = false;
-		if ( rdbtnGeschaeftskunde.isSelected() ) {
-			String ustId = tf_ustid.getText();
-			try {
-				ok = kundenPflegen.geschaeftskundeAnlegenR(vorname, nachname, str, hausnr, plz, ort, ustId);
-			} catch (AnwendungskernException e) {
-				e.printStackTrace();
-			}
+		String geschlecht = tf_geschlecht.getText();
+		try {
+			ok = kundenPflegen.privatkundeAnlegenR(vorname, nachname, str, hausnr, plz, ort, geschlecht);
+		} catch (AnwendungskernException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		else {
-			String geschlecht = tf_geschlecht.getText();
-			try {
-				ok = kundenPflegen.privatkundeAnlegenR(vorname, nachname, str, hausnr, plz, ort, geschlecht);
-			} catch (AnwendungskernException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+	
 		if (!ok)
 			JOptionPane.showMessageDialog(null, "Kunde kann nicht angelegt werden!");
 		else {

@@ -1,7 +1,6 @@
 package awk.kundenverwaltung.usecase.impl;
 
 import awk.AnwendungskernException;
-import awk.kundenverwaltung.entity.internal.Geschaeftskunde;
 import awk.kundenverwaltung.entity.internal.Kunde;
 import awk.kundenverwaltung.entity.internal.Privatkunde;
 import awk.kundenverwaltung.type.Adresse;
@@ -32,7 +31,7 @@ public class KundenPflegen implements IKundenPflegen{
 		
 		/* Pruefen, ob identische Adresse existiert */
 		
-		if ( kundenmanager.istKundevorhanden(new Geschaeftskunde(0,nachname, vorname, str, nr, plz, ort, "0"))){
+		if ( kundenmanager.istKundevorhanden(new Privatkunde(0,nachname, vorname, str, nr, plz, ort, "0"))){
 			System.out.println("Adresse schon vorhanden");
 			return false;
 		}
@@ -57,20 +56,6 @@ public class KundenPflegen implements IKundenPflegen{
 			return false;
 		
 	}
-
-	public boolean geschaeftskundeAnlegen(String vorname, String nachname, String str,
-			String nr, String plz, String ort, String ustId) throws AnwendungskernException {		
-		KundenManager einKundenManager = KundenManager.getKundenManager();
-		if (this.adressePruefen (einKundenManager, nachname,vorname,str,nr,plz,ort)) {
-			int max = einKundenManager.naechsteKundennummerErmitteln();
-			einKundenManager.kundeHinzufuegen(new Geschaeftskunde(max+1,nachname,vorname,str,nr,plz,ort,ustId));
-			return true;
-			
-		}
-		else 
-			return false;
-		
-	}
 	
 	public boolean kundenLoeschen (int nummer) throws AnwendungskernException {
 		KundenManager kundenmanager = KundenManager.getKundenManager();
@@ -84,9 +69,5 @@ public class KundenPflegen implements IKundenPflegen{
 			return true;
 		}
 	}
-
-
-
-
 
 }

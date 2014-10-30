@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import awk.AnwendungskernException;
 import awk.DatenhaltungsException;
-import awk.kundenverwaltung.entity.GeschaeftskundeTO;
 import awk.kundenverwaltung.entity.KundeTO;
 import awk.kundenverwaltung.entity.PrivatkundeTO;
 import awk.kundenverwaltung.entity.internal.Kunde;
@@ -80,12 +79,9 @@ public class KundenManager {
 		Collection <KundeTO> ergebnisliste = new ArrayList<KundeTO>();
 		
 		KundeTO suchPKundeTO = new PrivatkundeTO();
-		KundeTO suchGKundeTO = new GeschaeftskundeTO();
 		
 		try {
 			for (KundeTO kundeTO:this.einDatenverwalter.kundendatenSuchenByAttribute(suchPKundeTO))
-				ergebnisliste.add(kundeTO);
-			for (KundeTO kundeTO:this.einDatenverwalter.kundendatenSuchenByAttribute(suchGKundeTO))
 				ergebnisliste.add(kundeTO);
 		} catch (DatenhaltungsException e) {
 			e.printStackTrace();
@@ -111,14 +107,8 @@ public class KundenManager {
 		suchPKundeTO.setNachname(nachname);
 		suchPKundeTO.setVorname(vorname);
 		
-		KundeTO suchGKundeTO = new GeschaeftskundeTO();
-		suchGKundeTO.setNachname(nachname);
-		suchGKundeTO.setVorname(vorname);
-		
 		try {
 			for (KundeTO kundeTO:this.einDatenverwalter.kundendatenSuchenByAttribute(suchPKundeTO))
-				ergebnisliste.add(kundeTO.toKunde());
-			for (KundeTO kundeTO:this.einDatenverwalter.kundendatenSuchenByAttribute(suchGKundeTO))
 				ergebnisliste.add(kundeTO.toKunde());
 		} catch (DatenhaltungsException e) {
 			e.printStackTrace();
@@ -147,12 +137,9 @@ public class KundenManager {
 		Collection <Kunde> ergebnisliste = new ArrayList<Kunde>();
 		
 		KundeTO suchPKundeTO = new PrivatkundeTO();
-		KundeTO suchGKundeTO = new GeschaeftskundeTO();
 		
 		try {
 			for (KundeTO kundeTO:this.einDatenverwalter.kundendatenSuchenByAttribute(suchPKundeTO))
-				ergebnisliste.add(kundeTO.toKunde());
-			for (KundeTO kundeTO:this.einDatenverwalter.kundendatenSuchenByAttribute(suchGKundeTO))
 				ergebnisliste.add(kundeTO.toKunde());
 		} catch (DatenhaltungsException e) {
 			e.printStackTrace();
