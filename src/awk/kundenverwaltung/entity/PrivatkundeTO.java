@@ -8,6 +8,8 @@ public class PrivatkundeTO extends KundeTO {
 	private static final long serialVersionUID = -6690944127375207095L;
 
 	private String geschlecht;
+	private String benutzerkennung;
+	private String passwort;
 	
 	public Kunde toKunde() {
 		Kunde kunde = new Privatkunde(
@@ -18,7 +20,10 @@ public class PrivatkundeTO extends KundeTO {
 				this.getNr(),
 				this.getPlz(),
 				this.getOrt(),
-				this.getGeschlecht());
+				this.getGeschlecht(),
+				this.getBenutzerkennung(),
+				this.getPasswort());
+			
 		
 		for (Integer kontonr:this.getKonten())
 			kunde.getKonten().add(kontonr);
@@ -34,4 +39,19 @@ public class PrivatkundeTO extends KundeTO {
 		this.geschlecht = geschlecht;
 	}
 	
+	public String getBenutzerkennung() {
+		return benutzerkennung;
+	}
+
+	public void setBenutzerkennung(String benutzerkennung) {
+		this.benutzerkennung = benutzerkennung;
+	}
+	
+	public String getPasswort() {
+		return passwort;
+	}
+
+	public void setPasswort(String passwort) {
+		this.passwort = passwort;
+	}
 }

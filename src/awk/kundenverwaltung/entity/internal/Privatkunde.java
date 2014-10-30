@@ -11,6 +11,8 @@ public class Privatkunde extends Kunde implements Serializable{
 	 */
 	private static final long serialVersionUID = 8537200194668564835L;
 	private String geschlecht;
+	private String benutzerkennung;
+	private String passwort;
 	
 	public Privatkunde(int kundennummer, String nachname, String vorname, String str, String nr,
 			String plz, String ort, String geschlecht) {
@@ -18,9 +20,19 @@ public class Privatkunde extends Kunde implements Serializable{
 		this.geschlecht = geschlecht;
 	}
 	
+	public Privatkunde(int kundennummer, String nachname, String vorname, String str, String nr,
+			String plz, String ort, String geschlecht, String benutzerkennung, String passwort) {
+		super(kundennummer, nachname, vorname, str, nr, plz, ort);
+		this.geschlecht = geschlecht;
+		this.benutzerkennung = benutzerkennung;
+		this.passwort = benutzerkennung;
+	}
+	
 	public Privatkunde (PrivatkundeTO einPKundeTO) {
 		super (einPKundeTO);
 		this.geschlecht = einPKundeTO.getGeschlecht();
+		this.benutzerkennung = einPKundeTO.getBenutzerkennung();
+		this.passwort = einPKundeTO.getPasswort();
 	}
 	
 	public PrivatkundeTO toKundeTO() {
@@ -38,6 +50,9 @@ public class Privatkunde extends Kunde implements Serializable{
 			
 		}
 		privatKundenTO.setGeschlecht(this.geschlecht);
+		privatKundenTO.setBenutzerkennung(this.benutzerkennung);
+		privatKundenTO.setPasswort(this.passwort);
+		
 		
 		return privatKundenTO;
 		
