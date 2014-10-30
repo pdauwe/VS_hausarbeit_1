@@ -10,8 +10,6 @@ import dlg.menue.Hauptmenue;
 import awk.kontenverwaltung.usecase.IKontenPflegenRemote;
 import awk.kontenverwaltung.usecase.IKontobewegungBuchenRemote;
 import awk.kundenverwaltung.usecase.IKundenPflegenRemote;
-import awk.kundenverwaltung.usecase.IKundenSuchenRemote;
-import awk.kundenverwaltung.usecase.IKundenlisteErstellenRemote;
 
 public class StartClient {
 
@@ -22,10 +20,6 @@ public class StartClient {
 		
 		IKundenPflegenRemote kundenPflegenRemote = 
 			(IKundenPflegenRemote) registry.lookup("kundenPflegen");
-		IKundenlisteErstellenRemote kundenlisteErstellenRemote = 
-				(IKundenlisteErstellenRemote) registry.lookup("kundenlisteErstellen");
-		IKundenSuchenRemote kundenSuchenRemote = 
-				(IKundenSuchenRemote) registry.lookup("kundenSuchen");
 		
 		IKontenPflegenRemote kontenPflegenRemote = 
 			(IKontenPflegenRemote) registry.lookup("kontenPflegen");
@@ -33,8 +27,7 @@ public class StartClient {
 			(IKontobewegungBuchenRemote) registry.lookup("kontobewegungBuchen");
 				
 		Hauptmenue.main(
-				kundenPflegenRemote, kundenSuchenRemote, kundenlisteErstellenRemote,
-				kontenPflegenRemote, kontobewegungBuchenRemote);
+				kundenPflegenRemote, kontenPflegenRemote, kontobewegungBuchenRemote);
 		
 	}
 

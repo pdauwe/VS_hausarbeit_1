@@ -8,8 +8,5 @@ public interface IKundenPflegen {
 			String vorname, String nachname, String str, String nr, String plz, 
 			String ort, String geschlecht) 
 			throws AnwendungskernException;
-	public boolean kundenLoeschen (int nummer) throws AnwendungskernException;
-
-	
 }
 

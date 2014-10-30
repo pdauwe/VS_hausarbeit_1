@@ -15,8 +15,6 @@ import awk.kontenverwaltung.factory.impl.KontenverwaltungRemoteFactory;
 import awk.kontenverwaltung.usecase.IKontenPflegenRemote;
 import awk.kontenverwaltung.usecase.IKontobewegungBuchenRemote;
 import awk.kundenverwaltung.usecase.IKundenPflegenRemote;
-import awk.kundenverwaltung.usecase.IKundenSuchenRemote;
-import awk.kundenverwaltung.usecase.IKundenlisteErstellenRemote;
 
 
 public class StartServer {
@@ -29,8 +27,6 @@ public class StartServer {
 		/* 2. Implementierung der benoetigten Use Cases beziehen */
 		
 		IKundenPflegenRemote kundenPflegenRemote = kundenvf.getKundenPflegenRemote();
-		IKundenSuchenRemote kundenSuchenRemote = kundenvf.getKundenSuchenRemote();
-		IKundenlisteErstellenRemote kundenlisteErstellenRemote = kundenvf.getKundenlisteErstellenRemote();
 		
 		IKontenPflegenRemote kontenPflegenRemote = kontenvf.getKontenPflegenRemote();
 		IKontobewegungBuchenRemote kontobewegungBuchenRemote = kontenvf.getKontobewegungBuchenRemote();
@@ -38,11 +34,6 @@ public class StartServer {
 		/* 3. Implementierungen extern verfuebar machen */
 		IKundenPflegenRemote stubKundenPflegenRemote =
 				(IKundenPflegenRemote) UnicastRemoteObject.exportObject(kundenPflegenRemote,0);
-		IKundenSuchenRemote stubKundenSuchenRemote =
-				(IKundenSuchenRemote) UnicastRemoteObject.exportObject(kundenSuchenRemote,0);
-		IKundenlisteErstellenRemote stubKundenlisteErstellenRemote =
-				(IKundenlisteErstellenRemote) UnicastRemoteObject.exportObject(kundenlisteErstellenRemote,0);
-		
 		
 		IKontenPflegenRemote stubKontenPflegenRemote =
 				(IKontenPflegenRemote) UnicastRemoteObject.exportObject(kontenPflegenRemote,0);
@@ -56,9 +47,7 @@ public class StartServer {
 		Registry registry = LocateRegistry.getRegistry();
 		
 		registry.rebind("kundenPflegen", stubKundenPflegenRemote);
-		registry.rebind("kundenSuchen", stubKundenSuchenRemote);
-		
-		registry.rebind("kundenlisteErstellen", stubKundenlisteErstellenRemote);
+
 		registry.rebind("kontenPflegen", stubKontenPflegenRemote);
 		registry.rebind("kontobewegungBuchen", stubKontobewegungBuchenRemote);
 	}

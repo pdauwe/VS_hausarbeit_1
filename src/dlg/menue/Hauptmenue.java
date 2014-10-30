@@ -12,8 +12,6 @@ import dlg.kontenverwaltung.Kontenverwaltung;
 import awk.kontenverwaltung.usecase.IKontenPflegenRemote;
 import awk.kontenverwaltung.usecase.IKontobewegungBuchenRemote;
 import awk.kundenverwaltung.usecase.IKundenPflegenRemote;
-import awk.kundenverwaltung.usecase.IKundenSuchenRemote;
-import awk.kundenverwaltung.usecase.IKundenlisteErstellenRemote;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -28,8 +26,6 @@ public class Hauptmenue extends JFrame {
 	private JPanel contentPane;
 
 	IKundenPflegenRemote kundenPflegen;
-	IKundenSuchenRemote kundenSuchen;
-	IKundenlisteErstellenRemote kundenlisteErstellen;
 	
 	IKontenPflegenRemote kontenPflegen;
 	IKontobewegungBuchenRemote kontobewegungBuchen;
@@ -39,8 +35,6 @@ public class Hauptmenue extends JFrame {
 	 */
 	public static void main( 
 			final IKundenPflegenRemote kundenPflegen,
-			final IKundenSuchenRemote kundenSuchen,
-			final IKundenlisteErstellenRemote kundenlisteErstellen,
 			final IKontenPflegenRemote kontenPflegen,
 			final IKontobewegungBuchenRemote kontobewegungBuchen
 			) {
@@ -52,7 +46,6 @@ public class Hauptmenue extends JFrame {
 				try {
 					Hauptmenue frame = new Hauptmenue(
 							kundenPflegen,
-							kundenSuchen, kundenlisteErstellen,
 							kontenPflegen, kontobewegungBuchen
 							);
 					frame.setVisible(true);
@@ -70,15 +63,11 @@ public class Hauptmenue extends JFrame {
 	 */
 	public Hauptmenue (
 			final IKundenPflegenRemote kundenPflegen,
-			final IKundenSuchenRemote kundenSuchen,
-			final IKundenlisteErstellenRemote kundenlisteErstellen,
 			final IKontenPflegenRemote kontenPflegen,
 			final IKontobewegungBuchenRemote kontobewegungBuchen
 			) {
 	
 		this.kundenPflegen = kundenPflegen;
-		this.kundenSuchen = kundenSuchen;
-		this.kundenlisteErstellen = kundenlisteErstellen;
 		
 		this.kontenPflegen = kontenPflegen;
 		this.kontobewegungBuchen = kontobewegungBuchen;
@@ -102,7 +91,7 @@ public class Hauptmenue extends JFrame {
 		JButton btnKundenverwaltung = new JButton("Kundenverwaltung");
 		btnKundenverwaltung.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Kundenverwaltung.main(kundenPflegen, kundenlisteErstellen, kundenSuchen);
+				Kundenverwaltung.main(kundenPflegen);
 			}
 		});
 		btnKundenverwaltung.setBounds(47, 19, 162, 29);

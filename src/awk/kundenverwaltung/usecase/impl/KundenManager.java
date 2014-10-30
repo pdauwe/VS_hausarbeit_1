@@ -28,10 +28,6 @@ public class KundenManager {
 		return kundenManager;
 	}
 	
-	private  KundenManager () throws AnwendungskernException {
-	}
-	
-	
 	public void kundeHinzufuegen (Kunde kunde) throws AnwendungskernException {
 		try {
 			this.einDatenverwalter.kundendatenAnlegen(kunde.toKundeTO());

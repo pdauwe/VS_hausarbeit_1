@@ -16,11 +16,4 @@ public class KundenPflegenRemote implements IKundenPflegenRemote{
 		KundenPflegen kundenPflegen = new KundenPflegen();
 		return kundenPflegen.privatkundeAnlegen(vorname, nachname, str, nr, plz, ort, geschlecht);
 	}
-
-	public boolean kundenLoeschenR(int nummer) throws AnwendungskernException, RemoteException {
-		KundenPflegen kundenPflegen = new KundenPflegen();
-		return kundenPflegen.kundenLoeschen(nummer);
-	}
-
-	
 }

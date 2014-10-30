@@ -1,7 +1,6 @@
 package awk.kundenverwaltung.usecase.impl;
 
 import awk.AnwendungskernException;
-import awk.kundenverwaltung.entity.internal.Kunde;
 import awk.kundenverwaltung.entity.internal.Privatkunde;
 import awk.kundenverwaltung.type.Adresse;
 import awk.kundenverwaltung.usecase.IKundenPflegen;
@@ -56,18 +55,4 @@ public class KundenPflegen implements IKundenPflegen{
 			return false;
 		
 	}
-	
-	public boolean kundenLoeschen (int nummer) throws AnwendungskernException {
-		KundenManager kundenmanager = KundenManager.getKundenManager();
-		Kunde kunde = kundenmanager.kundeSuchenByNr(nummer);
-		if (kunde == null)
-			return false;
-		else if ( !kunde.getKonten().isEmpty() )
-			return false;
-		else {
-			kundenmanager.kundeEntfernen(kunde);
-			return true;
-		}
-	}
-
 }
