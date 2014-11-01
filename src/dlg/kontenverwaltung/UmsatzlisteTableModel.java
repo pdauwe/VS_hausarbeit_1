@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.table.AbstractTableModel;
 
-import awk.kontenverwaltung.entity.KontobewegungTO;
+import awk.depotverwaltung.entity.WertpapiertransaktionTO;
 
 
 public class UmsatzlisteTableModel extends AbstractTableModel {
@@ -13,10 +13,10 @@ public class UmsatzlisteTableModel extends AbstractTableModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	ArrayList<KontobewegungTO> bewegungTOliste = new ArrayList<KontobewegungTO>();
+	ArrayList<WertpapiertransaktionTO> bewegungTOliste = new ArrayList<WertpapiertransaktionTO>();
 
-	public UmsatzlisteTableModel(Collection<KontobewegungTO> bewegungTOliste) {
-		for (KontobewegungTO bewegung:bewegungTOliste)
+	public UmsatzlisteTableModel(Collection<WertpapiertransaktionTO> bewegungTOliste) {
+		for (WertpapiertransaktionTO bewegung:bewegungTOliste)
 			this.bewegungTOliste.add(bewegung);	
 	}
 	
@@ -38,7 +38,7 @@ public class UmsatzlisteTableModel extends AbstractTableModel {
 			if ( col == 0) 
 				return (Object) bewegungTOliste.get(row).getTyp();     
 			else 
-				return (Object) bewegungTOliste.get(row).getBetrag();
+				return (Object) bewegungTOliste.get(row).getPreis();
 		}
 	
 	public String getColumnName (int col) {

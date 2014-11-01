@@ -9,8 +9,8 @@ import javax.swing.JButton;
 
 import dlg.kundenverwaltung.Kundenverwaltung;
 import dlg.kontenverwaltung.Kontenverwaltung;
-import awk.kontenverwaltung.usecase.IDepotPflegenRemote;
-import awk.kontenverwaltung.usecase.IKontobewegungBuchenRemote;
+import awk.depotverwaltung.usecase.IDepotPflegenRemote;
+import awk.depotverwaltung.usecase.IWertpapiertransaktionBuchenRemote;
 import awk.kundenverwaltung.usecase.IKundenPflegenRemote;
 
 import java.awt.event.ActionListener;
@@ -28,7 +28,7 @@ public class Hauptmenue extends JFrame {
 	IKundenPflegenRemote kundenPflegen;
 	
 	IDepotPflegenRemote kontenPflegen;
-	IKontobewegungBuchenRemote kontobewegungBuchen;
+	IWertpapiertransaktionBuchenRemote kontobewegungBuchen;
 	
 	/**
 	 * Launch the application.
@@ -36,7 +36,7 @@ public class Hauptmenue extends JFrame {
 	public static void main( 
 			final IKundenPflegenRemote kundenPflegen,
 			final IDepotPflegenRemote kontenPflegen,
-			final IKontobewegungBuchenRemote kontobewegungBuchen
+			final IWertpapiertransaktionBuchenRemote kontobewegungBuchen
 			) {
 		
 		System.out.println("Hauptmenue fertig");
@@ -64,7 +64,7 @@ public class Hauptmenue extends JFrame {
 	public Hauptmenue (
 			final IKundenPflegenRemote kundenPflegen,
 			final IDepotPflegenRemote kontenPflegen,
-			final IKontobewegungBuchenRemote kontobewegungBuchen
+			final IWertpapiertransaktionBuchenRemote kontobewegungBuchen
 			) {
 	
 		this.kundenPflegen = kundenPflegen;

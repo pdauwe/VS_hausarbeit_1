@@ -7,13 +7,13 @@ import java.rmi.registry.Registry;
 import java.rmi.server.RemoteServer;
 import java.rmi.server.UnicastRemoteObject;
 
-import awk.kontenverwaltung.factory.IDepotverwaltungRemoteFactory;
+import awk.depotverwaltung.factory.IDepotverwaltungRemoteFactory;
+import awk.depotverwaltung.factory.impl.DepotverwaltungRemoteFactory;
+import awk.depotverwaltung.usecase.IDepotPflegenRemote;
+import awk.depotverwaltung.usecase.IWertpapiertransaktionBuchenRemote;
 import awk.kundenverwaltung.factory.IKundenverwaltungRemoteFactory;
 import awk.kundenverwaltung.factory.impl.KundenverwaltungRemoteFactory;
-import awk.kontenverwaltung.factory.impl.DepotverwaltungRemoteFactory;
 
-import awk.kontenverwaltung.usecase.IDepotPflegenRemote;
-import awk.kontenverwaltung.usecase.IKontobewegungBuchenRemote;
 import awk.kundenverwaltung.usecase.IKundenPflegenRemote;
 
 
@@ -29,7 +29,7 @@ public class StartServer {
 		IKundenPflegenRemote kundenPflegenRemote = kundenvf.getKundenPflegenRemote();
 		
 		IDepotPflegenRemote kontenPflegenRemote = kontenvf.getDepotPflegenRemote();
-		IKontobewegungBuchenRemote kontobewegungBuchenRemote = kontenvf.getKontobewegungBuchenRemote();
+		IWertpapiertransaktionBuchenRemote kontobewegungBuchenRemote = kontenvf.getKontobewegungBuchenRemote();
 	
 		/* 3. Implementierungen extern verfuebar machen */
 		IKundenPflegenRemote stubKundenPflegenRemote =
@@ -37,8 +37,8 @@ public class StartServer {
 		
 		IDepotPflegenRemote stubKontenPflegenRemote =
 				(IDepotPflegenRemote) UnicastRemoteObject.exportObject(kontenPflegenRemote,0);
-		IKontobewegungBuchenRemote stubKontobewegungBuchenRemote =
-				(IKontobewegungBuchenRemote) UnicastRemoteObject.exportObject(kontobewegungBuchenRemote,0);
+		IWertpapiertransaktionBuchenRemote stubKontobewegungBuchenRemote =
+				(IWertpapiertransaktionBuchenRemote) UnicastRemoteObject.exportObject(kontobewegungBuchenRemote,0);
 		
 		/* Namensdienst starten und Remote Objekte dort anmelden */
 		

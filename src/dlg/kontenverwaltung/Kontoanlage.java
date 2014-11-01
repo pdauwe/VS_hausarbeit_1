@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import awk.AnwendungskernException;
-import awk.kontenverwaltung.usecase.IDepotPflegenRemote;
+import awk.depotverwaltung.usecase.IDepotPflegenRemote;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

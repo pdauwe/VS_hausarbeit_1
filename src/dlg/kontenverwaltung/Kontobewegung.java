@@ -15,8 +15,8 @@ import java.awt.event.ActionEvent;
 import java.rmi.RemoteException;
 
 import awk.AnwendungskernException;
-import awk.kontenverwaltung.entity.DepotTO;
-import awk.kontenverwaltung.usecase.IKontobewegungBuchenRemote;
+import awk.depotverwaltung.entity.DepotTO;
+import awk.depotverwaltung.usecase.IWertpapiertransaktionBuchenRemote;
 
 import javax.swing.JTable;
 
@@ -34,12 +34,12 @@ public class Kontobewegung extends JFrame {
 	private JTextField tf_betrag;
 	private JTable t_umsatzliste;
 	
-	private IKontobewegungBuchenRemote kontobewegungBuchen;
+	private IWertpapiertransaktionBuchenRemote kontobewegungBuchen;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(final IKontobewegungBuchenRemote kontobewegungBuchen2) {
+	public static void main(final IWertpapiertransaktionBuchenRemote kontobewegungBuchen2) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -56,7 +56,7 @@ public class Kontobewegung extends JFrame {
 	 * Create the frame.
 	 * @param kontobewegungBuchen2 
 	 */
-	public Kontobewegung(IKontobewegungBuchenRemote kontobewegungBuchen2) {
+	public Kontobewegung(IWertpapiertransaktionBuchenRemote kontobewegungBuchen2) {
 		
 		this.kontobewegungBuchen = kontobewegungBuchen2;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

@@ -10,8 +10,8 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JButton;
 
-import awk.kontenverwaltung.usecase.IDepotPflegenRemote;
-import awk.kontenverwaltung.usecase.IKontobewegungBuchenRemote;
+import awk.depotverwaltung.usecase.IDepotPflegenRemote;
+import awk.depotverwaltung.usecase.IWertpapiertransaktionBuchenRemote;
 import awk.kundenverwaltung.usecase.IKundenPflegenRemote;
 
 import java.awt.GridBagConstraints;
@@ -31,12 +31,12 @@ public class Kontenverwaltung extends JFrame {
 	
 	
 	IDepotPflegenRemote kontenPflegen;
-	IKontobewegungBuchenRemote kontobewegungBuchen;
+	IWertpapiertransaktionBuchenRemote kontobewegungBuchen;
 	IKundenPflegenRemote kundenPflegen;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(final IDepotPflegenRemote kontenPflegen2, final IKontobewegungBuchenRemote kontobewegungBuchen2,
+	public static void main(final IDepotPflegenRemote kontenPflegen2, final IWertpapiertransaktionBuchenRemote kontobewegungBuchen2,
 			final IKundenPflegenRemote kundenPflegen2) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -55,7 +55,7 @@ public class Kontenverwaltung extends JFrame {
 	 * Create the frame.
 	 */
 	public Kontenverwaltung(IDepotPflegenRemote kontenPflegen, 
-			IKontobewegungBuchenRemote kontobewegungBuchen, 
+			IWertpapiertransaktionBuchenRemote kontobewegungBuchen, 
 			IKundenPflegenRemote kundenPflegen) {
 		this.kontenPflegen = kontenPflegen;
 		this.kontobewegungBuchen = kontobewegungBuchen;
