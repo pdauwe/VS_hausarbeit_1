@@ -7,7 +7,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 import dlg.menue.Hauptmenue;
-import awk.kontenverwaltung.usecase.IKontenPflegenRemote;
+import awk.kontenverwaltung.usecase.IDepotPflegenRemote;
 import awk.kontenverwaltung.usecase.IKontobewegungBuchenRemote;
 import awk.kundenverwaltung.usecase.IKundenPflegenRemote;
 
@@ -21,8 +21,8 @@ public class StartClient {
 		IKundenPflegenRemote kundenPflegenRemote = 
 			(IKundenPflegenRemote) registry.lookup("kundenPflegen");
 		
-		IKontenPflegenRemote kontenPflegenRemote = 
-			(IKontenPflegenRemote) registry.lookup("kontenPflegen");
+		IDepotPflegenRemote kontenPflegenRemote = 
+			(IDepotPflegenRemote) registry.lookup("kontenPflegen");
 		IKontobewegungBuchenRemote kontobewegungBuchenRemote = 
 			(IKontobewegungBuchenRemote) registry.lookup("kontobewegungBuchen");
 				

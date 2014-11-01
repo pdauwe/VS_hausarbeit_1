@@ -5,8 +5,8 @@ import java.rmi.RemoteException;
 
 import awk.AnwendungskernException;
 
-public interface IKontenPflegenRemote extends Remote {
+public interface IDepotPflegenRemote extends Remote {
 	
-	int kontoAnlegenR (int kundenNr) throws AnwendungskernException, RemoteException;
+	int depotAnlegenR (int kundenNr) throws AnwendungskernException, RemoteException;
  
 }

@@ -7,46 +7,46 @@ import java.sql.SQLException;
 import awk.Persistence.Persistence;
 import awk.kontenverwaltung.entity.DepotTO;
 import awk.kontenverwaltung.entity.KontobewegungTO;
-import awk.kontenverwaltung.persistence.IKontoDatenzugriff;
+import awk.kontenverwaltung.persistence.IDepotDatenzugriff;
 import awk.DatenhaltungsException;
 
 
-public class KontoDatenzugriff_DAO_Db_Einzelsatz implements IKontoDatenzugriff{
+public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 
 	/* liefert komplettes TO-Geflecht Konto/Kontobewegung */
-	public DepotTO kontendatenLesenByKey(int kontonummer) throws DatenhaltungsException {
+	public DepotTO depotdatenLesenByKey(int depotnummer) throws DatenhaltungsException {
 			
 		Connection aConnection = Persistence.getConnection();
 		ResultSet resultSet;
-		DepotTO kontoTO = null;
+		DepotTO depotTO = null;
 		try {
 				resultSet = 
 					Persistence.executeQueryStatement(aConnection, 
 						"SELECT accountnr, balance,owner " +
 						"FROM kontenverw_konto " +
-						"WHERE accountnr = " + kontonummer );
+						"WHERE accountnr = " + depotnummer );
 				while (resultSet.next()) {
-					kontoTO = new DepotTO();
-					kontoTO.setDepotNr(resultSet.getInt("accountnr"));
-					kontoTO.setSaldo(resultSet.getDouble("balance"));
-					kontoTO.setInhaberNr(resultSet.getInt("owner"));
+					depotTO = new DepotTO();
+					depotTO.setDepotNr(resultSet.getInt("accountnr"));
+					depotTO.setSaldo(resultSet.getDouble("balance"));
+					depotTO.setInhaberNr(resultSet.getInt("owner"));
 				};
 				
-				if (kontoTO!=null) {
+				if (depotTO!=null) {
 					resultSet =
 						Persistence.executeQueryStatement(aConnection, 
 								"SELECT type, amount " +
 								"FROM kontenverw_buchung " +
-								"WHERE account = " + kontonummer + "");
+								"WHERE account = " + depotnummer + "");
 					while ( resultSet.next() ) {
 						System.out.println("type: "+resultSet.getString("type").charAt(0));
 						System.out.println("amount: "+resultSet.getDouble("amount"));
 						
-						KontobewegungTO aKtoBew = new KontobewegungTO(kontoTO,
+						KontobewegungTO aKtoBew = new KontobewegungTO(depotTO,
 								resultSet.getString("type").charAt(0),
 								resultSet.getDouble("amount"));
 						
-						kontoTO.getKontobewegungen().add(aKtoBew);
+						depotTO.getKontobewegungen().add(aKtoBew);
 				}
 			}
 		} catch (SQLException e) {
@@ -56,7 +56,7 @@ public class KontoDatenzugriff_DAO_Db_Einzelsatz implements IKontoDatenzugriff{
 			Persistence.closeConnection(aConnection);
 		}
 		
-		return kontoTO;
+		return depotTO;
 	}
 
 

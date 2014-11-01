@@ -9,7 +9,7 @@ import javax.swing.JButton;
 
 import dlg.kundenverwaltung.Kundenverwaltung;
 import dlg.kontenverwaltung.Kontenverwaltung;
-import awk.kontenverwaltung.usecase.IKontenPflegenRemote;
+import awk.kontenverwaltung.usecase.IDepotPflegenRemote;
 import awk.kontenverwaltung.usecase.IKontobewegungBuchenRemote;
 import awk.kundenverwaltung.usecase.IKundenPflegenRemote;
 
@@ -27,7 +27,7 @@ public class Hauptmenue extends JFrame {
 
 	IKundenPflegenRemote kundenPflegen;
 	
-	IKontenPflegenRemote kontenPflegen;
+	IDepotPflegenRemote kontenPflegen;
 	IKontobewegungBuchenRemote kontobewegungBuchen;
 	
 	/**
@@ -35,7 +35,7 @@ public class Hauptmenue extends JFrame {
 	 */
 	public static void main( 
 			final IKundenPflegenRemote kundenPflegen,
-			final IKontenPflegenRemote kontenPflegen,
+			final IDepotPflegenRemote kontenPflegen,
 			final IKontobewegungBuchenRemote kontobewegungBuchen
 			) {
 		
@@ -63,7 +63,7 @@ public class Hauptmenue extends JFrame {
 	 */
 	public Hauptmenue (
 			final IKundenPflegenRemote kundenPflegen,
-			final IKontenPflegenRemote kontenPflegen,
+			final IDepotPflegenRemote kontenPflegen,
 			final IKontobewegungBuchenRemote kontobewegungBuchen
 			) {
 	

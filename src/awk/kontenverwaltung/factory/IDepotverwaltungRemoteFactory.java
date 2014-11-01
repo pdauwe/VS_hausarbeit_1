@@ -3,12 +3,12 @@ package awk.kontenverwaltung.factory;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-import awk.kontenverwaltung.usecase.IKontenPflegenRemote;
+import awk.kontenverwaltung.usecase.IDepotPflegenRemote;
 import awk.kontenverwaltung.usecase.IKontobewegungBuchenRemote;
 
 
-public interface IKontenverwaltungRemoteFactory extends Remote{
+public interface IDepotverwaltungRemoteFactory extends Remote{
 	
-	IKontenPflegenRemote getKontenPflegenRemote() throws RemoteException;
+	IDepotPflegenRemote getDepotPflegenRemote() throws RemoteException;
 	IKontobewegungBuchenRemote getKontobewegungBuchenRemote() throws RemoteException;
 }

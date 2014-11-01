@@ -18,8 +18,8 @@ public class KontobewegungBuchen implements IKontobewegungBuchen {
 	}
 	
 	public DepotTO kontoSuchen (int kontoNr) throws AnwendungskernException {
-		KontenManager einKontoManager = KontenManager.getKontenManager();
-		Depot einKonto = einKontoManager.kontoSuchenByNr(kontoNr);
+		DepotManager einKontoManager = DepotManager.getDepotManager();
+		Depot einKonto = einKontoManager.depotSuchenByNr(kontoNr);
 		DepotTO einKontoTO;
 		if ( einKonto != null) {
 			einKontoTO = einKonto.toKontoTO();
@@ -37,8 +37,8 @@ public class KontobewegungBuchen implements IKontobewegungBuchen {
 	}
 	
 	public boolean abheben(int kontoNr, double betrag) throws AnwendungskernException {
-		KontenManager einKontoManager = KontenManager.getKontenManager();
-		Depot einKonto = einKontoManager.kontoSuchenByNr(kontoNr);
+		DepotManager einKontoManager = DepotManager.getDepotManager();
+		Depot einKonto = einKontoManager.depotSuchenByNr(kontoNr);
 		if (einKonto == null)
 			return false;
 		else {
@@ -47,7 +47,7 @@ public class KontobewegungBuchen implements IKontobewegungBuchen {
 			einKonto.setSaldo(einKonto.getSaldo()-betrag);
 			try {
 				einKontoManager.getDatenverwalter().buchungsdatenAnlegen(
-						einKonto.getKontoNr(), kontobewegung.toKontobewegungTO());
+						einKonto.getDepotNr(), kontobewegung.toKontobewegungTO());
 				einKontoManager.getDatenverwalter().kontoSaldoaendern(einKonto.toKontoTO());
 			} catch (DatenhaltungsException e) {
 				e.printStackTrace();
@@ -60,8 +60,8 @@ public class KontobewegungBuchen implements IKontobewegungBuchen {
 
 	
 	public boolean einzahlen(int kontoNr, double betrag) throws AnwendungskernException {
-		KontenManager einKontoManager = KontenManager.getKontenManager();
-		Depot einKonto = einKontoManager.kontoSuchenByNr(kontoNr);
+		DepotManager einKontoManager = DepotManager.getDepotManager();
+		Depot einKonto = einKontoManager.depotSuchenByNr(kontoNr);
 		if (einKonto == null)
 			return false;
 		else {
@@ -70,7 +70,7 @@ public class KontobewegungBuchen implements IKontobewegungBuchen {
 			einKonto.setSaldo(einKonto.getSaldo()+betrag);
 			try {
 				einKontoManager.getDatenverwalter().buchungsdatenAnlegen(
-						einKonto.getKontoNr(), kontobewegung.toKontobewegungTO());
+						einKonto.getDepotNr(), kontobewegung.toKontobewegungTO());
 				einKontoManager.getDatenverwalter().kontoSaldoaendern(einKonto.toKontoTO());
 			} catch (DatenhaltungsException e) {
 				e.printStackTrace();

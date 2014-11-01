@@ -58,7 +58,7 @@ public class Depot implements Serializable{
 	public int getInhaberNr(){
 		return this.inhaberNr;
 	}
-	public int getKontoNr(){
+	public int getDepotNr(){
 		return this.depotNr;
 	}
 

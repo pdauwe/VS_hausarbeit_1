@@ -2,21 +2,21 @@ package awk.kontenverwaltung.usecase.impl;
 
 import awk.AnwendungskernException;
 import awk.kontenverwaltung.entity.internal.Depot;
-import awk.kontenverwaltung.usecase.IKontenPflegen;
+import awk.kontenverwaltung.usecase.IDepotPflegen;
 import awk.kundenverwaltung.entity.KundeTO;
 import awk.kundenverwaltung.factory.IKundenverwaltungFactory;
 import awk.kundenverwaltung.factory.impl.KundenverwaltungFactory;
 import awk.kundenverwaltung.usecase.IKundeninformationFuerNr;
 
 
-public class KontenPflegen implements IKontenPflegen{
+public class DepotPflegen implements IDepotPflegen{
 	
-	public KontenPflegen( ) {
+	public DepotPflegen( ) {
 	}
 
-	public int kontoAnlegen(int kundenNr) throws AnwendungskernException {
+	public int depotAnlegen(int kundenNr) throws AnwendungskernException {
 		
-		KontenManager einKontenManager = KontenManager.getKontenManager();
+		DepotManager einDepotManager = DepotManager.getDepotManager();
 		
 		IKundenverwaltungFactory kvf = new KundenverwaltungFactory();
 		IKundeninformationFuerNr kundeninformation = kvf.getKundeninformationFuerNr();
@@ -24,11 +24,11 @@ public class KontenPflegen implements IKontenPflegen{
 		if ( einKundenTO == null )
 			return 0;
 		else {
-			int max = einKontenManager.naechsteKontonummerErmitteln();
-			Depot einKonto = new Depot(max+1,kundenNr);
-			einKontenManager.kontoHinzufuegen(einKonto);
+			int max = einDepotManager.naechsteDepotnummerErmitteln();
+			Depot einDepot = new Depot(max+1,kundenNr);
+			einDepotManager.depotHinzufuegen(einDepot);
 			
-			return einKonto.getKontoNr();
+			return einDepot.getDepotNr();
 		}
 	}	
 }

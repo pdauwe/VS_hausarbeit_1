@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import awk.AnwendungskernException;
-import awk.kontenverwaltung.usecase.IKontenPflegenRemote;
+import awk.kontenverwaltung.usecase.IDepotPflegenRemote;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -30,12 +30,12 @@ public class Kontoanlage extends JFrame {
 	private JTextField tf_kundennummer;
 	private JTextField tf_kontonummer;
 
-	private IKontenPflegenRemote kontenPflegen;
+	private IDepotPflegenRemote kontenPflegen;
 	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(final IKontenPflegenRemote kontenPflegen2) {
+	public static void main(final IDepotPflegenRemote kontenPflegen2) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -51,7 +51,7 @@ public class Kontoanlage extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Kontoanlage(IKontenPflegenRemote kontenPflegen) {
+	public Kontoanlage(IDepotPflegenRemote kontenPflegen) {
 		
 		this.kontenPflegen = kontenPflegen;
 		
@@ -110,7 +110,7 @@ public class Kontoanlage extends JFrame {
 		int kontoNr = 0;
 		try {
 			System.out.println("Kundennummer: "+kundenNr+"\n");
-			kontoNr = kontenPflegen.kontoAnlegenR(kundenNr);
+			kontoNr = kontenPflegen.depotAnlegenR(kundenNr);
 		} catch (AnwendungskernException e) {
 			JOptionPane.showMessageDialog(null, "Fehler in der Anwendung");
 			e.printStackTrace();
