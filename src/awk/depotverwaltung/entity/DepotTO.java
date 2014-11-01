@@ -18,10 +18,10 @@ public class DepotTO implements Serializable{
 	private int inhaberNr;
 	private String inhaberNachname;
 	private String inhaberVorname;
-	private Collection<WertpapiertransaktionTO> kontobewegungen;
+	private Collection<WertpapiertransaktionTO> wertpapiertransaktionen;
 	
 	public DepotTO(){
-		this.kontobewegungen = new HashSet<WertpapiertransaktionTO>();
+		this.wertpapiertransaktionen = new HashSet<WertpapiertransaktionTO>();
 	}
 	
 	/*
@@ -33,10 +33,18 @@ public class DepotTO implements Serializable{
 		
 		Depot depot = new Depot(this.depotNr, this.inhaberNr);
 		
-		if (this.kontobewegungen!=null){
-			for (WertpapiertransaktionTO kontobewegungTO:this.kontobewegungen)
-				depot.getKontobewegungen().add(
-					new Wertpapiertransaktion(depot, kontobewegungTO.getTyp(),kontobewegungTO.getPreis()));
+		if (this.wertpapiertransaktionen!=null){
+			
+			for (WertpapiertransaktionTO wertpapiertransaktionTO:this.wertpapiertransaktionen)
+
+				depot.getWertpapiertransaktionen().add(
+					new Wertpapiertransaktion(depot,
+							wertpapiertransaktionTO.getTyp(),
+							wertpapiertransaktionTO.getPreis(),
+							wertpapiertransaktionTO.getMenge(),
+							wertpapiertransaktionTO.getVorgangsnummer(),
+							wertpapiertransaktionTO.getDate(),
+							wertpapiertransaktionTO.getWertpapierTO().toWertpapier()));
 		}
 		return depot;
 		
@@ -49,8 +57,8 @@ public class DepotTO implements Serializable{
 	public int getInhaberNr() {
 		return inhaberNr;
 	}
-	public Collection<WertpapiertransaktionTO> getKontobewegungen () {
-		return this.kontobewegungen;
+	public Collection<WertpapiertransaktionTO> getWertpapiertransaktionen () {
+		return this.wertpapiertransaktionen;
 	}
 	public void setDepotNr(int depotNr) {
 		this.depotNr = depotNr;
@@ -58,8 +66,8 @@ public class DepotTO implements Serializable{
 	public void setInhaberNr(int inhaberNr) {
 		this.inhaberNr = inhaberNr;
 	}
-	public void setKontobewegungen(Collection<WertpapiertransaktionTO> kontobewegungen) {
-		this.kontobewegungen = kontobewegungen;
+	public void setWertpapiertransaktionen(Collection<WertpapiertransaktionTO> wertpapiertransaktionen) {
+		this.wertpapiertransaktionen = wertpapiertransaktionen;
 	}
 
 	public String getInhaberNachname() {

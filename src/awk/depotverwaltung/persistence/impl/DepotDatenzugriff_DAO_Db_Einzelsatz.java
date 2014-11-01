@@ -46,7 +46,7 @@ public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 								resultSet.getString("type").charAt(0),
 								resultSet.getDouble("amount"));
 						
-						depotTO.getKontobewegungen().add(aKtoBew);
+						depotTO.getWertpapiertransaktionen().add(aKtoBew);
 				}
 			}
 		} catch (SQLException e) {

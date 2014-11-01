@@ -208,7 +208,7 @@ public class Kontobewegung extends JFrame {
 			tf_name.setText(einKontoTO.getInhaberNachname());
 			tf_vorname.setText(einKontoTO.getInhaberVorname());
 			tf_saldo.setText(String.valueOf(einKontoTO.getSaldo()));
-			t_umsatzliste.setModel(new UmsatzlisteTableModel(einKontoTO.getKontobewegungen()));
+			t_umsatzliste.setModel(new UmsatzlisteTableModel(einKontoTO.getWertpapiertransaktionen()));
 		}
 		else JOptionPane.showMessageDialog(null, "Es existiert kein Konto mit dieser Nummer");
 			

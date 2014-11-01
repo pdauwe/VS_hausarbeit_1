@@ -21,14 +21,14 @@ public class Depot implements Serializable{
 	private final int depotNr;
 	private Date eroeffnungsdatum;
 	
-	private Collection<Wertpapiertransaktion> kontobewegungen;
+	private Collection<Wertpapiertransaktion> wertpapiertransaktionen;
 	
 	private int inhaberNr;
 	
 	public Depot(int depotnummer, int kundennummer) throws AnwendungskernException {
 		this.depotNr = depotnummer;
 		this.inhaberNr = kundennummer;
-		kontobewegungen = new ArrayList<Wertpapiertransaktion>();
+		wertpapiertransaktionen = new ArrayList<Wertpapiertransaktion>();
 		IKundenverwaltungFactory kvf = new KundenverwaltungFactory();
 		IKontoRegistrieren kontoRegistrieren = kvf.getKontoRegistrieren();
 		kontoRegistrieren.kontoHinzufuegen(this.inhaberNr, this.depotNr);
@@ -41,19 +41,26 @@ public class Depot implements Serializable{
 		
 		einKontoTO.setInhaberNr(this.inhaberNr);
 		einKontoTO.setDepotNr(this.depotNr);
-		einKontoTO.setKontobewegungen(new ArrayList<WertpapiertransaktionTO>());
-		for (Wertpapiertransaktion eineKontobewegung:this.getKontobewegungen()) 
-			einKontoTO.getKontobewegungen().add(
-				new WertpapiertransaktionTO(einKontoTO, eineKontobewegung.getTyp(), eineKontobewegung.getPreis()));
+		einKontoTO.setWertpapiertransaktionen(new ArrayList<WertpapiertransaktionTO>());
 		
+		for (Wertpapiertransaktion eineWertpapiertransaktion:this.getWertpapiertransaktionen()) 
+			einKontoTO.getWertpapiertransaktionen().add(
+					new WertpapiertransaktionTO(einKontoTO, 
+							eineWertpapiertransaktion.getTyp(), 
+							eineWertpapiertransaktion.getPreis(), 
+							eineWertpapiertransaktion.getMenge(), 
+							eineWertpapiertransaktion.getVorgangsnummer(), 
+							eineWertpapiertransaktion.getDate(), 
+							eineWertpapiertransaktion.getWertpapier().toWertpapierTO())
+					);
 		return einKontoTO;
 	}	
 	
-	public void addKontobewegung (Wertpapiertransaktion eineKontobewegung) {
-		this.kontobewegungen.add(eineKontobewegung);
+	public void addWertpapiertransaktion (Wertpapiertransaktion eineWertpapiertransaktion) {
+		this.wertpapiertransaktionen.add(eineWertpapiertransaktion);
 	}
-	public Collection <Wertpapiertransaktion> getKontobewegungen () {
-		return this.kontobewegungen;
+	public Collection <Wertpapiertransaktion> getWertpapiertransaktionen () {
+		return this.wertpapiertransaktionen;
 	}
 	public int getInhaberNr(){
 		return this.inhaberNr;

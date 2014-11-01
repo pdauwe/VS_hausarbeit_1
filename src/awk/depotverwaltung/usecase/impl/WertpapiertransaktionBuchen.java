@@ -43,10 +43,10 @@ public class WertpapiertransaktionBuchen implements IWertpapiertransaktionBuchen
 			return false;
 		else {
 			Wertpapiertransaktion kontobewegung = new Wertpapiertransaktion(einKonto,'A',betrag);
-			einKonto.addKontobewegung(kontobewegung);
+			einKonto.addWertpapiertransaktion(kontobewegung);
 			try {
 				einKontoManager.getDatenverwalter().buchungsdatenAnlegen(
-						einKonto.getDepotNr(), kontobewegung.toKontobewegungTO());
+						einKonto.getDepotNr(), kontobewegung.toWertpapiertransaktionTO());
 				einKontoManager.getDatenverwalter().kontoSaldoaendern(einKonto.toKontoTO());
 			} catch (DatenhaltungsException e) {
 				e.printStackTrace();
@@ -65,10 +65,10 @@ public class WertpapiertransaktionBuchen implements IWertpapiertransaktionBuchen
 			return false;
 		else {
 			Wertpapiertransaktion kontobewegung = new Wertpapiertransaktion(einKonto,'E',betrag);
-			einKonto.addKontobewegung(kontobewegung);
+			einKonto.addWertpapiertransaktion(kontobewegung);
 			try {
 				einKontoManager.getDatenverwalter().buchungsdatenAnlegen(
-						einKonto.getDepotNr(), kontobewegung.toKontobewegungTO());
+						einKonto.getDepotNr(), kontobewegung.toWertpapiertransaktionTO());
 				einKontoManager.getDatenverwalter().kontoSaldoaendern(einKonto.toKontoTO());
 			} catch (DatenhaltungsException e) {
 				e.printStackTrace();
