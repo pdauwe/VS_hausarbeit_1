@@ -1,5 +1,7 @@
 package awk.kundenverwaltung.usecase.impl;
 
+import java.util.Date;
+
 import awk.AnwendungskernException;
 import awk.kundenverwaltung.entity.internal.Privatkunde;
 import awk.kundenverwaltung.type.Adresse;
@@ -39,7 +41,7 @@ public class KundenPflegen implements IKundenPflegen{
 	}
 
 	public boolean privatkundeAnlegen(String vorname, String nachname, String str,
-			String nr, String plz, String ort, String geschlecht) throws AnwendungskernException {
+			String nr, String plz, String ort, String geschlecht, String benutzername, String passwort, Date geburtsdatum) throws AnwendungskernException {
 		
 		KundenManager einKundenManager =  KundenManager.getKundenManager();
 		System.out.println("name:"+nachname+" "+vorname+" "+str+" "+nr+" "+plz+" "+ort+" "+geschlecht);
@@ -47,7 +49,7 @@ public class KundenPflegen implements IKundenPflegen{
 		if (this.adressePruefen (einKundenManager, nachname,vorname,str,nr,plz,ort)) {
 			int max = einKundenManager.naechsteKundennummerErmitteln();
 			System.out.println("max: "+max);
-			einKundenManager.kundeHinzufuegen(new Privatkunde( max+1, nachname,vorname,str,nr,plz,ort,geschlecht));
+			einKundenManager.kundeHinzufuegen(new Privatkunde( max+1, nachname,vorname,str,nr,plz,ort,geschlecht, benutzername, passwort, geburtsdatum));
 			return true;
 			
 		}

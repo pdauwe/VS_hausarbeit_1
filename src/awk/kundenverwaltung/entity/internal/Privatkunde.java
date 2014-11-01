@@ -1,6 +1,7 @@
 package awk.kundenverwaltung.entity.internal;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import awk.kundenverwaltung.entity.PrivatkundeTO;
 
@@ -13,6 +14,7 @@ public class Privatkunde extends Kunde implements Serializable{
 	private String geschlecht;
 	private String benutzerkennung;
 	private String passwort;
+	private Date geburtsdatum;
 	
 	public Privatkunde(int kundennummer, String nachname, String vorname, String str, String nr,
 			String plz, String ort, String geschlecht) {
@@ -21,11 +23,12 @@ public class Privatkunde extends Kunde implements Serializable{
 	}
 	
 	public Privatkunde(int kundennummer, String nachname, String vorname, String str, String nr,
-			String plz, String ort, String geschlecht, String benutzerkennung, String passwort) {
+			String plz, String ort, String geschlecht, String benutzerkennung, String passwort, Date geburtsdatum) {
 		super(kundennummer, nachname, vorname, str, nr, plz, ort);
 		this.geschlecht = geschlecht;
 		this.benutzerkennung = benutzerkennung;
 		this.passwort = benutzerkennung;
+		this.geburtsdatum = geburtsdatum;
 	}
 	
 	public Privatkunde (PrivatkundeTO einPKundeTO) {
@@ -33,6 +36,8 @@ public class Privatkunde extends Kunde implements Serializable{
 		this.geschlecht = einPKundeTO.getGeschlecht();
 		this.benutzerkennung = einPKundeTO.getBenutzerkennung();
 		this.passwort = einPKundeTO.getPasswort();
+		this.geburtsdatum = einPKundeTO.getGeburtsdatum();
+		
 	}
 	
 	public PrivatkundeTO toKundeTO() {
@@ -52,6 +57,7 @@ public class Privatkunde extends Kunde implements Serializable{
 		privatKundenTO.setGeschlecht(this.geschlecht);
 		privatKundenTO.setBenutzerkennung(this.benutzerkennung);
 		privatKundenTO.setPasswort(this.passwort);
+		privatKundenTO.setGeburtsdatum(this.geburtsdatum);
 		
 		
 		return privatKundenTO;
@@ -63,6 +69,22 @@ public class Privatkunde extends Kunde implements Serializable{
 
 	public void setGeschlecht(String geschlecht) {
 		this.geschlecht = geschlecht;
+	}
+	
+	public String getBenutzerkennung(){
+		return benutzerkennung;
+	}
+	
+	public void setBenutzerkennung(String benutzerkennung){
+		this.benutzerkennung = benutzerkennung;
+	}
+
+	public Date getGeburtsdatum(){
+		return this.geburtsdatum;
+	}
+	
+	public void setGeburtsdatum(Date geburtsdatum){
+		this.geburtsdatum = geburtsdatum;
 	}
 
 
