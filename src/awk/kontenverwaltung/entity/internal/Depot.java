@@ -3,44 +3,44 @@ package awk.kontenverwaltung.entity.internal;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import awk.AnwendungskernException;
-import awk.kontenverwaltung.entity.KontoTO;
+import awk.kontenverwaltung.entity.DepotTO;
 import awk.kontenverwaltung.entity.KontobewegungTO;
 import awk.kundenverwaltung.factory.IKundenverwaltungFactory;
 import awk.kundenverwaltung.factory.impl.KundenverwaltungFactory;
 import awk.kundenverwaltung.usecase.IKontoRegistrieren;
 
-public class Konto implements Serializable{
+public class Depot implements Serializable{
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1791762923927701475L;
-	private final int kontoNr;
-	private double saldo;
+	private final int depotNr;
+	private Date eroeffnungsdatum;
+	
 	private Collection<Kontobewegung> kontobewegungen;
 	
 	private int inhaberNr;
 	
-	public Konto(int kontonummer, int kundennummer) throws AnwendungskernException {
-		this.kontoNr = kontonummer;
+	public Depot(int depotnummer, int kundennummer) throws AnwendungskernException {
+		this.depotNr = depotnummer;
 		this.inhaberNr = kundennummer;
-		this.saldo = 0.0;
 		kontobewegungen = new ArrayList<Kontobewegung>();
 		IKundenverwaltungFactory kvf = new KundenverwaltungFactory();
 		IKontoRegistrieren kontoRegistrieren = kvf.getKontoRegistrieren();
-		kontoRegistrieren.kontoHinzufuegen(this.inhaberNr, this.kontoNr);
+		kontoRegistrieren.kontoHinzufuegen(this.inhaberNr, this.depotNr);
 	}
 	
-	/* Konstruktor zu Erzeugung eines Entit�tsgeflechts aus dem TO-Geflecht */
+	/* Konstruktor zu Erzeugung eines Entitaetsgeflechts aus dem TO-Geflecht */
 	
-	public KontoTO toKontoTO() {
-		KontoTO einKontoTO = new KontoTO();
+	public DepotTO toKontoTO() {
+		DepotTO einKontoTO = new DepotTO();
 		
 		einKontoTO.setInhaberNr(this.inhaberNr);
-		einKontoTO.setKontoNr(this.kontoNr);
-		einKontoTO.setSaldo(this.saldo);
+		einKontoTO.setDepotNr(this.depotNr);
 		einKontoTO.setKontobewegungen(new ArrayList<KontobewegungTO>());
 		for (Kontobewegung eineKontobewegung:this.getKontobewegungen()) 
 			einKontoTO.getKontobewegungen().add(
@@ -49,9 +49,6 @@ public class Konto implements Serializable{
 		return einKontoTO;
 	}	
 	
-	public void setSaldo (double amount){
-		this.saldo = amount;
-	}
 	public void addKontobewegung (Kontobewegung eineKontobewegung) {
 		this.kontobewegungen.add(eineKontobewegung);
 	}
@@ -62,13 +59,15 @@ public class Konto implements Serializable{
 		return this.inhaberNr;
 	}
 	public int getKontoNr(){
-		return this.kontoNr;
-	}
-	public double getSaldo() {
-		return this.saldo;
+		return this.depotNr;
 	}
 
-	
-	
+	public Date getEroeffnungsdatum() {
+		return eroeffnungsdatum;
+	}
+
+	public void setEroeffnungsdatum(Date eroeffnungsdatum) {
+		this.eroeffnungsdatum = eroeffnungsdatum;
+	}
 
 }

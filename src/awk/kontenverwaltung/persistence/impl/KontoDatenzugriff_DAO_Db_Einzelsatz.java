@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import awk.Persistence.Persistence;
-import awk.kontenverwaltung.entity.KontoTO;
+import awk.kontenverwaltung.entity.DepotTO;
 import awk.kontenverwaltung.entity.KontobewegungTO;
 import awk.kontenverwaltung.persistence.IKontoDatenzugriff;
 import awk.DatenhaltungsException;
@@ -14,11 +14,11 @@ import awk.DatenhaltungsException;
 public class KontoDatenzugriff_DAO_Db_Einzelsatz implements IKontoDatenzugriff{
 
 	/* liefert komplettes TO-Geflecht Konto/Kontobewegung */
-	public KontoTO kontendatenLesenByKey(int kontonummer) throws DatenhaltungsException {
+	public DepotTO kontendatenLesenByKey(int kontonummer) throws DatenhaltungsException {
 			
 		Connection aConnection = Persistence.getConnection();
 		ResultSet resultSet;
-		KontoTO kontoTO = null;
+		DepotTO kontoTO = null;
 		try {
 				resultSet = 
 					Persistence.executeQueryStatement(aConnection, 
@@ -26,8 +26,8 @@ public class KontoDatenzugriff_DAO_Db_Einzelsatz implements IKontoDatenzugriff{
 						"FROM kontenverw_konto " +
 						"WHERE accountnr = " + kontonummer );
 				while (resultSet.next()) {
-					kontoTO = new KontoTO();
-					kontoTO.setKontoNr(resultSet.getInt("accountnr"));
+					kontoTO = new DepotTO();
+					kontoTO.setDepotNr(resultSet.getInt("accountnr"));
 					kontoTO.setSaldo(resultSet.getDouble("balance"));
 					kontoTO.setInhaberNr(resultSet.getInt("owner"));
 				};
@@ -76,14 +76,14 @@ public class KontoDatenzugriff_DAO_Db_Einzelsatz implements IKontoDatenzugriff{
 
 	}
 
-	public void kontodatenAnlegen(KontoTO kontoTO)
+	public void kontodatenAnlegen(DepotTO kontoTO)
 			throws DatenhaltungsException {
 		
 		Connection aConnection = Persistence.getConnection();
 		try {
 			Persistence.executeUpdateStatement(aConnection, 
 					"insert into kontenverw_konto VALUES (" +
-					kontoTO.getKontoNr() + "," +
+					kontoTO.getDepotNr() + "," +
 					kontoTO.getSaldo() + ", " +
 					kontoTO.getInhaberNr() + ")");
 		} catch (SQLException e) {
@@ -92,7 +92,7 @@ public class KontoDatenzugriff_DAO_Db_Einzelsatz implements IKontoDatenzugriff{
 		}	
 	}
 	
-	public void kontoSaldoaendern(KontoTO kontoTO)
+	public void kontoSaldoaendern(DepotTO kontoTO)
 		throws DatenhaltungsException {
 
 		Connection aConnection = Persistence.getConnection();
@@ -100,7 +100,7 @@ public class KontoDatenzugriff_DAO_Db_Einzelsatz implements IKontoDatenzugriff{
 			Persistence.executeUpdateStatement(aConnection, 
 					"UPDATE kontenverw_konto " +
 					"SET balance = " + kontoTO.getSaldo() +
-					"WHERE accountnr = " + kontoTO.getKontoNr());
+					"WHERE accountnr = " + kontoTO.getDepotNr());
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DatenhaltungsException();

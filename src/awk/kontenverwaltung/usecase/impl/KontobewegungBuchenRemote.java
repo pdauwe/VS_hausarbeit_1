@@ -1,14 +1,14 @@
 package awk.kontenverwaltung.usecase.impl;
 
 import awk.AnwendungskernException;
-import awk.kontenverwaltung.entity.KontoTO;
+import awk.kontenverwaltung.entity.DepotTO;
 import awk.kontenverwaltung.usecase.IKontobewegungBuchenRemote;
 
 
 public class KontobewegungBuchenRemote implements IKontobewegungBuchenRemote {
 
 
-	public KontoTO kontoSuchenR (int kontoNr) throws AnwendungskernException {
+	public DepotTO kontoSuchenR (int kontoNr) throws AnwendungskernException {
 		KontobewegungBuchen kontobewegungBuchen = new KontobewegungBuchen();
 		return kontobewegungBuchen.kontoSuchen(kontoNr);
 	}

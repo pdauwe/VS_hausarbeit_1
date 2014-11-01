@@ -5,23 +5,22 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import awk.AnwendungskernException;
-import awk.kontenverwaltung.entity.internal.Konto;
+import awk.kontenverwaltung.entity.internal.Depot;
 import awk.kontenverwaltung.entity.internal.Kontobewegung;
 
-public class KontoTO implements Serializable{
+public class DepotTO implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1965005798780312432L;
-	private int kontoNr;
-	private double saldo;
+	private int depotNr;
 	private int inhaberNr;
 	private String inhaberNachname;
 	private String inhaberVorname;
 	private Collection<KontobewegungTO> kontobewegungen;
 	
-	public KontoTO(){
+	public DepotTO(){
 		this.kontobewegungen = new HashSet<KontobewegungTO>();
 	}
 	
@@ -30,36 +29,31 @@ public class KontoTO implements Serializable{
 	 * Achtung: inhaberNachname und inhaberVorname werden hier nicht gesetzt!
 	 */
 	
-	public Konto toKonto()  throws AnwendungskernException {
+	public Depot toDepot()  throws AnwendungskernException {
 		
-		Konto konto = new Konto(this.kontoNr, this.inhaberNr);
-		konto.setSaldo(this.saldo);
+		Depot depot = new Depot(this.depotNr, this.inhaberNr);
+		
 		if (this.kontobewegungen!=null){
 			for (KontobewegungTO kontobewegungTO:this.kontobewegungen)
-				konto.getKontobewegungen().add(
-					new Kontobewegung(konto, kontobewegungTO.getTyp(),kontobewegungTO.getBetrag()));
+				depot.getKontobewegungen().add(
+					new Kontobewegung(depot, kontobewegungTO.getTyp(),kontobewegungTO.getBetrag()));
 		}
-		return konto;
+		return depot;
 		
 	}
 	
-	public int getKontoNr() {
-		return kontoNr;
+	public int getDepotNr() {
+		return depotNr;
 	}
-	public double getSaldo() {
-		return saldo;
-	}
+
 	public int getInhaberNr() {
 		return inhaberNr;
 	}
 	public Collection<KontobewegungTO> getKontobewegungen () {
 		return this.kontobewegungen;
 	}
-	public void setKontoNr(int kontoNr) {
-		this.kontoNr = kontoNr;
-	}
-	public void setSaldo(double saldo) {
-		this.saldo = saldo;
+	public void setDepotNr(int depotNr) {
+		this.depotNr = depotNr;
 	}
 	public void setInhaberNr(int inhaberNr) {
 		this.inhaberNr = inhaberNr;

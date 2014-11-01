@@ -2,8 +2,8 @@ package awk.kontenverwaltung.usecase.impl;
 
 import awk.AnwendungskernException;
 import awk.DatenhaltungsException;
-import awk.kontenverwaltung.entity.KontoTO;
-import awk.kontenverwaltung.entity.internal.Konto;
+import awk.kontenverwaltung.entity.DepotTO;
+import awk.kontenverwaltung.entity.internal.Depot;
 import awk.kontenverwaltung.persistence.IKontoDatenzugriff;
 import awk.kontenverwaltung.persistence.impl.KontoDatenzugriff_DAO_Db_Einzelsatz;
 
@@ -23,7 +23,7 @@ public class KontenManager {
 	private  KontenManager () throws AnwendungskernException {
 	}
 	
-	public void kontoHinzufuegen (Konto einKonto) throws AnwendungskernException {
+	public void kontoHinzufuegen (Depot einKonto) throws AnwendungskernException {
 		try {
 			this.einDatenverwalter.kontodatenAnlegen(einKonto.toKontoTO());
 		} catch (DatenhaltungsException e) {
@@ -42,8 +42,8 @@ public class KontenManager {
 		}	
 	}
 	
-	public Konto kontoSuchenByNr(int kontoNr) throws AnwendungskernException {
-		KontoTO kontoTO;
+	public Depot kontoSuchenByNr(int kontoNr) throws AnwendungskernException {
+		DepotTO kontoTO;
 		try {
 			kontoTO = this.einDatenverwalter.kontendatenLesenByKey(kontoNr);
 		} catch (DatenhaltungsException e) {
@@ -53,7 +53,7 @@ public class KontenManager {
 		if (kontoTO == null)
 			return null;
 		else
-			return kontoTO.toKonto();
+			return kontoTO.toDepot();
 	}
 	
 	public IKontoDatenzugriff getDatenverwalter () {

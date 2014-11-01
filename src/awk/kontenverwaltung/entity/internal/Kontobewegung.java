@@ -12,9 +12,9 @@ public class Kontobewegung implements Serializable{
 	private static final long serialVersionUID = -3130735335614620677L;
 	char typ;
 	double betrag;
-	Konto konto;
+	Depot konto;
 	
-	public Kontobewegung(Konto konto, char typ, double betrag) {
+	public Kontobewegung(Depot konto, char typ, double betrag) {
 		super();
 		this.typ = typ;
 		this.betrag = betrag;

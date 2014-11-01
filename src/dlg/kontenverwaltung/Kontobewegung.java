@@ -15,7 +15,7 @@ import java.awt.event.ActionEvent;
 import java.rmi.RemoteException;
 
 import awk.AnwendungskernException;
-import awk.kontenverwaltung.entity.KontoTO;
+import awk.kontenverwaltung.entity.DepotTO;
 import awk.kontenverwaltung.usecase.IKontobewegungBuchenRemote;
 
 import javax.swing.JTable;
@@ -197,7 +197,7 @@ public class Kontobewegung extends JFrame {
 	protected void actionPerformedKontoauskunft(ActionEvent arg0) throws RemoteException {
 		System.out.println("b_auskunftGeben.actionPerformed, event="+arg0);
 		int kontoNr = Integer.parseInt(tf_kontonummer.getText());
-		KontoTO einKontoTO = null;
+		DepotTO einKontoTO = null;
 		try {
 			einKontoTO = kontobewegungBuchen.kontoSuchenR(kontoNr);
 		} catch (AnwendungskernException e) {

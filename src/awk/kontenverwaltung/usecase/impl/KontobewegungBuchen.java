@@ -2,8 +2,8 @@ package awk.kontenverwaltung.usecase.impl;
 
 import awk.AnwendungskernException;
 import awk.DatenhaltungsException;
-import awk.kontenverwaltung.entity.KontoTO;
-import awk.kontenverwaltung.entity.internal.Konto;
+import awk.kontenverwaltung.entity.DepotTO;
+import awk.kontenverwaltung.entity.internal.Depot;
 import awk.kontenverwaltung.entity.internal.Kontobewegung;
 import awk.kontenverwaltung.usecase.IKontobewegungBuchen;
 import awk.kundenverwaltung.entity.KundeTO;
@@ -17,10 +17,10 @@ public class KontobewegungBuchen implements IKontobewegungBuchen {
 	public KontobewegungBuchen( ) {
 	}
 	
-	public KontoTO kontoSuchen (int kontoNr) throws AnwendungskernException {
+	public DepotTO kontoSuchen (int kontoNr) throws AnwendungskernException {
 		KontenManager einKontoManager = KontenManager.getKontenManager();
-		Konto einKonto = einKontoManager.kontoSuchenByNr(kontoNr);
-		KontoTO einKontoTO;
+		Depot einKonto = einKontoManager.kontoSuchenByNr(kontoNr);
+		DepotTO einKontoTO;
 		if ( einKonto != null) {
 			einKontoTO = einKonto.toKontoTO();
 			IKundenverwaltungFactory kvf = new KundenverwaltungFactory();
@@ -38,7 +38,7 @@ public class KontobewegungBuchen implements IKontobewegungBuchen {
 	
 	public boolean abheben(int kontoNr, double betrag) throws AnwendungskernException {
 		KontenManager einKontoManager = KontenManager.getKontenManager();
-		Konto einKonto = einKontoManager.kontoSuchenByNr(kontoNr);
+		Depot einKonto = einKontoManager.kontoSuchenByNr(kontoNr);
 		if (einKonto == null)
 			return false;
 		else {
@@ -61,7 +61,7 @@ public class KontobewegungBuchen implements IKontobewegungBuchen {
 	
 	public boolean einzahlen(int kontoNr, double betrag) throws AnwendungskernException {
 		KontenManager einKontoManager = KontenManager.getKontenManager();
-		Konto einKonto = einKontoManager.kontoSuchenByNr(kontoNr);
+		Depot einKonto = einKontoManager.kontoSuchenByNr(kontoNr);
 		if (einKonto == null)
 			return false;
 		else {

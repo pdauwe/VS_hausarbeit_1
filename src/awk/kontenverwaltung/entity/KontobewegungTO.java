@@ -10,13 +10,13 @@ public class KontobewegungTO implements Serializable{
 	private static final long serialVersionUID = 7128637892633830197L;
 	char typ;
 	double betrag;
-	KontoTO kontoTO;
+	DepotTO kontoTO;
 	
 	
 	/*Konstruktor zur Erzeugung eines TO-Geflechts (KontoTO / Kontobewegung TO)
-	 * aus dem Entitätsgeflecht Konto / Kontobewegung */
+	 * aus dem Entitï¿½tsgeflecht Konto / Kontobewegung */
 	
-	public KontobewegungTO(KontoTO kontoTO, char typ, double betrag) {
+	public KontobewegungTO(DepotTO kontoTO, char typ, double betrag) {
 		this.typ = typ;
 		this.betrag = betrag;
 		this.kontoTO = kontoTO;

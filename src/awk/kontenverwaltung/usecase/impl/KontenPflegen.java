@@ -1,7 +1,7 @@
 package awk.kontenverwaltung.usecase.impl;
 
 import awk.AnwendungskernException;
-import awk.kontenverwaltung.entity.internal.Konto;
+import awk.kontenverwaltung.entity.internal.Depot;
 import awk.kontenverwaltung.usecase.IKontenPflegen;
 import awk.kundenverwaltung.entity.KundeTO;
 import awk.kundenverwaltung.factory.IKundenverwaltungFactory;
@@ -25,7 +25,7 @@ public class KontenPflegen implements IKontenPflegen{
 			return 0;
 		else {
 			int max = einKontenManager.naechsteKontonummerErmitteln();
-			Konto einKonto = new Konto(max+1,kundenNr);
+			Depot einKonto = new Depot(max+1,kundenNr);
 			einKontenManager.kontoHinzufuegen(einKonto);
 			
 			return einKonto.getKontoNr();
