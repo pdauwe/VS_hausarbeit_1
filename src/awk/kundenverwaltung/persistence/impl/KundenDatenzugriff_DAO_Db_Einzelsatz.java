@@ -241,8 +241,37 @@ public class KundenDatenzugriff_DAO_Db_Einzelsatz implements IKundenDatenzugriff
 	}
 
 	
-	
-
-	
+	public KundeTO kundeSuchenFuerLoginUndPasswort(String benutzerkennung, String passwort) throws DatenhaltungsException{
+		Connection aConnection = Persistence.getConnection();
+		ResultSet resultSet;
+		KundeTO kundeTO;
+		try {
+			resultSet = 
+				Persistence.executeQueryStatement(
+					aConnection, 
+					"SELECT * FROM kundenverw_privatkunde WHERE benutzerkennung =" + benutzerkennung + "AND passwort =" + passwort);
+				if (resultSet.next()) {
+					kundeTO = this.resultToKundeTO(resultSet, 'P');
+					resultSet = 
+						Persistence.executeQueryStatement(aConnection, 
+								"SELECT * " +
+								"FROM kundenverw_kontonummer " +
+								"WHERE cusnumber = " + kundeTO.getKundennummer());
+					
+					while (resultSet.next())
+						kundeTO.getKonten().add(resultSet.getInt("ACCOUNTNR"));
+					
+					return kundeTO;
+				}
+			return null;
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}
+		finally {
+			Persistence.closeConnection(aConnection);
+		}
+	}
 
 }

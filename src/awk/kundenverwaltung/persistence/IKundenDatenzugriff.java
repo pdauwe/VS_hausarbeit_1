@@ -12,5 +12,6 @@ public interface IKundenDatenzugriff {
 	public Collection<KundeTO> kundendatenSuchenByAttribute (KundeTO kundeTO)throws DatenhaltungsException;
 	public void kundendatenLoeschen (KundeTO kundeTO) throws DatenhaltungsException;
 	public void kundendatenaendern (KundeTO kundeTO) throws DatenhaltungsException;
+	public KundeTO kundeSuchenFuerLoginUndPasswort(String benutzerkennung, String passwort) throws DatenhaltungsException;
 
 }
