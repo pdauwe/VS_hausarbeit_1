@@ -127,6 +127,22 @@ public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 			throw new DatenhaltungsException();
 		}
 	}
+	
+	public int generiereVorgangsnummer() throws DatenhaltungsException {
+		Connection aConnection = Persistence.getConnection();
+		ResultSet resultSet;
+		try{
+			resultSet = Persistence.executeQueryStatement(aConnection, "SELECT max(vorgangsnummer) as max FROM vorgangsnummern");
+			if(resultSet.next()){
+				return resultSet.getInt("max");
+			}else{
+				return 0;
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}
+	}
 
 
 

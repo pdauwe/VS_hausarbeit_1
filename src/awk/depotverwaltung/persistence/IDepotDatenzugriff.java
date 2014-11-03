@@ -12,5 +12,7 @@ public interface IDepotDatenzugriff {
 	public DepotTO depotdatenLesenByKey(int kontonummer) throws DatenhaltungsException;
 	public void kontoSaldoaendern (DepotTO kontoTO) throws DatenhaltungsException;
 	public int maxKontonummer() throws DatenhaltungsException;
+	public int generiereVorgangsnummer() throws DatenhaltungsException;
+	public void wertpapierBuchen(int depot, WertpapiertransaktionTO wertpapiertransaktionTO) throws DatenhaltungsException;
 
 }
