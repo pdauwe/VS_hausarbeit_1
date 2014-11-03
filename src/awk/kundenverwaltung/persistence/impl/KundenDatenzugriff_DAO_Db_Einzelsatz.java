@@ -222,6 +222,9 @@ public class KundenDatenzugriff_DAO_Db_Einzelsatz implements IKundenDatenzugriff
 		try {
 			privatkundeTO = new PrivatkundeTO();
 			privatkundeTO.setGeschlecht(resultSet.getString("SEX"));
+			privatkundeTO.setBenutzerkennung(resultSet.getString("BENUTZERKENNUNG"));
+			privatkundeTO.setPasswort(resultSet.getString("PASSWORT"));
+			privatkundeTO.setGeburtsdatum(resultSet.getDate("GEBURTSDATUM"));
 			kundeTO = privatkundeTO;
 			
 			kundeTO.setKundennummer(resultSet.getInt("CUSNUMBER"));
@@ -231,6 +234,7 @@ public class KundenDatenzugriff_DAO_Db_Einzelsatz implements IKundenDatenzugriff
 			kundeTO.setNr(resultSet.getString("NO"));
 			kundeTO.setPlz(resultSet.getString("ZIPCODE"));
 			kundeTO.setOrt(resultSet.getString("CITY"));
+			
 		
 		}  catch (SQLException e) {
 			e.printStackTrace();
