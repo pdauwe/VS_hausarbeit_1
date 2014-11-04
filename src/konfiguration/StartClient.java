@@ -6,7 +6,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
-import dlg.menue.Hauptmenue;
+import dlg.menue.MitarbeiterMenue;
 import awk.depotverwaltung.usecase.IDepotPflegenRemote;
 import awk.depotverwaltung.usecase.IWertpapiertransaktionBuchenRemote;
 import awk.kundenverwaltung.usecase.IKundenPflegenRemote;
@@ -26,9 +26,9 @@ public class StartClient {
 		IWertpapiertransaktionBuchenRemote kontobewegungBuchenRemote = 
 			(IWertpapiertransaktionBuchenRemote) registry.lookup("kontobewegungBuchen");
 				
-		Hauptmenue.main(
-				kundenPflegenRemote, kontenPflegenRemote, kontobewegungBuchenRemote);
-		
+//		Hauptmenue.main(
+//				kundenPflegenRemote, kontenPflegenRemote, kontobewegungBuchenRemote);
+		MitarbeiterMenue.main(kundenPflegenRemote, kontenPflegenRemote, kontobewegungBuchenRemote);
 	}
 
 }

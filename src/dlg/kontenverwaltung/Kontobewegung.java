@@ -158,15 +158,16 @@ public class Kontobewegung extends JFrame {
 
 	protected void actionPerformedAuszahlen(ActionEvent e) throws RemoteException {
 		System.out.println("b_auszahlen.actionPerformed, event="+e);
-		int kontoNr = Integer.parseInt(tf_kontonummer.getText());
-		double betrag =Double.parseDouble(tf_betrag.getText());
+//		int kontoNr = Integer.parseInt(tf_kontonummer.getText());
+//		double betrag =Double.parseDouble(tf_betrag.getText());
 		boolean erfolgreich = false;
-		try {
-			erfolgreich = kontobewegungBuchen.abhebenR(kontoNr, betrag);
-		} catch (AnwendungskernException evt) {
-			JOptionPane.showMessageDialog(null, "Fehler in der Anwendung!");
-			evt.printStackTrace();
-		}
+//		try {
+//			
+//			//erfolgreich = kontobewegungBuchen.abhebenR(kontoNr, betrag);
+//		} catch (AnwendungskernException evt) {
+//			JOptionPane.showMessageDialog(null, "Fehler in der Anwendung!");
+//			evt.printStackTrace();
+//		}
 		
 		if ( erfolgreich )
 			JOptionPane.showMessageDialog(null, "Abhebung erfolgreich");
@@ -177,15 +178,15 @@ public class Kontobewegung extends JFrame {
 
 	protected void actionPerformedEinzahlen(ActionEvent e) throws RemoteException {
 		System.out.println("b_einzahlen.actionPerformed, event="+e);
-		int kontoNr = Integer.parseInt(tf_kontonummer.getText());
-		double betrag =Double.parseDouble(tf_betrag.getText());
+//		int kontoNr = Integer.parseInt(tf_kontonummer.getText());
+//		double betrag =Double.parseDouble(tf_betrag.getText());
 		boolean erfolgreich = false;
-		try {
-			erfolgreich = kontobewegungBuchen.einzahlenR(kontoNr, betrag);
-		} catch (AnwendungskernException evt) {
-			JOptionPane.showMessageDialog(null, "Fehler in der Anwendung!");
-			evt.printStackTrace();
-		}
+//		try {
+//			//erfolgreich = kontobewegungBuchen.einzahlenR(kontoNr, betrag);
+//		} catch (AnwendungskernException evt) {
+//			JOptionPane.showMessageDialog(null, "Fehler in der Anwendung!");
+//			evt.printStackTrace();
+//		}
 		
 		if ( erfolgreich )
 			JOptionPane.showMessageDialog(null, "Einzahlung erfolgreich");
@@ -207,7 +208,7 @@ public class Kontobewegung extends JFrame {
 		if (einKontoTO!=null) {
 			tf_name.setText(einKontoTO.getInhaberNachname());
 			tf_vorname.setText(einKontoTO.getInhaberVorname());
-			tf_saldo.setText(String.valueOf(einKontoTO.getSaldo()));
+			
 			t_umsatzliste.setModel(new UmsatzlisteTableModel(einKontoTO.getWertpapiertransaktionen()));
 		}
 		else JOptionPane.showMessageDialog(null, "Es existiert kein Konto mit dieser Nummer");

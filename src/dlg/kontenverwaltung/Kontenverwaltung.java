@@ -19,6 +19,19 @@ import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+
+/**
+* This code was edited or generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
+* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
+* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
+*/
 public class Kontenverwaltung extends JFrame {
 
 	/**
@@ -85,7 +98,8 @@ public class Kontenverwaltung extends JFrame {
 		gbc_btnKontoAnlegen.gridx = 2;
 		gbc_btnKontoAnlegen.gridy = 1;
 		contentPane.add(btnKontoAnlegen, gbc_btnKontoAnlegen);
-		
+		btnKontoAnlegen.setText("Depot anlegen");
+
 		JButton btnKontobewegung = new JButton("Kontobewegung");
 		btnKontobewegung.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -96,6 +110,7 @@ public class Kontenverwaltung extends JFrame {
 		gbc_btnKontobewegung.gridx = 2;
 		gbc_btnKontobewegung.gridy = 3;
 		contentPane.add(btnKontobewegung, gbc_btnKontobewegung);
+		btnKontobewegung.setText("Wertpapiertransaktion");
 	}
 
 	protected void actionPerformedKtoBewegungBuchen(ActionEvent e) {

@@ -28,7 +28,7 @@ public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 				while (resultSet.next()) {
 					depotTO = new DepotTO();
 					depotTO.setDepotNr(resultSet.getInt("accountnr"));
-					depotTO.setSaldo(resultSet.getDouble("balance"));
+					//depotTO.setSaldo(resultSet.getDouble("balance"));
 					depotTO.setInhaberNr(resultSet.getInt("owner"));
 				};
 				
@@ -42,11 +42,11 @@ public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 						System.out.println("type: "+resultSet.getString("type").charAt(0));
 						System.out.println("amount: "+resultSet.getDouble("amount"));
 						
-						WertpapiertransaktionTO aKtoBew = new WertpapiertransaktionTO(depotTO,
-								resultSet.getString("type").charAt(0),
-								resultSet.getDouble("amount"));
-						
-						depotTO.getWertpapiertransaktionen().add(aKtoBew);
+//						WertpapiertransaktionTO aKtoBew = new WertpapiertransaktionTO(depotTO,
+//								resultSet.getString("type").charAt(0),
+//								resultSet.getDouble("amount"));
+//						
+//						depotTO.getWertpapiertransaktionen().add(aKtoBew);
 				}
 			}
 		} catch (SQLException e) {
@@ -79,32 +79,32 @@ public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 	public void kontodatenAnlegen(DepotTO kontoTO)
 			throws DatenhaltungsException {
 		
-		Connection aConnection = Persistence.getConnection();
-		try {
-			Persistence.executeUpdateStatement(aConnection, 
-					"insert into kontenverw_konto VALUES (" +
-					kontoTO.getDepotNr() + "," +
-					kontoTO.getSaldo() + ", " +
-					kontoTO.getInhaberNr() + ")");
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DatenhaltungsException();
-		}	
+		//Connection aConnection = Persistence.getConnection();
+//		try {
+//			Persistence.executeUpdateStatement(aConnection, 
+//					"insert into kontenverw_konto VALUES (" +
+//					kontoTO.getDepotNr() + "," +
+//					//kontoTO.getSaldo() + ", " +
+//					kontoTO.getInhaberNr() + ")");
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			throw new DatenhaltungsException();
+//		}	
 	}
 	
 	public void kontoSaldoaendern(DepotTO kontoTO)
 		throws DatenhaltungsException {
 
-		Connection aConnection = Persistence.getConnection();
-		try {
-			Persistence.executeUpdateStatement(aConnection, 
-					"UPDATE kontenverw_konto " +
-					"SET balance = " + kontoTO.getSaldo() +
-					"WHERE accountnr = " + kontoTO.getDepotNr());
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DatenhaltungsException();
-		}
+//		Connection aConnection = Persistence.getConnection();
+//		try {
+//			Persistence.executeUpdateStatement(aConnection, 
+//					"UPDATE kontenverw_konto " +
+//					"SET balance = " + kontoTO.getSaldo() +
+//					"WHERE accountnr = " + kontoTO.getDepotNr());
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			throw new DatenhaltungsException();
+//		}
 	
 	}
 
@@ -142,6 +142,15 @@ public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 			e.printStackTrace();
 			throw new DatenhaltungsException();
 		}
+	}
+
+
+	@Override
+	public void wertpapierBuchen(int depot,
+			WertpapiertransaktionTO wertpapiertransaktionTO)
+			throws DatenhaltungsException {
+		// TODO Auto-generated method stub
+		
 	}
 
 
