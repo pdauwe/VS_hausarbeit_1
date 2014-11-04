@@ -36,16 +36,16 @@ public class Depot implements Serializable{
 	
 	/* Konstruktor zu Erzeugung eines Entitaetsgeflechts aus dem TO-Geflecht */
 	
-	public DepotTO toKontoTO() {
-		DepotTO einKontoTO = new DepotTO();
+	public DepotTO toDepotTO() {
+		DepotTO einDepotTO = new DepotTO();
 		
-		einKontoTO.setInhaberNr(this.inhaberNr);
-		einKontoTO.setDepotNr(this.depotNr);
-		einKontoTO.setWertpapiertransaktionen(new ArrayList<WertpapiertransaktionTO>());
+		einDepotTO.setInhaberNr(this.inhaberNr);
+		einDepotTO.setDepotNr(this.depotNr);
+		einDepotTO.setWertpapiertransaktionen(new ArrayList<WertpapiertransaktionTO>());
 		
 		for (Wertpapiertransaktion eineWertpapiertransaktion:this.getWertpapiertransaktionen()) 
-			einKontoTO.getWertpapiertransaktionen().add(
-					new WertpapiertransaktionTO(einKontoTO, 
+			einDepotTO.getWertpapiertransaktionen().add(
+					new WertpapiertransaktionTO(einDepotTO, 
 							eineWertpapiertransaktion.getTyp(), 
 							eineWertpapiertransaktion.getPreis(), 
 							eineWertpapiertransaktion.getMenge(), 
@@ -53,7 +53,7 @@ public class Depot implements Serializable{
 							eineWertpapiertransaktion.getDate(), 
 							eineWertpapiertransaktion.getWertpapier().toWertpapierTO())
 					);
-		return einKontoTO;
+		return einDepotTO;
 	}	
 	
 	public void addWertpapiertransaktion (Wertpapiertransaktion eineWertpapiertransaktion) {

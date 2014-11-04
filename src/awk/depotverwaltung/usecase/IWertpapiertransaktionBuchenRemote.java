@@ -5,11 +5,10 @@ import java.rmi.RemoteException;
 
 import awk.AnwendungskernException;
 import awk.depotverwaltung.entity.DepotTO;
+import awk.depotverwaltung.entity.internal.Wertpapier;
 
 public interface IWertpapiertransaktionBuchenRemote extends Remote {
 
-	public DepotTO kontoSuchenR (int kontoNr) throws AnwendungskernException, RemoteException;
-	public boolean einzahlenR (int kontoNr, double betrag) throws AnwendungskernException, RemoteException;
-	public boolean abhebenR (int kontoNr, double betrag) throws AnwendungskernException, RemoteException;
-			
+	public DepotTO depotSuchenR (int depotNr) throws AnwendungskernException, RemoteException;
+	public boolean wertpapierkaufen(int depotnr, Wertpapier wertpapier, double preis, char art, int menge) throws AnwendungskernException, RemoteException;	
 }

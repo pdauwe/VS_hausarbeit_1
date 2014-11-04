@@ -20,23 +20,23 @@ public class WertpapiertransaktionBuchen implements IWertpapiertransaktionBuchen
 	public WertpapiertransaktionBuchen( ) {
 	}
 	
-	public DepotTO kontoSuchen (int kontoNr) throws AnwendungskernException {
-		DepotManager einKontoManager = DepotManager.getDepotManager();
-		Depot einKonto = einKontoManager.depotSuchenByNr(kontoNr);
-		DepotTO einKontoTO;
-		if ( einKonto != null) {
-			einKontoTO = einKonto.toKontoTO();
+	public DepotTO depotSuchen (int depotNr) throws AnwendungskernException {
+		DepotManager einDepotManager = DepotManager.getDepotManager();
+		Depot einDepot = einDepotManager.depotSuchenByNr(depotNr);
+		DepotTO einDepotTO;
+		if ( einDepot != null) {
+			einDepotTO = einDepot.toDepotTO();
 			IKundenverwaltungFactory kvf = new KundenverwaltungFactory();
 			IKundeninformationFuerNr kundeninfo = kvf.getKundeninformationFuerNr();
-			KundeTO einKundeTO = kundeninfo.kundeSuchenByNr(einKonto.getInhaberNr());
-			einKontoTO.setInhaberNachname(einKundeTO.getNachname());
-			einKontoTO.setInhaberVorname(einKundeTO.getVorname());
+			KundeTO einKundeTO = kundeninfo.kundeSuchenByNr(einDepot.getInhaberNr());
+			einDepotTO.setInhaberNachname(einKundeTO.getNachname());
+			einDepotTO.setInhaberVorname(einKundeTO.getVorname());
 			System.out.println("Nachname: "+einKundeTO.getNachname());
 		}
 		else
-			einKontoTO = null;
+			einDepotTO = null;
 		
-		return einKontoTO;
+		return einDepotTO;
 	}
 	
 	public boolean wertpapierkaufen (int depotnr, Wertpapier wertpapier, double preis, char art, int menge) throws AnwendungskernException {

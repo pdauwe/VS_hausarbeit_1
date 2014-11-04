@@ -199,7 +199,7 @@ public class Kontobewegung extends JFrame {
 		int kontoNr = Integer.parseInt(tf_kontonummer.getText());
 		DepotTO einKontoTO = null;
 		try {
-			einKontoTO = kontobewegungBuchen.kontoSuchenR(kontoNr);
+			einKontoTO = kontobewegungBuchen.depotSuchenR(kontoNr);
 		} catch (AnwendungskernException e) {
 			JOptionPane.showMessageDialog(null, "Fehler in der Anwendung!");
 			e.printStackTrace();
