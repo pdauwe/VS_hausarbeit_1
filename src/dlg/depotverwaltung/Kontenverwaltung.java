@@ -1,4 +1,4 @@
-package dlg.kontenverwaltung;
+package dlg.depotverwaltung;
 
 import java.awt.EventQueue;
 

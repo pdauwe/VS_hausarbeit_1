@@ -5,14 +5,16 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+
 import javax.swing.JButton;
 
+import dlg.depotverwaltung.Kontenverwaltung;
 import dlg.kundenverwaltung.Kundenverwaltung;
-import dlg.kontenverwaltung.Kontenverwaltung;
 import awk.depotverwaltung.usecase.IDepotPflegenRemote;
 import awk.depotverwaltung.usecase.IWertpapiertransaktionBuchenRemote;
 import awk.kundenverwaltung.usecase.IKundenPflegenRemote;

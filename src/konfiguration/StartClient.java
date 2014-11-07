@@ -26,8 +26,6 @@ public class StartClient {
 		IWertpapiertransaktionBuchenRemote kontobewegungBuchenRemote = 
 			(IWertpapiertransaktionBuchenRemote) registry.lookup("kontobewegungBuchen");
 				
-//		Hauptmenue.main(
-//				kundenPflegenRemote, kontenPflegenRemote, kontobewegungBuchenRemote);
 		MitarbeiterMenue.main(kundenPflegenRemote, kontenPflegenRemote, kontobewegungBuchenRemote);
 	}
 

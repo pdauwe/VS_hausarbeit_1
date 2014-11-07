@@ -7,8 +7,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 
-import dlg.kontenverwaltung.Kontenverwaltung;
-import dlg.kontenverwaltung.Kontoanlage;
+import dlg.depotverwaltung.Kontenverwaltung;
+import dlg.depotverwaltung.Kontoanlage;
+import dlg.depotverwaltung.WertpapiertransaktionErfassung;
 import dlg.kundenverwaltung.Kundenanlage;
 import dlg.kundenverwaltung.Kundenverwaltung;
 import awk.depotverwaltung.usecase.IDepotPflegenRemote;
@@ -79,6 +80,7 @@ public class MitarbeiterMenue extends JFrame {
 		JButton btnWertpapiertransaktion = new JButton("Neue Wertpapiertransaktion anlegen");
 		btnWertpapiertransaktion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				WertpapiertransaktionErfassung.main();
 			}
 		});
 		contentPane.add(btnWertpapiertransaktion);
