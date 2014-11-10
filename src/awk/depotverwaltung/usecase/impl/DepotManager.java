@@ -28,7 +28,7 @@ public class DepotManager {
 	
 	public void depotHinzufuegen (Depot einDepot) throws AnwendungskernException {
 		try {
-			this.einDatenverwalter.kontodatenAnlegen(einDepot.toDepotTO());
+			this.einDatenverwalter.depotAnlegen(einDepot.toDepotTO());
 		} catch (DatenhaltungsException e) {
 			e.printStackTrace();
 			throw new AnwendungskernException();

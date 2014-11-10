@@ -54,7 +54,8 @@ public class Depot implements Serializable{
 							eineWertpapiertransaktion.getMenge(), 
 							eineWertpapiertransaktion.getVorgangsnummer(), 
 							eineWertpapiertransaktion.getDate(), 
-							eineWertpapiertransaktion.getWertpapier().toWertpapierTO())
+							eineWertpapiertransaktion.getWertpapier().toWertpapierTO(),
+							eineWertpapiertransaktion.getBoersenplatz())
 					);
 		return einDepotTO;
 	}	

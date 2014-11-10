@@ -86,23 +86,36 @@ public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 
 	}
 
-	public void kontodatenAnlegen(DepotTO kontoTO)
+	public void depotAnlegen(DepotTO depotTO)
 			throws DatenhaltungsException {
 		
 		Connection aConnection = Persistence.getConnection();
 		try {
 			Persistence.executeUpdateStatement(aConnection, 
 					"insert into ha1_dv_depot VALUES (" +
-					kontoTO.getDepotNr() + "," +
-					kontoTO.getInhaberNr() + ", " +
-					"'" + kontoTO.getEroeffnungsdatum() + "')");
+					depotTO.getDepotNr() + "," +
+					depotTO.getInhaberNr() + ", " +
+					"'" + depotTO.getEroeffnungsdatum() + "')");
 			
-			Persistence.executeQueryStatement(aConnection,
-					"insert into ha1_kv_depotnummern VALUES(" + kontoTO.getInhaberNr() + kontoTO.getDepotNr() + ")");
+			this.speichereDepotKundeZuordnung(depotTO);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DatenhaltungsException();
-		}	
+		}finally{
+			Persistence.closeConnection(aConnection);
+		}
+	}
+	
+	private void speichereDepotKundeZuordnung(DepotTO depotTO) throws DatenhaltungsException{
+		Connection aConnection = Persistence.getConnection();
+		try{
+			Persistence.executeUpdateStatement(aConnection, "INSERT INTO ha1_kv_depotnummern VALUES(" + depotTO.getInhaberNr() + "," + depotTO.getDepotNr() + ")");
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(aConnection);
+		}
 	}
 	
 	public void kontoSaldoaendern(DepotTO kontoTO)
