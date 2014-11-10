@@ -33,11 +33,11 @@ public class MitarbeiterMenue extends JFrame {
 	 */
 	public static void main(final IKundenPflegenRemote kundenPflegen,
 			final IDepotPflegenRemote depotPflegen,
-			final IWertpapiertransaktionBuchenRemote kontobewegungBuchen) {
+			final IWertpapiertransaktionBuchenRemote wertpapiertransaktionBuchen) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MitarbeiterMenue frame = new MitarbeiterMenue(kundenPflegen, depotPflegen, kontobewegungBuchen);
+					MitarbeiterMenue frame = new MitarbeiterMenue(kundenPflegen, depotPflegen, wertpapiertransaktionBuchen);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,7 +52,7 @@ public class MitarbeiterMenue extends JFrame {
 	public MitarbeiterMenue(
 			final IKundenPflegenRemote kundenPflegen,
 			final IDepotPflegenRemote depotPflegen,
-			final IWertpapiertransaktionBuchenRemote kontobewegungBuchen
+			final IWertpapiertransaktionBuchenRemote wertpapiertransaktionBuchen
 			) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -80,7 +80,7 @@ public class MitarbeiterMenue extends JFrame {
 		JButton btnWertpapiertransaktion = new JButton("Neue Wertpapiertransaktion anlegen");
 		btnWertpapiertransaktion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				WertpapiertransaktionErfassung.main();
+				WertpapiertransaktionErfassung.main(wertpapiertransaktionBuchen);
 			}
 		});
 		contentPane.add(btnWertpapiertransaktion);

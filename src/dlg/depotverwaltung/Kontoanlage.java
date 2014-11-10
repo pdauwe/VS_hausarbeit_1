@@ -92,7 +92,7 @@ public class Kontoanlage extends JFrame {
 				}
 			}
 		});
-		btnKontoAnlegen.setBounds(326, 16, 117, 29);
+		btnKontoAnlegen.setBounds(190, 44, 117, 29);
 		contentPane.add(btnKontoAnlegen);
 		
 		Component horizontalStrut = Box.createHorizontalStrut(20);

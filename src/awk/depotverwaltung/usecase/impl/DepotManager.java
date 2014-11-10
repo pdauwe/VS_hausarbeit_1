@@ -1,15 +1,18 @@
 package awk.depotverwaltung.usecase.impl;
 
+import java.util.ArrayList;
+
 import awk.AnwendungskernException;
 import awk.DatenhaltungsException;
 import awk.depotverwaltung.entity.DepotTO;
 import awk.depotverwaltung.entity.internal.Depot;
 import awk.depotverwaltung.persistence.IDepotDatenzugriff;
 import awk.depotverwaltung.persistence.impl.DepotDatenzugriff_DAO_Db_Einzelsatz;
+import awk.depotverwaltung.entity.WertpapierTO;
 
 public class DepotManager {
 	
-	/* Hier wird festgelegt, dass zur Speicherung eine Datei verwendet wird!*/
+	/* Hier wird festgelegt, dass zur Speicherung eine Datenbank verwendet wird!*/
 	private IDepotDatenzugriff einDatenverwalter = new DepotDatenzugriff_DAO_Db_Einzelsatz();
 
 	private static DepotManager depotManager;
@@ -58,5 +61,21 @@ public class DepotManager {
 	
 	public IDepotDatenzugriff getDatenverwalter () {
 		return this.einDatenverwalter;
+	}
+	
+	public ArrayList<WertpapierTO> getWertpapiere() throws AnwendungskernException{
+		ArrayList<WertpapierTO> wps;
+		try{
+			wps = this.einDatenverwalter.getWertpapiere();
+		}catch(DatenhaltungsException e){
+			e.printStackTrace();
+			throw new AnwendungskernException();
+		}
+		
+		if(wps == null){
+			return null;
+		}else{
+			return wps;
+		}
 	}
 }

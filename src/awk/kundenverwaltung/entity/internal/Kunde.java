@@ -14,7 +14,7 @@ public abstract class Kunde implements Serializable{
 	private String vorname;
 	private String nachname;
 	private Adresse adresse;
-	private Collection<Integer> konten;
+	private Collection<Integer> depots;
 	
 	public Kunde(int kundennummer, String nachname, String vorname, String str, String nr,
 			String plz, String ort) {
@@ -23,7 +23,7 @@ public abstract class Kunde implements Serializable{
 		this.nachname = nachname;
 		this.vorname = vorname;
 		this.adresse = new Adresse (str,nr, plz, ort);
-		this.konten = new ArrayList<Integer>();
+		this.depots = new ArrayList<Integer>();
 	}
 	
 	public Kunde (KundeTO einKundenTO) {
@@ -32,9 +32,9 @@ public abstract class Kunde implements Serializable{
 		this.vorname = einKundenTO.getVorname();
 		this.adresse = new Adresse (
 				einKundenTO.getStr(),einKundenTO.getNr(), einKundenTO.getPlz(), einKundenTO.getOrt());
-		this.konten = new ArrayList<Integer>();
-		for (Integer kontonr:einKundenTO.getKonten()) {
-			this.konten.add(kontonr);
+		this.depots = new ArrayList<Integer>();
+		for (Integer kontonr:einKundenTO.getDepots()) {
+			this.depots.add(kontonr);
 		}
 		
 	}
@@ -53,11 +53,11 @@ public abstract class Kunde implements Serializable{
 	public Adresse getAdresse() {
 		return adresse;
 	}
-	public void addKonto (int kontonummer) {
-		this.konten.add(Integer.valueOf(kontonummer));
+	public void addDepot(int depotnummer) {
+		this.depots.add(Integer.valueOf(depotnummer));
 	}
-	public Collection<Integer> getKonten() {
-		return this.konten;
+	public Collection<Integer> getDepots() {
+		return this.depots;
 	}
 	
 	public boolean equals (Object o) {

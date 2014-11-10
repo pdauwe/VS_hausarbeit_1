@@ -29,7 +29,7 @@ public class Persistence {
 //			aConnection = DriverManager.getConnection ("jdbc:oracle:thin:@localhost:1521:XE", "Bank", "Bank");
 			aConnection = 
 					DriverManager.getConnection (
-							"jdbc:oracle:thin:@131.173.92.216:1521:orcl", "bank", "bank");
+							"jdbc:oracle:thin:@131.173.92.216:1521:orcl", "STUD12", "NewYork99");
 		} catch (SQLException e) {
 				e.printStackTrace();
 		}

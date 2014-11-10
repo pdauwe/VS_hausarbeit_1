@@ -17,10 +17,10 @@ public abstract class KundeTO implements Serializable{
 	String nr;
 	String plz;
 	String ort;
-	Collection<Integer> konten;
+	Collection<Integer> depots;
 	
 	public KundeTO () {
-		this.konten = new ArrayList<Integer>();
+		this.depots = new ArrayList<Integer>();
 	}
 	
 	public abstract Kunde toKunde();
@@ -67,11 +67,11 @@ public abstract class KundeTO implements Serializable{
 	public void setOrt(String ort) {
 		this.ort = ort;
 	}
-	public Collection<Integer> getKonten() {
-		return this.konten;
+	public Collection<Integer> getDepots() {
+		return this.depots;
 	}
-	public void addKonto(int kontonummer){
-		this.konten.add(Integer.valueOf(kontonummer));
+	public void addDepot(int depotnummer){
+		this.depots.add(Integer.valueOf(depotnummer));
 	}
 
 	

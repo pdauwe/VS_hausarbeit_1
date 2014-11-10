@@ -42,5 +42,9 @@ public class Wertpapier {
 		this.art = art;
 	}
 	
+	public String toString(){
+		return this.bezeichnung;
+	}
+	
 	
 }

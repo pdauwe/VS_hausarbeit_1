@@ -1,37 +1,23 @@
 package dlg.kundenverwaltung;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
+import java.text.ParseException;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JOptionPane;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 import awk.AnwendungskernException;
 import awk.kundenverwaltung.usecase.IKundenPflegenRemote;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.rmi.RemoteException;
-import java.text.ParseException;
-
-
-/**
-* This code was edited or generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
-* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
-* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
-*/
-public class Kundenanlage extends JFrame {
+public class Kundenanlegen extends JFrame {
 
 	/**
 	 * 
@@ -68,7 +54,7 @@ public class Kundenanlage extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Kundenanlage frame = new Kundenanlage(kundenPflegen2);
+					Kundenanlegen frame = new Kundenanlegen(kundenPflegen2);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -81,7 +67,8 @@ public class Kundenanlage extends JFrame {
 	 * Create the frame.
 	 * @param kundenPflegen2 
 	 */
-	public Kundenanlage(final IKundenPflegenRemote kundenPflegen) {
+	public Kundenanlegen(final IKundenPflegenRemote kundenPflegen) 
+	{
 		this.kundenPflegen = kundenPflegen;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setBounds(0, 0, 461, 365);
@@ -231,8 +218,9 @@ public class Kundenanlage extends JFrame {
 		lb_geschlecht.setVisible(true);
 	}
 	
-	private String generateBirthday (String tag, String monat, String jahr){
-		return tag + "." + monat + "." + jahr;
+	private String generateBirthday (String tag, String monat, String jahr) throws ParseException{
+		String dateString = tag + "." + monat + "." + jahr;
+		return dateString;
 		//return new SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY).parse(dateString);
 	}
 	
@@ -254,7 +242,6 @@ public class Kundenanlage extends JFrame {
 		try {
 			ok = kundenPflegen.privatkundeAnlegenR(vorname, nachname, str, hausnr, plz, ort, geschlecht, benutzername, passwort, geburtsdatum);
 		} catch (AnwendungskernException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	

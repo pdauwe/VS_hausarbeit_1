@@ -18,6 +18,7 @@ public class DepotTO implements Serializable{
 	private int inhaberNr;
 	private String inhaberNachname;
 	private String inhaberVorname;
+	private String eroeffnungsdatum;
 	private Collection<WertpapiertransaktionTO> wertpapiertransaktionen;
 	
 	public DepotTO(){
@@ -32,19 +33,21 @@ public class DepotTO implements Serializable{
 	public Depot toDepot()  throws AnwendungskernException {
 		
 		Depot depot = new Depot(this.depotNr, this.inhaberNr);
-		
+		depot.setEroeffnungsdatum(this.getEroeffnungsdatum());
 		if (this.wertpapiertransaktionen!=null){
 			
 			for (WertpapiertransaktionTO wertpapiertransaktionTO:this.wertpapiertransaktionen)
-
 				depot.getWertpapiertransaktionen().add(
-					new Wertpapiertransaktion(depot,
-							wertpapiertransaktionTO.getTyp(),
-							wertpapiertransaktionTO.getPreis(),
-							wertpapiertransaktionTO.getMenge(),
-							wertpapiertransaktionTO.getVorgangsnummer(),
-							wertpapiertransaktionTO.getDate(),
-							wertpapiertransaktionTO.getWertpapierTO().toWertpapier()));
+						new Wertpapiertransaktion(depot,
+								wertpapiertransaktionTO.getTyp(),
+								wertpapiertransaktionTO.getPreis(),
+								wertpapiertransaktionTO.getMenge(),
+								wertpapiertransaktionTO.getVorgangsnummer(),
+								wertpapiertransaktionTO.getDate(),
+								wertpapiertransaktionTO.getWertpapierTO().toWertpapier(),
+								wertpapiertransaktionTO.getBoersenplatz()
+								)
+						);								
 		}
 		return depot;
 		
@@ -84,6 +87,14 @@ public class DepotTO implements Serializable{
 
 	public void setInhaberVorname(String inhaberVorname) {
 		this.inhaberVorname = inhaberVorname;
+	}
+
+	public String getEroeffnungsdatum() {
+		return eroeffnungsdatum;
+	}
+
+	public void setEroeffnungsdatum(String eroeffnungsdatum) {
+		this.eroeffnungsdatum = eroeffnungsdatum;
 	}
 	
 }

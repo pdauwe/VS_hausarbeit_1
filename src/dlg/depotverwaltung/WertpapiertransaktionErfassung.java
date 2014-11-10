@@ -1,34 +1,54 @@
 package dlg.depotverwaltung;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
-import javax.swing.JToggleButton;
+
+import awk.AnwendungskernException;
+import awk.depotverwaltung.entity.internal.Boersenplatz;
+import awk.depotverwaltung.entity.internal.Wertpapier;
+import awk.depotverwaltung.usecase.IWertpapiertransaktionBuchenRemote;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.rmi.RemoteException;
 
 public class WertpapiertransaktionErfassung extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField tfDepotnummer;
 	private JTextField tfMenge;
 	private JTextField tfDatum;
 	private JTextField tfPreis;
+	private JRadioButton rdbtnKauf;
+	private JRadioButton rdbtnVerkauf;
+	private JComboBox<Boersenplatz> cbBoersenplatz;
+	private JComboBox<Wertpapier> cbWertpapiere;
 
+	private Wertpapier[] wertpapiere;
+	private Boersenplatz[] boersenplaetze;
+	private IWertpapiertransaktionBuchenRemote wptBuchen;
+	
 	/**
 	 * Launch the application.
 	 */
-	public static void main() {
+	public static void main(final IWertpapiertransaktionBuchenRemote wptBuchen2) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					WertpapiertransaktionErfassung frame = new WertpapiertransaktionErfassung();
+					WertpapiertransaktionErfassung frame = new WertpapiertransaktionErfassung(wptBuchen2);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,7 +60,16 @@ public class WertpapiertransaktionErfassung extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public WertpapiertransaktionErfassung() {
+	public WertpapiertransaktionErfassung (IWertpapiertransaktionBuchenRemote wptBuchen) {
+		this.wptBuchen = wptBuchen;
+		try{
+			this.wertpapiere = (Wertpapier[]) wptBuchen.getWertpapiere().toArray();
+		}catch (AnwendungskernException | RemoteException e){
+			e.printStackTrace();
+		}
+		this.boersenplaetze = fillBoersenplaetze();
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 543, 321);
 		contentPane = new JPanel();
@@ -61,10 +90,7 @@ public class WertpapiertransaktionErfassung extends JFrame {
 		lblWertpapiere.setBounds(6, 39, 78, 16);
 		contentPane.add(lblWertpapiere);
 		
-		JComboBox<String> cbWertpapiere = new JComboBox<String>();
-		cbWertpapiere.addItem("APPL");
-		cbWertpapiere.addItem("MSFT");
-		cbWertpapiere.addItem("GOOG");
+		cbWertpapiere = new JComboBox(this.wertpapiere);
 		cbWertpapiere.setBounds(112, 35, 180, 27);
 		contentPane.add(cbWertpapiere);
 		
@@ -95,11 +121,7 @@ public class WertpapiertransaktionErfassung extends JFrame {
 		contentPane.add(tfPreis);
 		tfPreis.setColumns(10);
 		
-		JComboBox<String> cbBoersenplatz = new JComboBox<String>();
-		cbBoersenplatz.addItem("New York");
-		cbBoersenplatz.addItem("Frankfurt");
-		cbBoersenplatz.addItem("Tokyo");
-		cbBoersenplatz.addItem("London");
+		cbBoersenplatz = new JComboBox(this.boersenplaetze);
 		cbBoersenplatz.setBounds(112, 154, 180, 27);
 		contentPane.add(cbBoersenplatz);
 		
@@ -108,18 +130,46 @@ public class WertpapiertransaktionErfassung extends JFrame {
 		contentPane.add(lblBrsenplatz);
 		
 		JButton btnEintragen = new JButton("Eintragen");
+		btnEintragen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try{
+					actionPerformedInhalteErfassen(e);
+				}catch (Exception e1){
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnEintragen.setBounds(420, 264, 117, 29);
 		contentPane.add(btnEintragen);
 		
 		JButton btnInhalteLoeschen = new JButton("Inhalte loeschen");
+		btnInhalteLoeschen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try{
+					actionPerformedInhalteLoeschen(e);
+				}catch (Exception e1){
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnInhalteLoeschen.setBounds(6, 264, 147, 29);
 		contentPane.add(btnInhalteLoeschen);
 		
-		JRadioButton rdbtnKauf = new JRadioButton("Kauf");
+		rdbtnKauf = new JRadioButton("Kauf");
+		rdbtnKauf.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbtnVerkauf.setSelected(false);
+			}
+		});
 		rdbtnKauf.setBounds(112, 193, 141, 23);
 		contentPane.add(rdbtnKauf);
 		
-		JRadioButton rdbtnVerkauf = new JRadioButton("Verkauf");
+		rdbtnVerkauf = new JRadioButton("Verkauf");
+		rdbtnVerkauf.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbtnKauf.setSelected(false);
+			}
+		});
 		rdbtnVerkauf.setBounds(112, 229, 141, 23);
 		contentPane.add(rdbtnVerkauf);
 		
@@ -127,4 +177,67 @@ public class WertpapiertransaktionErfassung extends JFrame {
 		lblTransaktion.setBounds(6, 197, 79, 16);
 		contentPane.add(lblTransaktion);
 	}
+	
+	private void actionPerformedInhalteErfassen(ActionEvent e) throws RemoteException{
+		
+		char art = (this.rdbtnKauf.isSelected()) ? 'K' : 'V';
+		int depotnummer = Integer.parseInt(this.tfDepotnummer.getText());
+		int menge = Integer.parseInt(this.tfMenge.getText());
+		double preis = Double.parseDouble(this.tfPreis.getText());
+		int boersenplatz = this.cbBoersenplatz.getSelectedIndex();
+		Wertpapier wp = this.cbWertpapiere.getItemAt(this.cbWertpapiere.getSelectedIndex());
+		String datum = this.tfDatum.getText();
+		
+		boolean ok = false;
+		try{
+			ok = this.wptBuchen.wertpapierBuchenR(depotnummer, wp.toWertpapierTO(), preis, art, menge, boersenplatz, datum);
+		}catch(AnwendungskernException e1){
+			e1.printStackTrace();
+		}
+		
+		if(!ok){
+			JOptionPane.showMessageDialog(null, "Fehler, die Transaktion wurde nicht angelegt");
+		}else{
+			JOptionPane.showMessageDialog(null, "Transaktion angelegt");
+		}
+	
+	}
+	
+	/* Setzt die Inhalte der Textfelder und die Auswahl der ComboBoxen zurueck. 
+	 * */
+	private void actionPerformedInhalteLoeschen(ActionEvent e) throws Exception{
+		this.tfDepotnummer.setText("");
+		this.tfDatum.setText("");
+		this.tfMenge.setText("");
+		this.tfPreis.setText("");
+		this.cbBoersenplatz.setSelectedIndex(0);
+		this.cbWertpapiere.setSelectedIndex(0);
+	}
+	
+	
+	private Wertpapier[] fillWertpapiere(){
+		
+		
+		Wertpapier aapl = new Wertpapier(1, "AAPL", 'A');
+		Wertpapier msft = new Wertpapier(2,"MSFT", 'A');
+		Wertpapier goog = new Wertpapier(3, "GOOG", 'A');
+		Wertpapier bmw = new Wertpapier(4, "BMW", 'A');
+		Wertpapier bdrAnleihe = new Wertpapier(5,"Deutsche Bundesstaatsanleihe", 'F');
+		Wertpapier rentenAnleihe = new Wertpapier(6,"Rentenanleihe", 'F');
+		
+		return new Wertpapier[]{aapl,msft,goog,bmw,bdrAnleihe,rentenAnleihe};
+	}
+	
+	private Boersenplatz[] fillBoersenplaetze(){
+		
+		
+		Boersenplatz newyork = new Boersenplatz(1, "New York");
+		Boersenplatz frankfurt = new Boersenplatz(2, "Frankfurt");
+		Boersenplatz london = new Boersenplatz (3, "London");
+		Boersenplatz tokyo = new Boersenplatz (4, "Tokyo");
+		
+		return new Boersenplatz[]{newyork,frankfurt,london,tokyo};
+	}
+	
+	
 }

@@ -36,25 +36,7 @@ public class KundenManager {
 			throw new AnwendungskernException();
 		}
 	}
-	
-	public void kundeEntfernen (Kunde kunde) throws AnwendungskernException {
-		try {
-			this.einDatenverwalter.kundendatenLoeschen(kunde.toKundeTO());
-		} catch (DatenhaltungsException e) {
-			e.printStackTrace();
-			throw new AnwendungskernException();
-		}
-	}
-	
-	public void kundeAendern (Kunde kunde, int kontonummer) throws AnwendungskernException {
-		kunde.addKonto(kontonummer);
-		try {
-			this.einDatenverwalter.kundendatenaendern(kunde.toKundeTO());
-		} catch (DatenhaltungsException e) {
-			e.printStackTrace();
-			throw new AnwendungskernException();
-		}
-	}
+
 		
 	public boolean istKundevorhanden(Kunde kunde) throws AnwendungskernException {
 		try {
@@ -71,27 +53,15 @@ public class KundenManager {
 			
 		
 
-	public int naechsteKundennummerErmitteln () throws AnwendungskernException {
-		Collection <KundeTO> ergebnisliste = new ArrayList<KundeTO>();
-		
-		KundeTO suchPKundeTO = new PrivatkundeTO();
-		
-		try {
-			for (KundeTO kundeTO:this.einDatenverwalter.kundendatenSuchenByAttribute(suchPKundeTO))
-				ergebnisliste.add(kundeTO);
-		} catch (DatenhaltungsException e) {
+	public int getMaxKundennummer () throws DatenhaltungsException {
+		int max = 0;
+		try{
+			max = this.einDatenverwalter.getMaxKundennummer();
+		}catch (DatenhaltungsException e){
 			e.printStackTrace();
-			throw new AnwendungskernException();
+			throw new DatenhaltungsException();
 		}
-		
-		
-		int max= 0;
-		for (KundeTO einKundeTO:ergebnisliste)
-				if (einKundeTO.getKundennummer() > max)
-					max = einKundeTO.getKundennummer();
-				
 		return max;
-	
 	}
 		
 	public Collection<Kunde> kundeSuchenByName (

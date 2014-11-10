@@ -19,7 +19,7 @@ public class Depot implements Serializable{
 	 */
 	private static final long serialVersionUID = -1791762923927701475L;
 	private final int depotNr;
-	private Date eroeffnungsdatum;
+	private String eroeffnungsdatum;
 	
 	private Collection<Wertpapiertransaktion> wertpapiertransaktionen;
 	
@@ -28,6 +28,8 @@ public class Depot implements Serializable{
 	public Depot(int depotnummer, int kundennummer) throws AnwendungskernException {
 		this.depotNr = depotnummer;
 		this.inhaberNr = kundennummer;
+		Date now = new Date();
+		this.eroeffnungsdatum = now.toString();
 		wertpapiertransaktionen = new ArrayList<Wertpapiertransaktion>();
 		IKundenverwaltungFactory kvf = new KundenverwaltungFactory();
 		IKontoRegistrieren kontoRegistrieren = kvf.getKontoRegistrieren();
@@ -41,6 +43,7 @@ public class Depot implements Serializable{
 		
 		einDepotTO.setInhaberNr(this.inhaberNr);
 		einDepotTO.setDepotNr(this.depotNr);
+		einDepotTO.setEroeffnungsdatum(this.eroeffnungsdatum);
 		einDepotTO.setWertpapiertransaktionen(new ArrayList<WertpapiertransaktionTO>());
 		
 		for (Wertpapiertransaktion eineWertpapiertransaktion:this.getWertpapiertransaktionen()) 
@@ -69,11 +72,11 @@ public class Depot implements Serializable{
 		return this.depotNr;
 	}
 
-	public Date getEroeffnungsdatum() {
+	public String getEroeffnungsdatum() {
 		return eroeffnungsdatum;
 	}
 
-	public void setEroeffnungsdatum(Date eroeffnungsdatum) {
+	public void setEroeffnungsdatum(String eroeffnungsdatum) {
 		this.eroeffnungsdatum = eroeffnungsdatum;
 	}
 

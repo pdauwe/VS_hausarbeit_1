@@ -1,10 +1,12 @@
 package awk.depotverwaltung.usecase.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import awk.AnwendungskernException;
 import awk.DatenhaltungsException;
 import awk.depotverwaltung.entity.DepotTO;
+import awk.depotverwaltung.entity.WertpapierTO;
 import awk.depotverwaltung.entity.internal.Depot;
 import awk.depotverwaltung.entity.internal.Wertpapier;
 import awk.depotverwaltung.entity.internal.Wertpapiertransaktion;
@@ -39,18 +41,25 @@ public class WertpapiertransaktionBuchen implements IWertpapiertransaktionBuchen
 		return einDepotTO;
 	}
 	
-	public boolean wertpapierkaufen (int depotnr, Wertpapier wertpapier, double preis, char art, int menge) throws AnwendungskernException {
+	public boolean wertpapierBuchen (int depotnr, Wertpapier wertpapier, double preis, char art, int menge, int boersenplatz, String datum) throws AnwendungskernException {
 		
 		DepotManager einDepotManager = DepotManager.getDepotManager();
 		Depot einDepot = einDepotManager.depotSuchenByNr(depotnr);
 		if(einDepot == null){
 			return false; 
 		}else{
-			Date today = new Date();
+			String today = "";
+			// Wenn kein Datum angegeben wurde, wird das heute Datum verwendet.
+			if(datum == null || datum.isEmpty()){
+				today = new Date().toString();
+			}else{
+				today = datum;
+			}
+			
 			try{
 				int vorgangsnummer = einDepotManager.getDatenverwalter().generiereVorgangsnummer();
-				Wertpapiertransaktion wpt = new Wertpapiertransaktion(einDepot, art, preis, menge, vorgangsnummer, today, wertpapier);
-				einDepotManager.getDatenverwalter().wertpapierBuchen(depotnr, wpt.toWertpapiertransaktionTO());
+				Wertpapiertransaktion wpt = new Wertpapiertransaktion(einDepot, art, preis, menge, vorgangsnummer, today, wertpapier, boersenplatz);
+				einDepotManager.getDatenverwalter().wertpapiertransaktionAnlegen(depotnr, wpt.toWertpapiertransaktionTO());
 			}catch (DatenhaltungsException e){
 				e.printStackTrace();
 				throw new AnwendungskernException();
@@ -61,26 +70,14 @@ public class WertpapiertransaktionBuchen implements IWertpapiertransaktionBuchen
 			
 		}
 	}
-	/*
-	public boolean einzahlen(int kontoNr, double betrag) throws AnwendungskernException {
-		DepotManager einKontoManager = DepotManager.getDepotManager();
-		Depot einKonto = einKontoManager.depotSuchenByNr(kontoNr);
-		if (einKonto == null)
-			return false;
-		else {
-			Wertpapiertransaktion kontobewegung = new Wertpapiertransaktion(einKonto,'E',betrag);
-			einKonto.addWertpapiertransaktion(kontobewegung);
-			try {
-				einKontoManager.getDatenverwalter().buchungsdatenAnlegen(
-						einKonto.getDepotNr(), kontobewegung.toWertpapiertransaktionTO());
-				einKontoManager.getDatenverwalter().kontoSaldoaendern(einKonto.toKontoTO());
-			} catch (DatenhaltungsException e) {
-				e.printStackTrace();
-				throw new AnwendungskernException();
-			}
-				
-			return true;
+	
+	public ArrayList<WertpapierTO> getWertpapiere() throws AnwendungskernException{
+		try {
+			DepotManager depotmanager = DepotManager.getDepotManager();
+			return depotmanager.getWertpapiere();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		return null;
 	}
-	*/
 }

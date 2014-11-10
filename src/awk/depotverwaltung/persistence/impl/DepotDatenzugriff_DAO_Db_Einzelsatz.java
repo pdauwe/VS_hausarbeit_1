@@ -3,9 +3,11 @@ package awk.depotverwaltung.persistence.impl;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import awk.Persistence.Persistence;
 import awk.depotverwaltung.entity.DepotTO;
+import awk.depotverwaltung.entity.WertpapierTO;
 import awk.depotverwaltung.entity.WertpapiertransaktionTO;
 import awk.depotverwaltung.persistence.IDepotDatenzugriff;
 import awk.DatenhaltungsException;
@@ -60,18 +62,26 @@ public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 	}
 
 
-	public void buchungsdatenAnlegen(int kontonummer, WertpapiertransaktionTO kontobewegungTO)
+	public void wertpapiertransaktionAnlegen(int depotnummer, WertpapiertransaktionTO wertpapiertransaktionTO)
 			throws DatenhaltungsException {
 		Connection aConnection = Persistence.getConnection();
 		try {
 			Persistence.executeUpdateStatement(aConnection, 
-					"insert into kontenverw_buchung VALUES (" +
-					"'" +kontobewegungTO.getTyp() + "'," +
-					kontobewegungTO.getPreis() + ", " +
-					kontonummer + ")");
+					"insert into ha1_dv_wptransaktion VALUES ("
+					+wertpapiertransaktionTO.getVorgangsnummer()+ "," +
+					wertpapiertransaktionTO.getWertpapierTO().getNummer() + ", " +
+					depotnummer + "," +
+					wertpapiertransaktionTO.getMenge() + "," +
+					wertpapiertransaktionTO.getPreis() + "," +
+					"'" + wertpapiertransaktionTO.getDate().toString() + "'," +
+					"'" + wertpapiertransaktionTO.getTyp() + "'," +
+					wertpapiertransaktionTO.getBoersenplatz() + ")");
+	
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(aConnection);
 		}
 
 	}
@@ -79,17 +89,20 @@ public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 	public void kontodatenAnlegen(DepotTO kontoTO)
 			throws DatenhaltungsException {
 		
-		//Connection aConnection = Persistence.getConnection();
-//		try {
-//			Persistence.executeUpdateStatement(aConnection, 
-//					"insert into kontenverw_konto VALUES (" +
-//					kontoTO.getDepotNr() + "," +
-//					//kontoTO.getSaldo() + ", " +
-//					kontoTO.getInhaberNr() + ")");
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//			throw new DatenhaltungsException();
-//		}	
+		Connection aConnection = Persistence.getConnection();
+		try {
+			Persistence.executeUpdateStatement(aConnection, 
+					"insert into ha1_dv_depot VALUES (" +
+					kontoTO.getDepotNr() + "," +
+					kontoTO.getInhaberNr() + ", " +
+					"'" + kontoTO.getEroeffnungsdatum() + "')");
+			
+			Persistence.executeQueryStatement(aConnection,
+					"insert into ha1_kv_depotnummern VALUES(" + kontoTO.getInhaberNr() + kontoTO.getDepotNr() + ")");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}	
 	}
 	
 	public void kontoSaldoaendern(DepotTO kontoTO)
@@ -115,7 +128,7 @@ public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 		try {
 			resultSet = 
 				Persistence.executeQueryStatement(aConnection, 
-					"SELECT max(accountnr) as max FROM kontenverw_konto ");
+					"SELECT max(d_nr) as max FROM ha1_dv_depot ");
 			
 			if (resultSet.next() )
 					return resultSet.getInt("max");
@@ -144,14 +157,29 @@ public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 		}
 	}
 
-
-	@Override
-	public void wertpapierBuchen(int depot,
-			WertpapiertransaktionTO wertpapiertransaktionTO)
-			throws DatenhaltungsException {
-		// TODO Auto-generated method stub
+	public ArrayList<WertpapierTO> getWertpapiere() throws DatenhaltungsException{
+		ArrayList<WertpapierTO> wps = new ArrayList<WertpapierTO>();
 		
+		Connection aConnection = Persistence.getConnection();
+		ResultSet resultSet;
+		
+		try{
+			resultSet = Persistence.executeQueryStatement(aConnection, "SELECT * from ha1_dv_wertpapier");
+			if(resultSet.next()){
+				WertpapierTO wp = new WertpapierTO();
+				wp.setNummer(resultSet.getInt("WP_NR"));
+				wp.setArt(resultSet.getString("ART").toCharArray()[0]);
+				wp.setBezeichnung(resultSet.getString("BEZ"));
+				wps.add(wp);
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}
+		return wps;
 	}
+
+
 
 
 

@@ -1,7 +1,6 @@
 package awk.depotverwaltung.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class WertpapiertransaktionTO implements Serializable{
 
@@ -13,15 +12,16 @@ public class WertpapiertransaktionTO implements Serializable{
 	char typ;
 	double preis;
 	int menge;
-	Date date;
+	String date;
 	DepotTO depotTO;
 	WertpapierTO wertpapierTO;
+	int boersenplatz;
 	
 	
 	/*Konstruktor zur Erzeugung eines TO-Geflechts (DepotTO / Wertpapiertransaktion TO)
 	 * aus dem Entitaetsgeflecht Depot / Wertpapiertransaktion */
 	
-	public WertpapiertransaktionTO(DepotTO depotTO, char typ, double preis, int menge, int vorgangsnummer, Date date, WertpapierTO wertpapierTO) {
+	public WertpapiertransaktionTO(DepotTO depotTO, char typ, double preis, int menge, int vorgangsnummer, String date, WertpapierTO wertpapierTO, int boersenplatz) {
 		this.typ = typ;
 		this.preis = preis;
 		this.depotTO = depotTO;
@@ -29,6 +29,7 @@ public class WertpapiertransaktionTO implements Serializable{
 		this.vorgangsnummer = vorgangsnummer;
 		this.date = date;
 		this.wertpapierTO = wertpapierTO;
+		this.boersenplatz = boersenplatz;
 	}
 	
 	public char getTyp() {
@@ -60,11 +61,11 @@ public class WertpapiertransaktionTO implements Serializable{
 		this.menge = menge;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
@@ -74,5 +75,13 @@ public class WertpapiertransaktionTO implements Serializable{
 
 	public void setWertpapierTO(WertpapierTO wertpapierTO) {
 		this.wertpapierTO = wertpapierTO;
+	}
+
+	public int getBoersenplatz() {
+		return boersenplatz;
+	}
+
+	public void setBoersenplatz(int boersenplatz) {
+		this.boersenplatz = boersenplatz;
 	}
 }

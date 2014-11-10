@@ -1,7 +1,6 @@
 package awk.kundenverwaltung.entity.internal;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import awk.kundenverwaltung.entity.PrivatkundeTO;
 
@@ -14,7 +13,7 @@ public class Privatkunde extends Kunde implements Serializable{
 	private String geschlecht;
 	private String benutzerkennung;
 	private String passwort;
-	private Date geburtsdatum;
+	private String geburtsdatum;
 	
 	public Privatkunde(int kundennummer, String nachname, String vorname, String str, String nr,
 			String plz, String ort, String geschlecht) {
@@ -23,11 +22,11 @@ public class Privatkunde extends Kunde implements Serializable{
 	}
 	
 	public Privatkunde(int kundennummer, String nachname, String vorname, String str, String nr,
-			String plz, String ort, String geschlecht, String benutzerkennung, String passwort, Date geburtsdatum) {
+			String plz, String ort, String geschlecht, String benutzerkennung, String passwort, String geburtsdatum) {
 		super(kundennummer, nachname, vorname, str, nr, plz, ort);
 		this.geschlecht = geschlecht;
 		this.benutzerkennung = benutzerkennung;
-		this.passwort = benutzerkennung;
+		this.passwort = passwort;
 		this.geburtsdatum = geburtsdatum;
 	}
 	
@@ -50,8 +49,8 @@ public class Privatkunde extends Kunde implements Serializable{
 		privatKundenTO.setNr(this.getAdresse().getNr());
 		privatKundenTO.setPlz(this.getAdresse().getPlz());
 		privatKundenTO.setOrt(this.getAdresse().getOrt());
-		for (Integer kontonummer:this.getKonten()) {
-			privatKundenTO.addKonto(kontonummer);
+		for (Integer depotnummer:this.getDepots()) {
+			privatKundenTO.addDepot(depotnummer);
 			
 		}
 		privatKundenTO.setGeschlecht(this.geschlecht);
@@ -79,11 +78,11 @@ public class Privatkunde extends Kunde implements Serializable{
 		this.benutzerkennung = benutzerkennung;
 	}
 
-	public Date getGeburtsdatum(){
+	public String getGeburtsdatum(){
 		return this.geburtsdatum;
 	}
 	
-	public void setGeburtsdatum(Date geburtsdatum){
+	public void setGeburtsdatum(String geburtsdatum){
 		this.geburtsdatum = geburtsdatum;
 	}
 

@@ -1,7 +1,7 @@
 package awk.depotverwaltung.entity.internal;
 
 import java.io.Serializable;
-import java.util.Date;
+
 
 import awk.depotverwaltung.entity.WertpapiertransaktionTO;
 
@@ -15,11 +15,12 @@ public class Wertpapiertransaktion implements Serializable{
 	char typ;
 	double preis;
 	int menge;
-	Date date;
+	String date;
 	Depot depot;
 	Wertpapier wertpapier;
+	int boersenplatz;
 	
-	public Wertpapiertransaktion(Depot depot, char typ, double preis, int menge, int vorgangsnummer, Date date, Wertpapier wertpapier) {
+	public Wertpapiertransaktion(Depot depot, char typ, double preis, int menge, int vorgangsnummer, String date, Wertpapier wertpapier, int boersenplatz) {
 		super();
 		this.typ = typ;
 		this.preis = preis;
@@ -28,9 +29,10 @@ public class Wertpapiertransaktion implements Serializable{
 		this.vorgangsnummer = vorgangsnummer;
 		this.date = date;
 		this.wertpapier = wertpapier;
+		this.boersenplatz = boersenplatz;
 	}
 	public WertpapiertransaktionTO toWertpapiertransaktionTO() {
-		return new WertpapiertransaktionTO(null, this.getTyp(), this.getPreis(), this.getMenge(), this.getVorgangsnummer(), this.getDate(), null);
+		return new WertpapiertransaktionTO(null, this.getTyp(), this.getPreis(), this.getMenge(), this.getVorgangsnummer(), this.getDate(), null, this.getBoersenplatz());
 	}
 	public char getTyp() {
 		return typ;
@@ -56,10 +58,10 @@ public class Wertpapiertransaktion implements Serializable{
 	public void setMenge(int menge) {
 		this.menge = menge;
 	}
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public Wertpapier getWertpapier() {
@@ -67,6 +69,12 @@ public class Wertpapiertransaktion implements Serializable{
 	}
 	public void setWertpapier(Wertpapier wertpapier) {
 		this.wertpapier = wertpapier;
+	}
+	public int getBoersenplatz() {
+		return boersenplatz;
+	}
+	public void setBoersenplatz(int boersenplatz) {
+		this.boersenplatz = boersenplatz;
 	}
 
 }

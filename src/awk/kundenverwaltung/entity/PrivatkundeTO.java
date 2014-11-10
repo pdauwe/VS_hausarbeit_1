@@ -1,6 +1,6 @@
 package awk.kundenverwaltung.entity;
 
-import java.util.Date;
+
 
 import awk.kundenverwaltung.entity.internal.Kunde;
 import awk.kundenverwaltung.entity.internal.Privatkunde;
@@ -12,7 +12,7 @@ public class PrivatkundeTO extends KundeTO {
 	private String geschlecht;
 	private String benutzerkennung;
 	private String passwort;
-	private Date geburtsdatum;
+	private String geburtsdatum;
 	
 	public Kunde toKunde() {
 		Kunde kunde = new Privatkunde(
@@ -29,8 +29,8 @@ public class PrivatkundeTO extends KundeTO {
 				this.getGeburtsdatum());
 			
 		
-		for (Integer kontonr:this.getKonten())
-			kunde.getKonten().add(kontonr);
+		for (Integer kontonr:this.getDepots())
+			kunde.getDepots().add(kontonr);
 		
 		return kunde;
 	}
@@ -59,11 +59,11 @@ public class PrivatkundeTO extends KundeTO {
 		this.passwort = passwort;
 	}
 	
-	public Date getGeburtsdatum(){
+	public String getGeburtsdatum(){
 		return this.geburtsdatum;
 	}
 	
-	public void setGeburtsdatum(Date geburtsdatum){
+	public void setGeburtsdatum(String geburtsdatum){
 		this.geburtsdatum = geburtsdatum;
 	}
 
