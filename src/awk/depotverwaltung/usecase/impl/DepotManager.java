@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import awk.AnwendungskernException;
 import awk.DatenhaltungsException;
+import awk.depotverwaltung.entity.BestandContainerTO;
 import awk.depotverwaltung.entity.DepotTO;
+import awk.depotverwaltung.entity.WertpapiertransaktionTO;
 import awk.depotverwaltung.entity.internal.Depot;
 import awk.depotverwaltung.persistence.IDepotDatenzugriff;
 import awk.depotverwaltung.persistence.impl.DepotDatenzugriff_DAO_Db_Einzelsatz;
@@ -76,6 +78,25 @@ public class DepotManager {
 			return null;
 		}else{
 			return wps;
+		}
+	}
+	
+	public ArrayList<BestandContainerTO> wertpapierBestandFuerDepotnummer (int depotnummer) throws AnwendungskernException{
+		
+		try{
+			return this.einDatenverwalter.wertpapierBestandFuerDepot(depotnummer);
+		}catch (DatenhaltungsException e){
+			e.printStackTrace();
+			throw new AnwendungskernException();
+		}
+	}
+	
+	public ArrayList<WertpapiertransaktionTO> wertpapierHistorieFuerDepot(int depotnummer) throws AnwendungskernException {
+		try{
+			return this.einDatenverwalter.wertpapierHistorieFuerDepot(depotnummer);
+		}catch (DatenhaltungsException e){
+			e.printStackTrace();
+			throw new AnwendungskernException();
 		}
 	}
 }

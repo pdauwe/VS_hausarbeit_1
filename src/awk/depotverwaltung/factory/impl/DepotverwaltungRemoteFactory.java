@@ -9,10 +9,12 @@ import awk.depotverwaltung.usecase.impl.WertpapiertransaktionBuchenRemote;
 
 public class DepotverwaltungRemoteFactory implements IDepotverwaltungRemoteFactory{
 	
+	@Override
 	public IDepotPflegenRemote getDepotPflegenRemote() {
 		return new DepotPflegenRemote();
 	}
 
+	@Override
 	public IWertpapiertransaktionBuchenRemote getKontobewegungBuchenRemote() {	
 		return new WertpapiertransaktionBuchenRemote();
 	}

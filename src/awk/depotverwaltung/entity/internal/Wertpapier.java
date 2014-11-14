@@ -6,9 +6,9 @@ public class Wertpapier {
 
 	private int nummer;
 	private String bezeichnung;
-	private char art;
+	private String art;
 	
-	public Wertpapier(int nummer, String bezeichnung, char art){
+	public Wertpapier(int nummer, String bezeichnung, String art){
 		this.nummer = nummer;
 		this.bezeichnung = bezeichnung;
 		this.art = art;
@@ -35,13 +35,14 @@ public class Wertpapier {
 	public void setBezeichnung(String bezeichnung) {
 		this.bezeichnung = bezeichnung;
 	}
-	public char getArt() {
+	public String getArt() {
 		return art;
 	}
-	public void setArt(char art) {
+	public void setArt(String art) {
 		this.art = art;
 	}
 	
+	@Override
 	public String toString(){
 		return this.bezeichnung;
 	}

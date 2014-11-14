@@ -60,6 +60,7 @@ public abstract class Kunde implements Serializable{
 		return this.depots;
 	}
 	
+	@Override
 	public boolean equals (Object o) {
 		Kunde k = (Kunde) o; 
 		return this.nachname.equalsIgnoreCase(k.nachname) 

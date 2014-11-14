@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import awk.Persistence.Persistence;
+import awk.depotverwaltung.entity.BestandContainerTO;
 import awk.depotverwaltung.entity.DepotTO;
 import awk.depotverwaltung.entity.WertpapierTO;
 import awk.depotverwaltung.entity.WertpapiertransaktionTO;
@@ -16,6 +17,7 @@ import awk.DatenhaltungsException;
 public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 
 	/* liefert komplettes TO-Geflecht Konto/Kontobewegung */
+	@Override
 	public DepotTO depotdatenLesenByKey(int depotnummer) throws DatenhaltungsException {
 			
 		Connection aConnection = Persistence.getConnection();
@@ -24,31 +26,49 @@ public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 		try {
 				resultSet = 
 					Persistence.executeQueryStatement(aConnection, 
-						"SELECT accountnr, balance,owner " +
-						"FROM kontenverw_konto " +
-						"WHERE accountnr = " + depotnummer );
+						"SELECT *" +
+						"FROM ha1_dv_depot " +
+						"WHERE d_nr = " + depotnummer );
+				
 				while (resultSet.next()) {
 					depotTO = new DepotTO();
-					depotTO.setDepotNr(resultSet.getInt("accountnr"));
-					//depotTO.setSaldo(resultSet.getDouble("balance"));
-					depotTO.setInhaberNr(resultSet.getInt("owner"));
+					depotTO.setDepotNr(resultSet.getInt("d_nr"));
+					depotTO.setInhaberNr(resultSet.getInt("k_nr"));
+					depotTO.setEroeffnungsdatum(resultSet.getString("erodatum"));
 				};
 				
 				if (depotTO!=null) {
 					resultSet =
 						Persistence.executeQueryStatement(aConnection, 
-								"SELECT type, amount " +
-								"FROM kontenverw_buchung " +
-								"WHERE account = " + depotnummer + "");
+								"SELECT * " +
+								"FROM ha1_dv_wptransaktion " +
+								"WHERE d_nr = " + depotnummer + "");
 					while ( resultSet.next() ) {
-						System.out.println("type: "+resultSet.getString("type").charAt(0));
-						System.out.println("amount: "+resultSet.getDouble("amount"));
 						
-//						WertpapiertransaktionTO aKtoBew = new WertpapiertransaktionTO(depotTO,
-//								resultSet.getString("type").charAt(0),
-//								resultSet.getDouble("amount"));
-//						
-//						depotTO.getWertpapiertransaktionen().add(aKtoBew);
+						WertpapiertransaktionTO wpt = new WertpapiertransaktionTO();
+						
+						
+						wpt.setVorgangsnummer(resultSet.getInt("wpt_nr"));
+						wpt.setBoersenplatz(resultSet.getInt("bplatz"));
+						wpt.setTyp(resultSet.getString("TART").charAt(0));
+						wpt.setDate(resultSet.getString("datum"));
+						wpt.setMenge(resultSet.getInt("Menge"));
+						wpt.setPreis(resultSet.getDouble("Preis"));
+					
+						int wpnummer = resultSet.getInt("wp_nr");
+						WertpapierTO wp = new WertpapierTO();
+						
+						ResultSet resultSet2 = Persistence.executeQueryStatement(aConnection, "SELECT * FROM ha1_dv_wertpapier WHERE wp_nr = " + wpnummer);
+						
+						if(resultSet2.next()){
+							wp.setBezeichnung(resultSet2.getString("BEZ"));
+							wp.setArt(resultSet2.getString("ART"));
+							wp.setNummer(wpnummer);
+						}
+						
+						wpt.setWertpapierTO(wp);;
+						
+						depotTO.getWertpapiertransaktionen().add(wpt);
 				}
 			}
 		} catch (SQLException e) {
@@ -62,6 +82,7 @@ public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 	}
 
 
+	@Override
 	public void wertpapiertransaktionAnlegen(int depotnummer, WertpapiertransaktionTO wertpapiertransaktionTO)
 			throws DatenhaltungsException {
 		Connection aConnection = Persistence.getConnection();
@@ -86,6 +107,7 @@ public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 
 	}
 
+	@Override
 	public void depotAnlegen(DepotTO depotTO)
 			throws DatenhaltungsException {
 		
@@ -118,6 +140,7 @@ public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 		}
 	}
 	
+	@Override
 	public void kontoSaldoaendern(DepotTO kontoTO)
 		throws DatenhaltungsException {
 
@@ -135,6 +158,7 @@ public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 	}
 
 
+	@Override
 	public int maxKontonummer() throws DatenhaltungsException {
 		Connection aConnection = Persistence.getConnection();
 		ResultSet resultSet;
@@ -154,11 +178,12 @@ public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 		}
 	}
 	
+	@Override
 	public int generiereVorgangsnummer() throws DatenhaltungsException {
 		Connection aConnection = Persistence.getConnection();
 		ResultSet resultSet;
 		try{
-			resultSet = Persistence.executeQueryStatement(aConnection, "SELECT max(vorgangsnummer) as max FROM vorgangsnummern");
+			resultSet = Persistence.executeQueryStatement(aConnection, "SELECT max(wpt_nr) as max FROM ha1_dv_wptransaktion");
 			if(resultSet.next()){
 				return resultSet.getInt("max");
 			}else{
@@ -170,6 +195,7 @@ public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 		}
 	}
 
+	@Override
 	public ArrayList<WertpapierTO> getWertpapiere() throws DatenhaltungsException{
 		ArrayList<WertpapierTO> wps = new ArrayList<WertpapierTO>();
 		
@@ -178,10 +204,10 @@ public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 		
 		try{
 			resultSet = Persistence.executeQueryStatement(aConnection, "SELECT * from ha1_dv_wertpapier");
-			if(resultSet.next()){
+			while(resultSet.next()){
 				WertpapierTO wp = new WertpapierTO();
 				wp.setNummer(resultSet.getInt("WP_NR"));
-				wp.setArt(resultSet.getString("ART").toCharArray()[0]);
+				wp.setArt(resultSet.getString("ART"));
 				wp.setBezeichnung(resultSet.getString("BEZ"));
 				wps.add(wp);
 			}
@@ -191,9 +217,113 @@ public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 		}
 		return wps;
 	}
+	
+	public String getWertpapierBezeichnungFuerNuemmer(int nummer) throws DatenhaltungsException{
+		Connection aConnection = Persistence.getConnection();
+		ResultSet resultSet;
+		
+		try{
+			resultSet = Persistence.executeQueryStatement(aConnection, "SELECT bez FROM ha1_dv_wertpapier WHERE wp_nr = " + nummer);
+			
+			if(resultSet.next()){
+				return resultSet.getString("bez");
+			}
+		}catch (SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(aConnection);
+		}
+		return null;
+	}
 
 
-
-
-
+	@Override
+	public ArrayList<BestandContainerTO> wertpapierBestandFuerDepot(int depotnummer)
+			throws DatenhaltungsException {
+		
+		Connection aConnection = Persistence.getConnection();
+		ResultSet resultSet;
+		
+		ArrayList<Integer> wertpapiernummern = new ArrayList<Integer>();
+		ArrayList<BestandContainerTO> bcs = new ArrayList<BestandContainerTO>();
+		
+		try{
+			// Alle Wertpapiernummern auslesen
+			resultSet = Persistence.executeQueryStatement(aConnection, "SELECT DISTINCT wp_nr FROM ha1_dv_wptransaktion WHERE d_nr = " + depotnummer);
+			
+			while(resultSet.next()){
+				wertpapiernummern.add(resultSet.getInt("wp_nr"));
+			}
+			
+			// Für jedes Wertpapier den Bestand ausrechnen
+			for(Integer i : wertpapiernummern){
+				int summeMenge = 0;
+				double summeWert = 0.0;
+				
+				// Summe der Gekauften
+				resultSet = Persistence.executeQueryStatement(aConnection, "SELECT * FROM ha1_dv_wptransaktion WHERE TART = 'K' AND wp_nr = " + i);
+				while(resultSet.next()){
+					summeMenge += resultSet.getInt("menge");
+					summeWert += (resultSet.getInt("menge") * resultSet.getDouble("preis"));
+				}
+				
+				// Summe der Verkauften
+				resultSet = Persistence.executeQueryStatement(aConnection, "SELECT * FROM ha1_dv_wptransaktion WHERE TART = 'V' AND wp_nr = " + i);
+				while(resultSet.next()){
+					summeMenge -= resultSet.getInt("menge");
+					summeWert -= resultSet.getInt("menge") * resultSet.getDouble("preis");
+				}
+				
+				BestandContainerTO bc = new BestandContainerTO();
+				bc.setNummer(i);
+				bc.setMenge(summeMenge);
+				bc.setSumme(summeWert);
+				bc.setBezeichung(this.getWertpapierBezeichnungFuerNuemmer(i));
+				
+				bcs.add(bc);
+			}
+		
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(aConnection);
+		}
+		
+		return bcs;
+	}
+	
+	public ArrayList<WertpapiertransaktionTO> wertpapierHistorieFuerDepot(int depotnummer) throws DatenhaltungsException{
+		ArrayList<WertpapiertransaktionTO> wps = new ArrayList<WertpapiertransaktionTO>();
+		
+		Connection aConnection = Persistence.getConnection();
+		ResultSet resultSet;
+		
+		try{
+			resultSet = Persistence.executeQueryStatement(aConnection, "SELECT * FROM ha1_dv_wptransaktion WHERE d_nr = " + depotnummer);
+			
+			while(resultSet.next()){
+				WertpapiertransaktionTO wpt = new WertpapiertransaktionTO();
+				WertpapierTO wp = new WertpapierTO();
+				
+				wpt.setVorgangsnummer(resultSet.getInt("wpt_nr"));
+				wpt.setPreis(resultSet.getDouble("preis"));
+				wpt.setMenge(resultSet.getInt("menge"));
+				wpt.setDate(resultSet.getString("datum"));
+				wpt.setTyp(resultSet.getString("tart").charAt(0));
+				
+				wp.setNummer(resultSet.getInt("wp_nr"));
+				wpt.setWertpapierTO(wp);
+				
+				wps.add(wpt);
+			}
+		}catch (SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(aConnection);
+		}
+		return wps;
+	}
 }

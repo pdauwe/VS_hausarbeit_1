@@ -13,7 +13,7 @@ public class WertpapierTO implements Serializable {
 	private static final long serialVersionUID = 1367117351536721L;
 	private int nummer;
 	private String bezeichnung;
-	private char art;
+	private String art;
 	
 	
 	public WertpapierTO(){
@@ -36,11 +36,16 @@ public class WertpapierTO implements Serializable {
 	public void setBezeichnung(String bezeichnung) {
 		this.bezeichnung = bezeichnung;
 	}
-	public char getArt() {
+	public String getArt() {
 		return art;
 	}
-	public void setArt(char art) {
+	public void setArt(String art) {
 		this.art = art;
+	}
+	
+	@Override
+	public String toString(){
+		return this.bezeichnung;
 	}
 	
 	

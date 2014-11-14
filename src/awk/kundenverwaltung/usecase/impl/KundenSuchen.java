@@ -10,6 +10,7 @@ import awk.kundenverwaltung.usecase.IKundenSuchen;
 
 public class KundenSuchen implements IKundenSuchen{
 	
+	@Override
 	public Collection<KundeTO> kundenSuchenByName(String vorname, String nachname) throws AnwendungskernException {
 		KundenManager einKundenManager =  KundenManager.getKundenManager();
 		Collection<Kunde> kundenliste = einKundenManager.kundeSuchenByName(nachname, vorname); 
@@ -23,6 +24,16 @@ public class KundenSuchen implements IKundenSuchen{
 			
 			return kundenTOliste;
 		}
+	}
+
+	@Override
+	public KundeTO kundenSuchenByBenutzerkennungUndPasswort(
+			String benutzerkennung, String passwort)
+			throws AnwendungskernException {
+		
+		KundenManager kundenManager = KundenManager.getKundenManager();
+		Kunde k = kundenManager.kundeSuchenByBenutzerkennungUndPasswort(benutzerkennung, passwort);
+		return k.toKundeTO();
 	}
 
 }

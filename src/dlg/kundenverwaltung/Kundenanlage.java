@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.WindowConstants;
 
 import awk.AnwendungskernException;
 import awk.kundenverwaltung.usecase.IKundenPflegenRemote;
@@ -66,6 +67,7 @@ public class Kundenanlage extends JFrame {
 	 */
 	public static void main(final IKundenPflegenRemote kundenPflegen2) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					Kundenanlage frame = new Kundenanlage(kundenPflegen2);
@@ -83,7 +85,7 @@ public class Kundenanlage extends JFrame {
 	 */
 	public Kundenanlage(final IKundenPflegenRemote kundenPflegen) {
 		this.kundenPflegen = kundenPflegen;
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setBounds(0, 0, 461, 365);
 		this.setPreferredSize(new java.awt.Dimension(461, 360));
 		this.setSize(461, 360);
@@ -159,6 +161,7 @@ public class Kundenanlage extends JFrame {
 		
 		JButton jb_anlegen = new JButton("Anlegen");
 		jb_anlegen.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
 					actionPerformedKundeAnlegen(e);

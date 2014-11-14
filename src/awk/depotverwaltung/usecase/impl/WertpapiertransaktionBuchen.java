@@ -5,8 +5,10 @@ import java.util.Date;
 
 import awk.AnwendungskernException;
 import awk.DatenhaltungsException;
+import awk.depotverwaltung.entity.BestandContainerTO;
 import awk.depotverwaltung.entity.DepotTO;
 import awk.depotverwaltung.entity.WertpapierTO;
+import awk.depotverwaltung.entity.WertpapiertransaktionTO;
 import awk.depotverwaltung.entity.internal.Depot;
 import awk.depotverwaltung.entity.internal.Wertpapier;
 import awk.depotverwaltung.entity.internal.Wertpapiertransaktion;
@@ -22,6 +24,7 @@ public class WertpapiertransaktionBuchen implements IWertpapiertransaktionBuchen
 	public WertpapiertransaktionBuchen( ) {
 	}
 	
+	@Override
 	public DepotTO depotSuchen (int depotNr) throws AnwendungskernException {
 		DepotManager einDepotManager = DepotManager.getDepotManager();
 		Depot einDepot = einDepotManager.depotSuchenByNr(depotNr);
@@ -41,6 +44,7 @@ public class WertpapiertransaktionBuchen implements IWertpapiertransaktionBuchen
 		return einDepotTO;
 	}
 	
+	@Override
 	public boolean wertpapierBuchen (int depotnr, Wertpapier wertpapier, double preis, char art, int menge, int boersenplatz, String datum) throws AnwendungskernException {
 		
 		DepotManager einDepotManager = DepotManager.getDepotManager();
@@ -58,7 +62,7 @@ public class WertpapiertransaktionBuchen implements IWertpapiertransaktionBuchen
 			
 			try{
 				int vorgangsnummer = einDepotManager.getDatenverwalter().generiereVorgangsnummer();
-				Wertpapiertransaktion wpt = new Wertpapiertransaktion(einDepot, art, preis, menge, vorgangsnummer, today, wertpapier, boersenplatz);
+				Wertpapiertransaktion wpt = new Wertpapiertransaktion(einDepot, art, preis, menge, vorgangsnummer+1, today, wertpapier, boersenplatz);
 				einDepotManager.getDatenverwalter().wertpapiertransaktionAnlegen(depotnr, wpt.toWertpapiertransaktionTO());
 			}catch (DatenhaltungsException e){
 				e.printStackTrace();
@@ -71,11 +75,35 @@ public class WertpapiertransaktionBuchen implements IWertpapiertransaktionBuchen
 		}
 	}
 	
+	@Override
 	public ArrayList<WertpapierTO> getWertpapiere() throws AnwendungskernException{
 		try {
 			DepotManager depotmanager = DepotManager.getDepotManager();
 			return depotmanager.getWertpapiere();
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public ArrayList<BestandContainerTO> wertpapierBestandFuerDepot(int depotnummer)
+			throws AnwendungskernException {
+		try{
+			DepotManager depotManager = DepotManager.getDepotManager();
+			return depotManager.wertpapierBestandFuerDepotnummer(depotnummer);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public ArrayList<WertpapiertransaktionTO> wertpapierHistorieFuerDepot(int depotnummer) throws AnwendungskernException{
+		try{
+			DepotManager depotmanager = DepotManager.getDepotManager();
+			return depotmanager.wertpapierHistorieFuerDepot(depotnummer);
+		}catch (Exception e){
 			e.printStackTrace();
 		}
 		return null;

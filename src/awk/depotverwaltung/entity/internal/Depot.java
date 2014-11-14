@@ -1,6 +1,6 @@
 package awk.depotverwaltung.entity.internal;
 
-import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -12,12 +12,11 @@ import awk.kundenverwaltung.factory.IKundenverwaltungFactory;
 import awk.kundenverwaltung.factory.impl.KundenverwaltungFactory;
 import awk.kundenverwaltung.usecase.IKontoRegistrieren;
 
-public class Depot implements Serializable{
+public class Depot{
 	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -1791762923927701475L;
 	private final int depotNr;
 	private String eroeffnungsdatum;
 	

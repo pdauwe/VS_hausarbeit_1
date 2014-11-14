@@ -20,10 +20,12 @@ public class Adresse implements Serializable{
 		this.ort = ort;
 	}
 	
+	@Override
 	public String toString () {
 		return this.str + " " + this.nr + ", " +this.plz + " " + this.ort;
 	}
 	
+	@Override
 	public boolean equals (Object o) {
 		Adresse a = (Adresse) o;
 		return 

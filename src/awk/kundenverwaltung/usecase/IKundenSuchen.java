@@ -9,6 +9,8 @@ public interface IKundenSuchen {
 	
 	public Collection<KundeTO> kundenSuchenByName (String vorname, String nachname) 
 	throws AnwendungskernException;
+	
+	public KundeTO kundenSuchenByBenutzerkennungUndPasswort (String benutzerkennung, String passwort) throws AnwendungskernException;
 
 }
 

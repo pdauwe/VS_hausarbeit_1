@@ -13,8 +13,9 @@ import awk.depotverwaltung.usecase.IDepotPflegenRemote;
 import awk.depotverwaltung.usecase.IWertpapiertransaktionBuchenRemote;
 import awk.kundenverwaltung.factory.IKundenverwaltungRemoteFactory;
 import awk.kundenverwaltung.factory.impl.KundenverwaltungRemoteFactory;
-
 import awk.kundenverwaltung.usecase.IKundenPflegenRemote;
+import awk.kundenverwaltung.usecase.IKundenSuchenRemote;
+import awk.kundenverwaltung.usecase.IKundenlisteErstellenRemote;
 
 
 public class StartServer {
@@ -27,18 +28,25 @@ public class StartServer {
 		/* 2. Implementierung der benoetigten Use Cases beziehen */
 		
 		IKundenPflegenRemote kundenPflegenRemote = kundenvf.getKundenPflegenRemote();
-		
+		IKundenlisteErstellenRemote kundenlisteErstellenRemote = kundenvf.getKundenlisteErstellenRemote();
 		IDepotPflegenRemote kontenPflegenRemote = kontenvf.getDepotPflegenRemote();
 		IWertpapiertransaktionBuchenRemote kontobewegungBuchenRemote = kontenvf.getKontobewegungBuchenRemote();
 	
+		IKundenSuchenRemote kundenSuchenRemote = kundenvf.getKundenSuchenRemote();
+		
 		/* 3. Implementierungen extern verfuebar machen */
 		IKundenPflegenRemote stubKundenPflegenRemote =
 				(IKundenPflegenRemote) UnicastRemoteObject.exportObject(kundenPflegenRemote,0);
+		
+		IKundenlisteErstellenRemote stubKundenlisteErstellenRemote = 
+				(IKundenlisteErstellenRemote) UnicastRemoteObject.exportObject(kundenlisteErstellenRemote, 0);
 		
 		IDepotPflegenRemote stubKontenPflegenRemote =
 				(IDepotPflegenRemote) UnicastRemoteObject.exportObject(kontenPflegenRemote,0);
 		IWertpapiertransaktionBuchenRemote stubKontobewegungBuchenRemote =
 				(IWertpapiertransaktionBuchenRemote) UnicastRemoteObject.exportObject(kontobewegungBuchenRemote,0);
+		
+		IKundenSuchenRemote stubKundenSuchenRemote = (IKundenSuchenRemote) UnicastRemoteObject.exportObject(kundenSuchenRemote,0);
 		
 		/* Namensdienst starten und Remote Objekte dort anmelden */
 		
@@ -47,9 +55,12 @@ public class StartServer {
 		Registry registry = LocateRegistry.getRegistry();
 		
 		registry.rebind("kundenPflegen", stubKundenPflegenRemote);
+		registry.rebind("kundenlisteErstellen", stubKundenlisteErstellenRemote);
 
 		registry.rebind("kontenPflegen", stubKontenPflegenRemote);
-		registry.rebind("kontobewegungBuchen", stubKontobewegungBuchenRemote);
+		registry.rebind("wpbuchen", stubKontobewegungBuchenRemote);
+		
+		registry.rebind("kundenSuchen", stubKundenSuchenRemote);
 	}
 }
 

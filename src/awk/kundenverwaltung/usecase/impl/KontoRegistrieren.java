@@ -6,6 +6,7 @@ import awk.kundenverwaltung.usecase.IKontoRegistrieren;
 
 public class KontoRegistrieren implements IKontoRegistrieren {
 	
+	@Override
 	public void kontoHinzufuegen(int kundennummer, int kontonummer) throws AnwendungskernException {
 		KundenManager kundenmanager = KundenManager.getKundenManager();
 			Kunde einKunde = kundenmanager.kundeSuchenByNr(kundennummer);

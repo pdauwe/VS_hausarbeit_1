@@ -1,9 +1,11 @@
 package awk.kundenverwaltung.persistence;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import awk.DatenhaltungsException;
 import awk.kundenverwaltung.entity.KundeTO;
+import awk.kundenverwaltung.entity.PrivatkundeTO;
 
 public interface IKundenDatenzugriff {
 	
@@ -12,5 +14,6 @@ public interface IKundenDatenzugriff {
 	public Collection<KundeTO> kundendatenSuchenByAttribute (KundeTO kundeTO)throws DatenhaltungsException;
 	public KundeTO kundeSuchenFuerLoginUndPasswort(String benutzerkennung, String passwort) throws DatenhaltungsException;
 	public int getMaxKundennummer() throws DatenhaltungsException;
+	public ArrayList<PrivatkundeTO> getKundenListe() throws DatenhaltungsException;
 
 }

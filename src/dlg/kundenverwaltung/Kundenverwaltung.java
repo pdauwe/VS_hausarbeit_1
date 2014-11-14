@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 
@@ -30,6 +31,7 @@ public class Kundenverwaltung extends JFrame {
 			) {
 		
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					Kundenverwaltung frame = new Kundenverwaltung(kundenPflegen2);
@@ -47,7 +49,7 @@ public class Kundenverwaltung extends JFrame {
 	 */
 	public Kundenverwaltung(
 			IKundenPflegenRemote kundenPflegen1) {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.kundenPflegen = kundenPflegen1;
 
 		
@@ -59,6 +61,7 @@ public class Kundenverwaltung extends JFrame {
 		
 		JButton btnKundeAnlegen = new JButton("Kunde anlegen");
 		btnKundeAnlegen.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				actionPerformedKundenanlage(arg0);
 			}

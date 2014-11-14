@@ -7,14 +7,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 
-import dlg.depotverwaltung.Kontenverwaltung;
-import dlg.depotverwaltung.Kontoanlage;
+import dlg.depotverwaltung.Depotanlage;
 import dlg.depotverwaltung.WertpapiertransaktionErfassung;
 import dlg.kundenverwaltung.Kundenanlage;
-import dlg.kundenverwaltung.Kundenverwaltung;
 import awk.depotverwaltung.usecase.IDepotPflegenRemote;
 import awk.depotverwaltung.usecase.IWertpapiertransaktionBuchenRemote;
 import awk.kundenverwaltung.usecase.IKundenPflegenRemote;
+import awk.kundenverwaltung.usecase.IKundenlisteErstellenRemote;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -33,11 +32,12 @@ public class MitarbeiterMenue extends JFrame {
 	 */
 	public static void main(final IKundenPflegenRemote kundenPflegen,
 			final IDepotPflegenRemote depotPflegen,
-			final IWertpapiertransaktionBuchenRemote wertpapiertransaktionBuchen) {
+			final IWertpapiertransaktionBuchenRemote wertpapiertransaktionBuchen, final IKundenlisteErstellenRemote kundenlisteErstellenRemote) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
-					MitarbeiterMenue frame = new MitarbeiterMenue(kundenPflegen, depotPflegen, wertpapiertransaktionBuchen);
+					MitarbeiterMenue frame = new MitarbeiterMenue(kundenPflegen, depotPflegen, wertpapiertransaktionBuchen, kundenlisteErstellenRemote);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,7 +52,8 @@ public class MitarbeiterMenue extends JFrame {
 	public MitarbeiterMenue(
 			final IKundenPflegenRemote kundenPflegen,
 			final IDepotPflegenRemote depotPflegen,
-			final IWertpapiertransaktionBuchenRemote wertpapiertransaktionBuchen
+			final IWertpapiertransaktionBuchenRemote wertpapiertransaktionBuchen,
+			final IKundenlisteErstellenRemote kundenlisteErstellenRemote
 			) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -62,6 +63,7 @@ public class MitarbeiterMenue extends JFrame {
 		
 		JButton btnKundenAnlegen = new JButton("Kunden anlegen");
 		btnKundenAnlegen.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				Kundenanlage.main(kundenPflegen);
 			}
@@ -71,14 +73,16 @@ public class MitarbeiterMenue extends JFrame {
 		
 		JButton btnDepotAnlegen = new JButton("Depot anlegen");
 		btnDepotAnlegen.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
-				Kontoanlage.main(depotPflegen);
+				Depotanlage.main(depotPflegen, kundenlisteErstellenRemote);
 			}
 		});
 		contentPane.add(btnDepotAnlegen);
 		
 		JButton btnWertpapiertransaktion = new JButton("Neue Wertpapiertransaktion anlegen");
 		btnWertpapiertransaktion.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				WertpapiertransaktionErfassung.main(wertpapiertransaktionBuchen);
 			}

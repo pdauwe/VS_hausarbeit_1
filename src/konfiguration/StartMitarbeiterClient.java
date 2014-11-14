@@ -1,3 +1,4 @@
+
 package konfiguration;
 
 import java.rmi.AccessException;
@@ -10,8 +11,9 @@ import dlg.menue.MitarbeiterMenue;
 import awk.depotverwaltung.usecase.IDepotPflegenRemote;
 import awk.depotverwaltung.usecase.IWertpapiertransaktionBuchenRemote;
 import awk.kundenverwaltung.usecase.IKundenPflegenRemote;
+import awk.kundenverwaltung.usecase.IKundenlisteErstellenRemote;
 
-public class StartClient {
+public class StartMitarbeiterClient {
 
 	
 	public static void main(String[] args) throws AccessException, RemoteException, NotBoundException {
@@ -21,12 +23,14 @@ public class StartClient {
 		IKundenPflegenRemote kundenPflegenRemote = 
 			(IKundenPflegenRemote) registry.lookup("kundenPflegen");
 		
+		IKundenlisteErstellenRemote kundenlisteErstellen = (IKundenlisteErstellenRemote) registry.lookup("kundenlisteErstellen");
+		
 		IDepotPflegenRemote kontenPflegenRemote = 
 			(IDepotPflegenRemote) registry.lookup("kontenPflegen");
 		IWertpapiertransaktionBuchenRemote kontobewegungBuchenRemote = 
-			(IWertpapiertransaktionBuchenRemote) registry.lookup("kontobewegungBuchen");
+			(IWertpapiertransaktionBuchenRemote) registry.lookup("wpbuchen");
 				
-		MitarbeiterMenue.main(kundenPflegenRemote, kontenPflegenRemote, kontobewegungBuchenRemote);
+		MitarbeiterMenue.main(kundenPflegenRemote, kontenPflegenRemote, kontobewegungBuchenRemote, kundenlisteErstellen);
 	}
 
 }

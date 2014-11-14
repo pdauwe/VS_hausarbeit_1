@@ -7,6 +7,7 @@ import awk.kundenverwaltung.usecase.IKundeninformationFuerNr;
 
 public class KundeninformationFuerNr implements IKundeninformationFuerNr {
 
+	@Override
 	public KundeTO kundeSuchenByNr(int nummer) throws AnwendungskernException {
 		KundenManager einKundenManager =  KundenManager.getKundenManager();
 		Kunde einKunde = einKundenManager.kundeSuchenByNr(nummer); 

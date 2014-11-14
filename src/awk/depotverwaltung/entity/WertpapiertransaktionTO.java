@@ -21,6 +21,10 @@ public class WertpapiertransaktionTO implements Serializable{
 	/*Konstruktor zur Erzeugung eines TO-Geflechts (DepotTO / Wertpapiertransaktion TO)
 	 * aus dem Entitaetsgeflecht Depot / Wertpapiertransaktion */
 	
+	public WertpapiertransaktionTO(){
+		
+	}
+	
 	public WertpapiertransaktionTO(DepotTO depotTO, char typ, double preis, int menge, int vorgangsnummer, String date, WertpapierTO wertpapierTO, int boersenplatz) {
 		this.typ = typ;
 		this.preis = preis;

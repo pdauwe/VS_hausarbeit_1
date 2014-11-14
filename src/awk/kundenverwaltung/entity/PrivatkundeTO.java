@@ -14,6 +14,7 @@ public class PrivatkundeTO extends KundeTO {
 	private String passwort;
 	private String geburtsdatum;
 	
+	@Override
 	public Kunde toKunde() {
 		Kunde kunde = new Privatkunde(
 				this.getKundennummer(),

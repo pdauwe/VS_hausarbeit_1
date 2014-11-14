@@ -115,5 +115,27 @@ public class KundenManager {
 		return ergebnisliste;
 	}
 	
+	public Kunde kundeSuchenByBenutzerkennungUndPasswort (String benutzerkennung, String passwort) throws AnwendungskernException{
+		KundeTO suchKunde = new PrivatkundeTO();
+		
+		try{
+			suchKunde = this.einDatenverwalter.kundeSuchenFuerLoginUndPasswort(benutzerkennung, passwort);
+		}catch(DatenhaltungsException e){
+			e.printStackTrace();
+			throw new AnwendungskernException();
+		}
+		
+		return suchKunde.toKunde();
+	}
+	
+	public ArrayList<PrivatkundeTO> kundenlisteErstellen() throws AnwendungskernException{
+		try{
+			return this.einDatenverwalter.getKundenListe();
+		}catch(DatenhaltungsException e){
+			e.printStackTrace();
+			throw new AnwendungskernException();
+		}
+	}
+	
 		
 }

@@ -22,6 +22,7 @@ public class Boersenplatz {
 		return bezeichnung;
 	}
 	
+	@Override
 	public String toString(){
 		return this.bezeichnung;
 	}

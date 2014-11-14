@@ -11,6 +11,7 @@ public class KundenPflegenRemote implements IKundenPflegenRemote{
 	public KundenPflegenRemote( ) {
 	}
 
+	@Override
 	public boolean privatkundeAnlegenR(String vorname, String nachname, String str,
 			String nr, String plz, String ort, String geschlecht, String benutzerkennung, String passwort, String geburtsdatum) throws AnwendungskernException, RemoteException {
 		KundenPflegen kundenPflegen = new KundenPflegen();

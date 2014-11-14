@@ -9,9 +9,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.WindowConstants;
 
 import awk.AnwendungskernException;
 import awk.depotverwaltung.usecase.IDepotPflegenRemote;
+import awk.kundenverwaltung.usecase.IKundenlisteErstellenRemote;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -20,7 +22,7 @@ import java.rmi.RemoteException;
 
 import javax.swing.Box;
 
-public class Kontoanlage extends JFrame {
+public class Depotanlage extends JFrame {
 
 	/**
 	 * 
@@ -31,15 +33,17 @@ public class Kontoanlage extends JFrame {
 	private JTextField tf_kontonummer;
 
 	private IDepotPflegenRemote kontenPflegen;
+	private IKundenlisteErstellenRemote kundenlisteErstellenRemote;
 	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(final IDepotPflegenRemote kontenPflegen2) {
+	public static void main(final IDepotPflegenRemote kontenPflegen2, final IKundenlisteErstellenRemote kundenlisteErstellenRemote) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
-					Kontoanlage frame = new Kontoanlage(kontenPflegen2);
+					Depotanlage frame = new Depotanlage(kontenPflegen2, kundenlisteErstellenRemote);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,11 +55,12 @@ public class Kontoanlage extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Kontoanlage(IDepotPflegenRemote kontenPflegen) {
+	public Depotanlage(IDepotPflegenRemote kontenPflegen, IKundenlisteErstellenRemote kundenlisteErstellenRemote) {
 		
 		this.kontenPflegen = kontenPflegen;
+		this.kundenlisteErstellenRemote = kundenlisteErstellenRemote;
 		
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -84,6 +89,7 @@ public class Kontoanlage extends JFrame {
 		
 		JButton btnKontoAnlegen = new JButton("Konto anlegen");
 		btnKontoAnlegen.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
 					actionPerformedKontoAnlegen(e);
@@ -102,6 +108,19 @@ public class Kontoanlage extends JFrame {
 		Component horizontalStrut_1 = Box.createHorizontalStrut(20);
 		horizontalStrut_1.setBounds(23, 55, 420, 60);
 		contentPane.add(horizontalStrut_1);
+		
+		JButton btnKundenliste = new JButton("Kundenliste");
+		btnKundenliste.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try{
+					actionPerformedKundenlisteAnzeigen(e);
+				}catch(RemoteException e1){
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnKundenliste.setBounds(326, 16, 117, 29);
+		contentPane.add(btnKundenliste);
 	}
 
 	protected void actionPerformedKontoAnlegen(ActionEvent evt) throws RemoteException {
@@ -120,5 +139,9 @@ public class Kontoanlage extends JFrame {
 		else
 			tf_kontonummer.setText(String.valueOf(kontoNr));
 		
+	}
+	
+	protected void actionPerformedKundenlisteAnzeigen(ActionEvent evt) throws RemoteException {
+		KundenlisteAnzeigen.main(this.kundenlisteErstellenRemote);
 	}
 }

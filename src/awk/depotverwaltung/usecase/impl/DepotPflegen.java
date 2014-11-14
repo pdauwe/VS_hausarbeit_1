@@ -14,6 +14,7 @@ public class DepotPflegen implements IDepotPflegen{
 	public DepotPflegen( ) {
 	}
 
+	@Override
 	public int depotAnlegen(int kundenNr) throws AnwendungskernException {
 		
 		DepotManager einDepotManager = DepotManager.getDepotManager();

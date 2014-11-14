@@ -32,7 +32,7 @@ public class Wertpapiertransaktion implements Serializable{
 		this.boersenplatz = boersenplatz;
 	}
 	public WertpapiertransaktionTO toWertpapiertransaktionTO() {
-		return new WertpapiertransaktionTO(null, this.getTyp(), this.getPreis(), this.getMenge(), this.getVorgangsnummer(), this.getDate(), null, this.getBoersenplatz());
+		return new WertpapiertransaktionTO(null, this.getTyp(), this.getPreis(), this.getMenge(), this.getVorgangsnummer(), this.getDate(), this.wertpapier.toWertpapierTO(), this.getBoersenplatz());
 	}
 	public char getTyp() {
 		return typ;

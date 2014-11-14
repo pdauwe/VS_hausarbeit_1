@@ -17,6 +17,7 @@ public class KundenDatenzugriff_DAO_Db_Einzelsatz implements IKundenDatenzugriff
 
 	
 
+	@Override
 	public void kundendatenAnlegen(KundeTO kundeTO)
 			throws DatenhaltungsException {
 		Connection aConnection = Persistence.getConnection();
@@ -57,6 +58,7 @@ public class KundenDatenzugriff_DAO_Db_Einzelsatz implements IKundenDatenzugriff
 	
 	}
 
+	@Override
 	public KundeTO kundendatenSuchenByKey(int nummer)
 			throws DatenhaltungsException {
 		
@@ -95,6 +97,7 @@ public class KundenDatenzugriff_DAO_Db_Einzelsatz implements IKundenDatenzugriff
 	}
 	
 	
+	@Override
 	public Collection<KundeTO> kundendatenSuchenByAttribute(KundeTO kundeTO)
 		throws DatenhaltungsException {
 
@@ -202,6 +205,7 @@ public class KundenDatenzugriff_DAO_Db_Einzelsatz implements IKundenDatenzugriff
 	}
 
 	
+	@Override
 	public KundeTO kundeSuchenFuerLoginUndPasswort(String benutzerkennung, String passwort) throws DatenhaltungsException{
 		Connection aConnection = Persistence.getConnection();
 		ResultSet resultSet;
@@ -210,17 +214,17 @@ public class KundenDatenzugriff_DAO_Db_Einzelsatz implements IKundenDatenzugriff
 			resultSet = 
 				Persistence.executeQueryStatement(
 					aConnection, 
-					"SELECT * FROM kundenverw_privatkunde WHERE benutzerkennung =" + benutzerkennung + "AND passwort =" + passwort);
+					"SELECT * FROM ha1_kv_kunde WHERE benutzerkennung = '" + benutzerkennung + "'" + "AND passwort = '" + passwort+"'");
 				if (resultSet.next()) {
 					kundeTO = this.resultToKundeTO(resultSet, 'P');
 					resultSet = 
 						Persistence.executeQueryStatement(aConnection, 
 								"SELECT * " +
-								"FROM kundenverw_kontonummer " +
-								"WHERE cusnumber = " + kundeTO.getKundennummer());
+								"FROM ha1_kv_depotnummern " +
+								"WHERE k_nr = " + kundeTO.getKundennummer());
 					
 					while (resultSet.next())
-						kundeTO.getDepots().add(resultSet.getInt("ACCOUNTNR"));
+						kundeTO.getDepots().add(resultSet.getInt("d_nr"));
 					
 					return kundeTO;
 				}
@@ -235,6 +239,7 @@ public class KundenDatenzugriff_DAO_Db_Einzelsatz implements IKundenDatenzugriff
 		}
 	}
 
+	@Override
 	public int getMaxKundennummer() throws DatenhaltungsException {
 		
 		Connection aConnection = Persistence.getConnection();
@@ -255,7 +260,33 @@ public class KundenDatenzugriff_DAO_Db_Einzelsatz implements IKundenDatenzugriff
 		
 		return max + 1;
 	}
-	
-	
+
+	@Override
+	public ArrayList<PrivatkundeTO> getKundenListe() throws DatenhaltungsException {
+		
+		Connection aConnection = Persistence.getConnection();
+		ResultSet resultSet;
+		ArrayList<PrivatkundeTO> kunden = new ArrayList<PrivatkundeTO>();
+		try{
+			resultSet = Persistence.executeQueryStatement(aConnection, "SELECT k_nr, vorname, nachname, geburtsdatum FROM ha1_kv_kunde");
+			
+			while(resultSet.next()){
+				PrivatkundeTO k = new PrivatkundeTO();
+				k.setKundennummer(resultSet.getInt("k_nr"));
+				k.setVorname(resultSet.getString("vorname"));
+				k.setNachname(resultSet.getString("nachname"));
+				k.setGeburtsdatum(resultSet.getString("geburtsdatum"));
+				
+				kunden.add(k);
+			}
+			
+			return kunden;
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new DatenhaltungsException();
+		}finally{
+			Persistence.closeConnection(aConnection);
+		}
+	}
 
 }

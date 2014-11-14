@@ -33,6 +33,7 @@ public class KundenPflegen implements IKundenPflegen{
 		return true;
 	}
 
+	@Override
 	public boolean privatkundeAnlegen(String vorname, String nachname, String str,
 			String nr, String plz, String ort, String geschlecht, String benutzername, String passwort, String geburtsdatum) throws AnwendungskernException {
 		

@@ -39,6 +39,7 @@ public class Privatkunde extends Kunde implements Serializable{
 		
 	}
 	
+	@Override
 	public PrivatkundeTO toKundeTO() {
 		
 		PrivatkundeTO privatKundenTO = new PrivatkundeTO();
