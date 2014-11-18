@@ -33,8 +33,8 @@ public abstract class Kunde implements Serializable{
 		this.adresse = new Adresse (
 				einKundenTO.getStr(),einKundenTO.getNr(), einKundenTO.getPlz(), einKundenTO.getOrt());
 		this.depots = new ArrayList<Integer>();
-		for (Integer kontonr:einKundenTO.getDepots()) {
-			this.depots.add(kontonr);
+		for (Integer depotnr:einKundenTO.getDepots()) {
+			this.depots.add(depotnr);
 		}
 		
 	}

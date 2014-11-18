@@ -3,8 +3,10 @@ package awk.kundenverwaltung.persistence.impl;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import awk.Persistence.Persistence;
 import awk.kundenverwaltung.entity.KundeTO;
@@ -23,9 +25,8 @@ public class KundenDatenzugriff_DAO_Db_Einzelsatz implements IKundenDatenzugriff
 		Connection aConnection = Persistence.getConnection();
 		try {
 			PrivatkundeTO privatkundeTO = (PrivatkundeTO) kundeTO;
-			
-			
-			//oracle.sql.DATE sqlDate = new oracle.sql.DATE(privatkundeTO.getGeburtsdatum());
+		
+			String geburtstagsString =  new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(privatkundeTO.getGeburtsdatum());
 			
 			Persistence.executeUpdateStatement(
 					aConnection, 
@@ -39,16 +40,9 @@ public class KundenDatenzugriff_DAO_Db_Einzelsatz implements IKundenDatenzugriff
 							"'"+ privatkundeTO.getNr() + "'," +
 							"'"+ privatkundeTO.getPlz() + "'," +
 							"'"+ privatkundeTO.getOrt() + "'," +
-							"'"+ privatkundeTO.getGeburtsdatum() + "'," +
+							"'"+ geburtstagsString + "'," +
 							"'"+ privatkundeTO.getGeschlecht() + "')"
 							);
-				
-			
-//				for (Integer depotnr:kundeTO.getDepots()) {
-//					Persistence.executeUpdateStatement(aConnection,
-//							"INSERT INTO ha1_kv_depotnummern VALUES (" +
-//							"'"+kundeTO.getKundennummer() + "', '" + depotnr + "')"); 
-//				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 				throw new DatenhaltungsException();
@@ -181,19 +175,20 @@ public class KundenDatenzugriff_DAO_Db_Einzelsatz implements IKundenDatenzugriff
 		KundeTO kundeTO;
 		try {
 			privatkundeTO = new PrivatkundeTO();
-			privatkundeTO.setGeschlecht(resultSet.getString("GESCHLECHT"));
-			privatkundeTO.setBenutzerkennung(resultSet.getString("BENUTZERKENNUNG"));
-			privatkundeTO.setPasswort(resultSet.getString("PASSWORT"));
-			privatkundeTO.setGeburtsdatum(resultSet.getString("GEBURTSDATUM"));
+			privatkundeTO.setGeschlecht(resultSet.getString("geschlecht"));
+			privatkundeTO.setBenutzerkennung(resultSet.getString("benutzerkennung"));
+			privatkundeTO.setPasswort(resultSet.getString("passwort"));
+			java.sql.Timestamp geburtstagsTimestamp = resultSet.getTimestamp("geburtsdatum");
+			privatkundeTO.setGeburtsdatum(new Date(geburtstagsTimestamp.getTime()));
 			kundeTO = privatkundeTO;
 			
-			kundeTO.setKundennummer(resultSet.getInt("K_NR"));
-			kundeTO.setNachname(resultSet.getString("NACHNAME"));		
-			kundeTO.setVorname(resultSet.getString("VORNAME"));
-			kundeTO.setStr(resultSet.getString("STRASSE"));
-			kundeTO.setNr(resultSet.getString("HAUSNR"));
-			kundeTO.setPlz(resultSet.getString("PLZ"));
-			kundeTO.setOrt(resultSet.getString("ORT"));
+			kundeTO.setKundennummer(resultSet.getInt("k_nr"));
+			kundeTO.setNachname(resultSet.getString("nachname"));		
+			kundeTO.setVorname(resultSet.getString("vorname"));
+			kundeTO.setStr(resultSet.getString("strasse"));
+			kundeTO.setNr(resultSet.getString("hausnr"));
+			kundeTO.setPlz(resultSet.getString("plz"));
+			kundeTO.setOrt(resultSet.getString("ort"));
 			
 		
 		}  catch (SQLException e) {
@@ -275,7 +270,9 @@ public class KundenDatenzugriff_DAO_Db_Einzelsatz implements IKundenDatenzugriff
 				k.setKundennummer(resultSet.getInt("k_nr"));
 				k.setVorname(resultSet.getString("vorname"));
 				k.setNachname(resultSet.getString("nachname"));
-				k.setGeburtsdatum(resultSet.getString("geburtsdatum"));
+				
+				java.sql.Timestamp geburtstagsTimestamp = resultSet.getTimestamp("geburtsdatum");
+				k.setGeburtsdatum(new Date(geburtstagsTimestamp.getTime()));
 				
 				kunden.add(k);
 			}

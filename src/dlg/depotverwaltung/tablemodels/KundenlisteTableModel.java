@@ -1,6 +1,7 @@
 package dlg.depotverwaltung.tablemodels;
 
 import java.rmi.RemoteException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
@@ -45,7 +46,7 @@ public class KundenlisteTableModel extends AbstractTableModel {
 		case 0: return kunden.get(rowIndex).getKundennummer();
 		case 1: return kunden.get(rowIndex).getVorname();
 		case 2: return kunden.get(rowIndex).getNachname();
-		case 3: return kunden.get(rowIndex).getGeburtsdatum();
+		case 3: return new SimpleDateFormat("dd.MM.yyyy").format(kunden.get(rowIndex).getGeburtsdatum());
 		default: return null;
 		}
 	}

@@ -5,6 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -221,10 +224,9 @@ public class Kundenanlegen extends JFrame {
 		lb_geschlecht.setVisible(true);
 	}
 	
-	private String generateBirthday (String tag, String monat, String jahr) throws ParseException{
-		String dateString = tag + "." + monat + "." + jahr;
-		return dateString;
-		//return new SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY).parse(dateString);
+	private Date generateBirthday (String tag, String monat, String jahr) throws ParseException{
+		String dateString = tag + "-" + monat + "-" + jahr + " 00:00:00";
+		return new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.GERMANY).parse(dateString);
 	}
 	
 	public void actionPerformedKundeAnlegen(ActionEvent evt) throws RemoteException, ParseException {
@@ -237,8 +239,8 @@ public class Kundenanlegen extends JFrame {
 		String ort = tf_ort.getText();
 		String benutzername = tf_Benutzername.getText();
 		String passwort = tf_Passwort.getText();
-		String geburtsdatum = this.generateBirthday(tf_Geburtsdatum_Tag.getText(), tf_Geburtsdatum_Monat.getText(), tf_Geburtsdatum_Jahr.getText());
-		
+		Date geburtsdatum = this.generateBirthday(tf_Geburtsdatum_Tag.getText(), tf_Geburtsdatum_Monat.getText(), tf_Geburtsdatum_Jahr.getText());
+		System.out.println(geburtsdatum);
 		
 		boolean ok = false;
 		String geschlecht = tf_geschlecht.getText();

@@ -1,6 +1,7 @@
 package awk.kundenverwaltung.entity.internal;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import awk.kundenverwaltung.entity.PrivatkundeTO;
 
@@ -13,7 +14,7 @@ public class Privatkunde extends Kunde implements Serializable{
 	private String geschlecht;
 	private String benutzerkennung;
 	private String passwort;
-	private String geburtsdatum;
+	private Date geburtsdatum;
 	
 	public Privatkunde(int kundennummer, String nachname, String vorname, String str, String nr,
 			String plz, String ort, String geschlecht) {
@@ -22,7 +23,7 @@ public class Privatkunde extends Kunde implements Serializable{
 	}
 	
 	public Privatkunde(int kundennummer, String nachname, String vorname, String str, String nr,
-			String plz, String ort, String geschlecht, String benutzerkennung, String passwort, String geburtsdatum) {
+			String plz, String ort, String geschlecht, String benutzerkennung, String passwort, Date geburtsdatum) {
 		super(kundennummer, nachname, vorname, str, nr, plz, ort);
 		this.geschlecht = geschlecht;
 		this.benutzerkennung = benutzerkennung;
@@ -79,11 +80,11 @@ public class Privatkunde extends Kunde implements Serializable{
 		this.benutzerkennung = benutzerkennung;
 	}
 
-	public String getGeburtsdatum(){
+	public Date getGeburtsdatum(){
 		return this.geburtsdatum;
 	}
 	
-	public void setGeburtsdatum(String geburtsdatum){
+	public void setGeburtsdatum(Date geburtsdatum){
 		this.geburtsdatum = geburtsdatum;
 	}
 

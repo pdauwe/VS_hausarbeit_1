@@ -2,6 +2,8 @@ package awk.kundenverwaltung.usecase.impl;
 
 
 
+import java.util.Date;
+
 import awk.AnwendungskernException;
 import awk.DatenhaltungsException;
 import awk.kundenverwaltung.entity.internal.Privatkunde;
@@ -35,7 +37,7 @@ public class KundenPflegen implements IKundenPflegen{
 
 	@Override
 	public boolean privatkundeAnlegen(String vorname, String nachname, String str,
-			String nr, String plz, String ort, String geschlecht, String benutzername, String passwort, String geburtsdatum) throws AnwendungskernException {
+			String nr, String plz, String ort, String geschlecht, String benutzername, String passwort, Date geburtsdatum) throws AnwendungskernException {
 		
 		KundenManager einKundenManager =  KundenManager.getKundenManager();
 		System.out.println("name:"+nachname+" "+vorname+" "+str+" "+nr+" "+plz+" "+ort+" "+geschlecht);
