@@ -10,5 +10,5 @@ import awk.depotverwaltung.usecase.IWertpapiertransaktionBuchenRemote;
 public interface IDepotverwaltungRemoteFactory extends Remote{
 	
 	IDepotPflegenRemote getDepotPflegenRemote() throws RemoteException;
-	IWertpapiertransaktionBuchenRemote getKontobewegungBuchenRemote() throws RemoteException;
+	IWertpapiertransaktionBuchenRemote getWertpapiertransaktionBuchen() throws RemoteException;
 }

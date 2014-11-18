@@ -40,7 +40,7 @@ public class DepotManager {
 	
 	public int naechsteDepotnummerErmitteln () throws AnwendungskernException {
 		try {
-			return this.einDatenverwalter.maxKontonummer() + 1;
+			return this.einDatenverwalter.maxDepotnummer() + 1;
 		} catch (DatenhaltungsException e) {
 			e.printStackTrace();
 			throw new AnwendungskernException();

@@ -14,7 +14,7 @@ public class DepotverwaltungFactory implements IDepotverwaltungFactory{
 	}
 
 	@Override
-	public IWertpapiertransaktionBuchen getKontobewegungBuchen() {	
+	public IWertpapiertransaktionBuchen getWertpapiertransaktionBuchen() {	
 		return new WertpapiertransaktionBuchen();
 	}
 

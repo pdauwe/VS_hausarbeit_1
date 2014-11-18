@@ -25,11 +25,6 @@ public class DepotTO implements Serializable{
 		this.wertpapiertransaktionen = new HashSet<WertpapiertransaktionTO>();
 	}
 	
-	/*
-	 * wandelt Geflecht aus Konto/Kontobewegungen in Geflecht KontoTO/Kontobewegung TO
-	 * Achtung: inhaberNachname und inhaberVorname werden hier nicht gesetzt!
-	 */
-	
 	public Depot toDepot()  throws AnwendungskernException {
 		
 		Depot depot = new Depot(this.depotNr, this.inhaberNr);

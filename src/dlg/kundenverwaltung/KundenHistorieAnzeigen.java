@@ -47,14 +47,14 @@ public class KundenHistorieAnzeigen extends JFrame {
 		this.wpbuchen = wpbuchen;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 700, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(6, 6, 438, 266);
+		scrollPane.setBounds(6, 6, 688, 266);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();

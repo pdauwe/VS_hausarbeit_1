@@ -23,14 +23,14 @@ public class StartServer {
 	public static void main (String args[]) throws AccessException, RemoteException {
 		/* 1. Implementierung der Komponenten des Anwendungskerns aus Factory beziehen */
 		IKundenverwaltungRemoteFactory kundenvf = new KundenverwaltungRemoteFactory();
-		IDepotverwaltungRemoteFactory kontenvf = new DepotverwaltungRemoteFactory();
+		IDepotverwaltungRemoteFactory depotvf = new DepotverwaltungRemoteFactory();
 		
 		/* 2. Implementierung der benoetigten Use Cases beziehen */
 		
 		IKundenPflegenRemote kundenPflegenRemote = kundenvf.getKundenPflegenRemote();
 		IKundenlisteErstellenRemote kundenlisteErstellenRemote = kundenvf.getKundenlisteErstellenRemote();
-		IDepotPflegenRemote kontenPflegenRemote = kontenvf.getDepotPflegenRemote();
-		IWertpapiertransaktionBuchenRemote kontobewegungBuchenRemote = kontenvf.getKontobewegungBuchenRemote();
+		IDepotPflegenRemote depotPflegenRemote = depotvf.getDepotPflegenRemote();
+		IWertpapiertransaktionBuchenRemote wertpapiertransaktionBuchenRemote = depotvf.getWertpapiertransaktionBuchen();
 	
 		IKundenSuchenRemote kundenSuchenRemote = kundenvf.getKundenSuchenRemote();
 		
@@ -41,10 +41,10 @@ public class StartServer {
 		IKundenlisteErstellenRemote stubKundenlisteErstellenRemote = 
 				(IKundenlisteErstellenRemote) UnicastRemoteObject.exportObject(kundenlisteErstellenRemote, 0);
 		
-		IDepotPflegenRemote stubKontenPflegenRemote =
-				(IDepotPflegenRemote) UnicastRemoteObject.exportObject(kontenPflegenRemote,0);
-		IWertpapiertransaktionBuchenRemote stubKontobewegungBuchenRemote =
-				(IWertpapiertransaktionBuchenRemote) UnicastRemoteObject.exportObject(kontobewegungBuchenRemote,0);
+		IDepotPflegenRemote stubDepotPflegenRemote =
+				(IDepotPflegenRemote) UnicastRemoteObject.exportObject(depotPflegenRemote,0);
+		IWertpapiertransaktionBuchenRemote stubWertpapiertransaktionBuchenRemote =
+				(IWertpapiertransaktionBuchenRemote) UnicastRemoteObject.exportObject(wertpapiertransaktionBuchenRemote,0);
 		
 		IKundenSuchenRemote stubKundenSuchenRemote = (IKundenSuchenRemote) UnicastRemoteObject.exportObject(kundenSuchenRemote,0);
 		
@@ -57,8 +57,8 @@ public class StartServer {
 		registry.rebind("kundenPflegen", stubKundenPflegenRemote);
 		registry.rebind("kundenlisteErstellen", stubKundenlisteErstellenRemote);
 
-		registry.rebind("kontenPflegen", stubKontenPflegenRemote);
-		registry.rebind("wpbuchen", stubKontobewegungBuchenRemote);
+		registry.rebind("depotPflegen", stubDepotPflegenRemote);
+		registry.rebind("wpBuchen", stubWertpapiertransaktionBuchenRemote);
 		
 		registry.rebind("kundenSuchen", stubKundenSuchenRemote);
 	}

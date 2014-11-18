@@ -7,5 +7,5 @@ import awk.depotverwaltung.usecase.IWertpapiertransaktionBuchen;
 public interface IDepotverwaltungFactory {
 	
 	IDepotPflegen getDepotPflegen();
-	IWertpapiertransaktionBuchen getKontobewegungBuchen();
+	IWertpapiertransaktionBuchen getWertpapiertransaktionBuchen();
 }

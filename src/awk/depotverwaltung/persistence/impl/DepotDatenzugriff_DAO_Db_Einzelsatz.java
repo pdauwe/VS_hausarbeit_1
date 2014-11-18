@@ -16,7 +16,6 @@ import awk.DatenhaltungsException;
 
 public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 
-	/* liefert komplettes TO-Geflecht Konto/Kontobewegung */
 	@Override
 	public DepotTO depotdatenLesenByKey(int depotnummer) throws DatenhaltungsException {
 			
@@ -139,27 +138,9 @@ public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 			Persistence.closeConnection(aConnection);
 		}
 	}
-	
-	@Override
-	public void kontoSaldoaendern(DepotTO kontoTO)
-		throws DatenhaltungsException {
-
-//		Connection aConnection = Persistence.getConnection();
-//		try {
-//			Persistence.executeUpdateStatement(aConnection, 
-//					"UPDATE kontenverw_konto " +
-//					"SET balance = " + kontoTO.getSaldo() +
-//					"WHERE accountnr = " + kontoTO.getDepotNr());
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//			throw new DatenhaltungsException();
-//		}
-	
-	}
-
 
 	@Override
-	public int maxKontonummer() throws DatenhaltungsException {
+	public int maxDepotnummer() throws DatenhaltungsException {
 		Connection aConnection = Persistence.getConnection();
 		ResultSet resultSet;
 		try {
@@ -237,7 +218,6 @@ public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 		return null;
 	}
 
-
 	@Override
 	public ArrayList<BestandContainerTO> wertpapierBestandFuerDepot(int depotnummer)
 			throws DatenhaltungsException {
@@ -262,14 +242,14 @@ public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff{
 				double summeWert = 0.0;
 				
 				// Summe der Gekauften
-				resultSet = Persistence.executeQueryStatement(aConnection, "SELECT * FROM ha1_dv_wptransaktion WHERE TART = 'K' AND wp_nr = " + i);
+				resultSet = Persistence.executeQueryStatement(aConnection, "SELECT * FROM ha1_dv_wptransaktion WHERE TART = 'K' AND wp_nr = " + i + " AND d_nr = " + depotnummer);
 				while(resultSet.next()){
 					summeMenge += resultSet.getInt("menge");
 					summeWert += (resultSet.getInt("menge") * resultSet.getDouble("preis"));
 				}
 				
 				// Summe der Verkauften
-				resultSet = Persistence.executeQueryStatement(aConnection, "SELECT * FROM ha1_dv_wptransaktion WHERE TART = 'V' AND wp_nr = " + i);
+				resultSet = Persistence.executeQueryStatement(aConnection, "SELECT * FROM ha1_dv_wptransaktion WHERE TART = 'V' AND wp_nr = " + i + " AND d_nr = " + depotnummer);
 				while(resultSet.next()){
 					summeMenge -= resultSet.getInt("menge");
 					summeWert -= resultSet.getInt("menge") * resultSet.getDouble("preis");

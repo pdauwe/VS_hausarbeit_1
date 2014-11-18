@@ -15,7 +15,7 @@ public class DepotverwaltungRemoteFactory implements IDepotverwaltungRemoteFacto
 	}
 
 	@Override
-	public IWertpapiertransaktionBuchenRemote getKontobewegungBuchenRemote() {	
+	public IWertpapiertransaktionBuchenRemote getWertpapiertransaktionBuchen() {	
 		return new WertpapiertransaktionBuchenRemote();
 	}
 

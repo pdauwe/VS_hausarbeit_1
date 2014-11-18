@@ -26,11 +26,11 @@ public class StartMitarbeiterClient {
 		IKundenlisteErstellenRemote kundenlisteErstellen = (IKundenlisteErstellenRemote) registry.lookup("kundenlisteErstellen");
 		
 		IDepotPflegenRemote kontenPflegenRemote = 
-			(IDepotPflegenRemote) registry.lookup("kontenPflegen");
-		IWertpapiertransaktionBuchenRemote kontobewegungBuchenRemote = 
-			(IWertpapiertransaktionBuchenRemote) registry.lookup("wpbuchen");
+			(IDepotPflegenRemote) registry.lookup("depotPflegen");
+		IWertpapiertransaktionBuchenRemote wertpapiertransaktionBuchenRemote = 
+			(IWertpapiertransaktionBuchenRemote) registry.lookup("wpBuchen");
 				
-		MitarbeiterMenue.main(kundenPflegenRemote, kontenPflegenRemote, kontobewegungBuchenRemote, kundenlisteErstellen);
+		MitarbeiterMenue.main(kundenPflegenRemote, kontenPflegenRemote, wertpapiertransaktionBuchenRemote, kundenlisteErstellen);
 	}
 
 }

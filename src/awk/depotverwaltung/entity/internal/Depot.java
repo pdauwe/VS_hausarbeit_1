@@ -8,9 +8,6 @@ import java.util.Date;
 import awk.AnwendungskernException;
 import awk.depotverwaltung.entity.DepotTO;
 import awk.depotverwaltung.entity.WertpapiertransaktionTO;
-import awk.kundenverwaltung.factory.IKundenverwaltungFactory;
-import awk.kundenverwaltung.factory.impl.KundenverwaltungFactory;
-import awk.kundenverwaltung.usecase.IKontoRegistrieren;
 
 public class Depot{
 	
@@ -30,9 +27,6 @@ public class Depot{
 		Date now = new Date();
 		this.eroeffnungsdatum = now.toString();
 		wertpapiertransaktionen = new ArrayList<Wertpapiertransaktion>();
-		IKundenverwaltungFactory kvf = new KundenverwaltungFactory();
-		IKontoRegistrieren kontoRegistrieren = kvf.getKontoRegistrieren();
-		kontoRegistrieren.kontoHinzufuegen(this.inhaberNr, this.depotNr);
 	}
 	
 	/* Konstruktor zu Erzeugung eines Entitaetsgeflechts aus dem TO-Geflecht */

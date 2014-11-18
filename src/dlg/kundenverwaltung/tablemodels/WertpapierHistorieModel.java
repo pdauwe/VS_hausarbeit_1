@@ -36,7 +36,7 @@ public class WertpapierHistorieModel extends AbstractTableModel {
 		
 		switch(columnIndex){
 		case 0: return wpts.get(rowIndex).getVorgangsnummer();
-		case 1: return wpts.get(rowIndex).getWertpapierTO().getNummer();
+		case 1: return wpts.get(rowIndex).getWertpapierTO().getBezeichnung();
 		case 2: return wpts.get(rowIndex).getMenge();
 		case 3: return wpts.get(rowIndex).getPreis();
 		case 4: return wpts.get(rowIndex).getDate();
@@ -51,7 +51,7 @@ public class WertpapierHistorieModel extends AbstractTableModel {
 	public String getColumnName(int column) {
 		switch (column){
 			case 0: return "Vorgangsnummer";
-			case 1: return "Wertpapiernummer";
+			case 1: return "Wertpapier";
 			case 2: return "Menge";
 			case 3: return "Preis";
 			case 4: return "Datum";

@@ -17,7 +17,7 @@ public class StartKundenClient {
 		Registry registry = LocateRegistry.getRegistry("127.0.0.1");
 		
 		IKundenSuchenRemote kundenSuchen = (IKundenSuchenRemote) registry.lookup("kundenSuchen");
-		IWertpapiertransaktionBuchenRemote wpbuchen = (IWertpapiertransaktionBuchenRemote) registry.lookup("wpbuchen");
+		IWertpapiertransaktionBuchenRemote wpbuchen = (IWertpapiertransaktionBuchenRemote) registry.lookup("wpBuchen");
 		
 		KundenAnmeldenMenue.main(kundenSuchen, wpbuchen);
 	}

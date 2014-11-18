@@ -30,7 +30,7 @@ public class Depotanlage extends JFrame {
 	private static final long serialVersionUID = -8670270853554936786L;
 	private JPanel contentPane;
 	private JTextField tf_kundennummer;
-	private JTextField tf_kontonummer;
+	private JTextField tf_depotnummer;
 
 	private IDepotPflegenRemote kontenPflegen;
 	private IKundenlisteErstellenRemote kundenlisteErstellenRemote;
@@ -76,30 +76,30 @@ public class Depotanlage extends JFrame {
 		contentPane.add(tf_kundennummer);
 		tf_kundennummer.setColumns(10);
 		
-		JLabel lblKontonummer = new JLabel("Kontonummer:");
-		lblKontonummer.setBounds(33, 106, 130, 16);
-		contentPane.add(lblKontonummer);
+		JLabel lblDepotnummer = new JLabel("Depotnummer:");
+		lblDepotnummer.setBounds(33, 106, 130, 16);
+		contentPane.add(lblDepotnummer);
 		
-		tf_kontonummer = new JTextField();
-		tf_kontonummer.setEnabled(false);
-		tf_kontonummer.setEditable(false);
-		tf_kontonummer.setBounds(180, 100, 134, 28);
-		contentPane.add(tf_kontonummer);
-		tf_kontonummer.setColumns(10);
+		tf_depotnummer = new JTextField();
+		tf_depotnummer.setEnabled(false);
+		tf_depotnummer.setEditable(false);
+		tf_depotnummer.setBounds(180, 100, 134, 28);
+		contentPane.add(tf_depotnummer);
+		tf_depotnummer.setColumns(10);
 		
-		JButton btnKontoAnlegen = new JButton("Konto anlegen");
-		btnKontoAnlegen.addActionListener(new ActionListener() {
+		JButton btnDepotAnlegen = new JButton("Depot anlegen");
+		btnDepotAnlegen.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					actionPerformedKontoAnlegen(e);
+					actionPerformedDepotAnlegen(e);
 				} catch (RemoteException e1) {
 					e1.printStackTrace();
 				}
 			}
 		});
-		btnKontoAnlegen.setBounds(190, 44, 117, 29);
-		contentPane.add(btnKontoAnlegen);
+		btnDepotAnlegen.setBounds(190, 44, 117, 29);
+		contentPane.add(btnDepotAnlegen);
 		
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		horizontalStrut.setBounds(6, 55, 437, 1);
@@ -123,21 +123,21 @@ public class Depotanlage extends JFrame {
 		contentPane.add(btnKundenliste);
 	}
 
-	protected void actionPerformedKontoAnlegen(ActionEvent evt) throws RemoteException {
+	protected void actionPerformedDepotAnlegen(ActionEvent evt) throws RemoteException {
 		System.out.println("b_anlegen.actionPerformed, event="+evt);
 		int kundenNr = Integer.parseInt(tf_kundennummer.getText());
-		int kontoNr = 0;
+		int depotNr = 0;
 		try {
 			System.out.println("Kundennummer: "+kundenNr+"\n");
-			kontoNr = kontenPflegen.depotAnlegenR(kundenNr);
+			depotNr = kontenPflegen.depotAnlegenR(kundenNr);
 		} catch (AnwendungskernException e) {
 			JOptionPane.showMessageDialog(null, "Fehler in der Anwendung");
 			e.printStackTrace();
 		}
-		if (kontoNr == 0)
-			JOptionPane.showMessageDialog(null, "Konto kann nicht angelegt werden");
+		if (depotNr == 0)
+			JOptionPane.showMessageDialog(null, "Depot kann nicht angelegt werden");
 		else
-			tf_kontonummer.setText(String.valueOf(kontoNr));
+			tf_depotnummer.setText(String.valueOf(depotNr));
 		
 	}
 	

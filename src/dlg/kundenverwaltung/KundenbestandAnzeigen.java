@@ -114,7 +114,7 @@ public class KundenbestandAnzeigen extends JFrame {
 	
 	public void actionPerformedComboBoxChanged(ActionEvent e) throws RemoteException{
 		try{
-			this.tblBestand.setModel(new KundenDepotModel(wpbuchen.wertpapierBestandFuerDepot(5015)));
+			this.tblBestand.setModel(new KundenDepotModel(wpbuchen.wertpapierBestandFuerDepot((int)this.cbDepots.getSelectedItem())));
 		}catch(AnwendungskernException e1){
 			e1.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Fehler!");

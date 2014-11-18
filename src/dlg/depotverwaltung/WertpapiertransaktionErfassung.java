@@ -189,8 +189,8 @@ public class WertpapiertransaktionErfassung extends JFrame {
 		int menge = Integer.parseInt(this.tfMenge.getText());
 		double preis = Double.parseDouble(this.tfPreis.getText());
 		int boersenplatz = this.cbBoersenplatz.getSelectedIndex();
-		WertpapierTO wp = new WertpapierTO();
-		wp.setNummer(1);
+		WertpapierTO wp = (WertpapierTO)this.cbWertpapiere.getSelectedItem();
+		
 		
 		String datum = this.tfDatum.getText();
 		

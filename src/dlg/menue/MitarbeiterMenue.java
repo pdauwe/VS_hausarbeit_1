@@ -9,7 +9,7 @@ import javax.swing.JButton;
 
 import dlg.depotverwaltung.Depotanlage;
 import dlg.depotverwaltung.WertpapiertransaktionErfassung;
-import dlg.kundenverwaltung.Kundenanlage;
+import dlg.kundenverwaltung.Kundenanlegen;
 import awk.depotverwaltung.usecase.IDepotPflegenRemote;
 import awk.depotverwaltung.usecase.IWertpapiertransaktionBuchenRemote;
 import awk.kundenverwaltung.usecase.IKundenPflegenRemote;
@@ -65,7 +65,7 @@ public class MitarbeiterMenue extends JFrame {
 		btnKundenAnlegen.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Kundenanlage.main(kundenPflegen);
+				Kundenanlegen.main(kundenPflegen);
 			}
 		});
 		contentPane.setLayout(new GridLayout(0, 1, 0, 0));

@@ -1,7 +1,6 @@
 package awk.kundenverwaltung.usecase.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import awk.AnwendungskernException;
 import awk.DatenhaltungsException;
@@ -36,23 +35,7 @@ public class KundenManager {
 			throw new AnwendungskernException();
 		}
 	}
-
-		
-	public boolean istKundevorhanden(Kunde kunde) throws AnwendungskernException {
-		try {
-			if (!this.einDatenverwalter.kundendatenSuchenByAttribute(kunde.toKundeTO()).isEmpty())
-				return true;
-			else
-				return false;
-		} catch (DatenhaltungsException e) {
-			e.printStackTrace();
-			throw new AnwendungskernException();
-
-		}
-	}
-			
-		
-
+	
 	public int getMaxKundennummer () throws DatenhaltungsException {
 		int max = 0;
 		try{
@@ -62,26 +45,6 @@ public class KundenManager {
 			throw new DatenhaltungsException();
 		}
 		return max;
-	}
-		
-	public Collection<Kunde> kundeSuchenByName (
-			String nachname,
-			String vorname) throws AnwendungskernException {
-		Collection<Kunde> ergebnisliste = new ArrayList<Kunde>();
-		
-		KundeTO suchPKundeTO = new PrivatkundeTO();
-		suchPKundeTO.setNachname(nachname);
-		suchPKundeTO.setVorname(vorname);
-		
-		try {
-			for (KundeTO kundeTO:this.einDatenverwalter.kundendatenSuchenByAttribute(suchPKundeTO))
-				ergebnisliste.add(kundeTO.toKunde());
-		} catch (DatenhaltungsException e) {
-			e.printStackTrace();
-			throw new AnwendungskernException();
-		}
-		
-		return ergebnisliste;
 	}
 	
 	public Kunde kundeSuchenByNr (int kundennummer) throws AnwendungskernException {
@@ -96,23 +59,6 @@ public class KundenManager {
 			return null;
 		else
 			return kundeTO.toKunde();
-	}
-
-	
-	public Collection<Kunde> kundenLiefern () throws AnwendungskernException  {
-		Collection <Kunde> ergebnisliste = new ArrayList<Kunde>();
-		
-		KundeTO suchPKundeTO = new PrivatkundeTO();
-		
-		try {
-			for (KundeTO kundeTO:this.einDatenverwalter.kundendatenSuchenByAttribute(suchPKundeTO))
-				ergebnisliste.add(kundeTO.toKunde());
-		} catch (DatenhaltungsException e) {
-			e.printStackTrace();
-			throw new AnwendungskernException();
-		}
-		
-		return ergebnisliste;
 	}
 	
 	public Kunde kundeSuchenByBenutzerkennungUndPasswort (String benutzerkennung, String passwort) throws AnwendungskernException{

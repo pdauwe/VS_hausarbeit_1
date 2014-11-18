@@ -75,7 +75,7 @@ public class Kundenanlegen extends JFrame {
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setBounds(0, 0, 461, 365);
 		this.setPreferredSize(new java.awt.Dimension(461, 360));
-		this.setSize(461, 360);
+		this.setSize(494, 361);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -88,7 +88,7 @@ public class Kundenanlegen extends JFrame {
 		contentPane.add(lb_geschlecht);
 		
 		tf_geschlecht = new JTextField();
-		tf_geschlecht.setBounds(126, 49, 30, 28);
+		tf_geschlecht.setBounds(142, 53, 30, 28);
 		contentPane.add(tf_geschlecht);
 		tf_geschlecht.setColumns(10);
 		
@@ -109,40 +109,40 @@ public class Kundenanlegen extends JFrame {
 		contentPane.add(lblPlz);
 		
 		JLabel lblOrt = new JLabel("Ort");
-		lblOrt.setBounds(204, 171, 61, 16);
+		lblOrt.setBounds(220, 175, 61, 16);
 		contentPane.add(lblOrt);
 		
 		tf_nachname = new JTextField();
-		tf_nachname.setBounds(126, 77, 134, 28);
+		tf_nachname.setBounds(142, 81, 134, 28);
 		contentPane.add(tf_nachname);
 		tf_nachname.setColumns(10);
 		
 		tf_vorname = new JTextField();
-		tf_vorname.setBounds(126, 105, 134, 28);
+		tf_vorname.setBounds(142, 109, 134, 28);
 		contentPane.add(tf_vorname);
 		tf_vorname.setColumns(10);
 		
 		tf_strasse = new JTextField();
-		tf_strasse.setBounds(126, 133, 134, 28);
+		tf_strasse.setBounds(142, 137, 134, 28);
 		contentPane.add(tf_strasse);
 		tf_strasse.setColumns(10);
 		
 		JLabel lblHausnummer = new JLabel("Hausnummer");
-		lblHausnummer.setBounds(284, 139, 84, 16);
+		lblHausnummer.setBounds(300, 143, 84, 16);
 		contentPane.add(lblHausnummer);
 		
 		tf_hausnummer = new JTextField();
-		tf_hausnummer.setBounds(368, 134, 77, 28);
+		tf_hausnummer.setBounds(384, 138, 77, 28);
 		contentPane.add(tf_hausnummer);
 		tf_hausnummer.setColumns(10);
 		
 		tf_plz = new JTextField();
-		tf_plz.setBounds(126, 165, 61, 28);
+		tf_plz.setBounds(142, 169, 61, 28);
 		contentPane.add(tf_plz);
 		tf_plz.setColumns(10);
 		
 		tf_ort = new JTextField();
-		tf_ort.setBounds(261, 165, 183, 28);
+		tf_ort.setBounds(277, 169, 183, 28);
 		contentPane.add(tf_ort);
 		tf_ort.setColumns(10);
 		
@@ -158,47 +158,47 @@ public class Kundenanlegen extends JFrame {
 				}
 			}
 		});
-		jb_anlegen.setBounds(317, 298, 117, 29);
+		jb_anlegen.setBounds(371, 304, 117, 29);
 		contentPane.add(jb_anlegen);
 		{
 			tf_Geburtsdatum_Tag = new JTextField();
 			contentPane.add(tf_Geburtsdatum_Tag);
-			tf_Geburtsdatum_Tag.setBounds(126, 205, 38, 22);
+			tf_Geburtsdatum_Tag.setBounds(142, 209, 38, 22);
 			tf_Geburtsdatum_Tag.setSize(40, 22);
 		}
 		{
 			tf_Geburtsdatum_Monat = new JTextField();
 			contentPane.add(tf_Geburtsdatum_Monat);
-			tf_Geburtsdatum_Monat.setBounds(181, 205, 40, 22);
+			tf_Geburtsdatum_Monat.setBounds(197, 209, 40, 22);
 		}
 		{
 			tf_Geburtsdatum_Jahr = new JTextField();
 			contentPane.add(tf_Geburtsdatum_Jahr);
-			tf_Geburtsdatum_Jahr.setBounds(241, 205, 40, 22);
+			tf_Geburtsdatum_Jahr.setBounds(257, 209, 40, 22);
 		}
 		{
 			punkt = new JLabel();
 			contentPane.add(punkt);
 			punkt.setText(".");
-			punkt.setBounds(171, 212, 10, 15);
+			punkt.setBounds(187, 216, 10, 15);
 		}
 		{
 			jLabel1 = new JLabel();
 			contentPane.add(jLabel1);
 			jLabel1.setText(".");
-			jLabel1.setBounds(229, 212, 10, 15);
+			jLabel1.setBounds(245, 216, 10, 15);
 		}
 		{
 			lbGeburtsdatum = new JLabel();
 			contentPane.add(lbGeburtsdatum);
 			lbGeburtsdatum.setText("Geburtsdatum:");
-			lbGeburtsdatum.setBounds(27, 208, 87, 15);
+			lbGeburtsdatum.setBounds(27, 208, 93, 16);
 		}
 		{
 			lbBenutzername = new JLabel();
 			contentPane.add(lbBenutzername);
 			lbBenutzername.setText("Benutzername:");
-			lbBenutzername.setBounds(27, 244, 87, 15);
+			lbBenutzername.setBounds(27, 244, 92, 16);
 		}
 		{
 			lbPasswort = new JLabel();
@@ -209,12 +209,12 @@ public class Kundenanlegen extends JFrame {
 		{
 			tf_Benutzername = new JTextField();
 			contentPane.add(tf_Benutzername);
-			tf_Benutzername.setBounds(126, 241, 155, 22);
+			tf_Benutzername.setBounds(142, 245, 155, 22);
 		}
 		{
 			tf_Passwort = new JTextField();
 			contentPane.add(tf_Passwort);
-			tf_Passwort.setBounds(126, 269, 155, 22);
+			tf_Passwort.setBounds(142, 273, 155, 22);
 		}
 
 		tf_geschlecht.setVisible(true);
