@@ -1,8 +1,13 @@
 package awk.depotverwaltung.entity.internal;
 
 /*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
  * Hilfsklasse, um den Bestand eines Wertpapiers in einem Depot abzubilden
  */
+
 public class BestandContainer {
 
 	private int nummer;

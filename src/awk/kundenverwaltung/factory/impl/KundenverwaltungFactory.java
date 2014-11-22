@@ -11,6 +11,12 @@ import awk.kundenverwaltung.usecase.impl.KundeninformationFuerNr;
 import awk.kundenverwaltung.usecase.impl.KundenlisteErstellen;
 
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class KundenverwaltungFactory implements IKundenverwaltungFactory{
 	
 	@Override

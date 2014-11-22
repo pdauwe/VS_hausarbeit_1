@@ -5,6 +5,12 @@ import java.io.Serializable;
 import awk.AnwendungskernException;
 import awk.depotverwaltung.entity.internal.Wertpapier;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class WertpapierTO implements Serializable {
 
 	/**

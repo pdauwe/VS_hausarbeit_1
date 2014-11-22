@@ -18,6 +18,12 @@ import awk.kundenverwaltung.usecase.IKundenSuchenRemote;
 import awk.kundenverwaltung.usecase.IKundenlisteErstellenRemote;
 
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class StartServer {
 		
 	public static void main (String args[]) throws AccessException, RemoteException {

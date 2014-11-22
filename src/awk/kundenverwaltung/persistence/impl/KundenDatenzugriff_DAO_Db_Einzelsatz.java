@@ -15,6 +15,12 @@ import awk.kundenverwaltung.persistence.IKundenDatenzugriff;
 import awk.DatenhaltungsException;
 
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class KundenDatenzugriff_DAO_Db_Einzelsatz implements IKundenDatenzugriff{
 
 	

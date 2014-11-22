@@ -12,6 +12,12 @@ import awk.depotverwaltung.persistence.IDepotDatenzugriff;
 import awk.depotverwaltung.persistence.impl.DepotDatenzugriff_DAO_Db_Einzelsatz;
 import awk.depotverwaltung.entity.WertpapierTO;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class DepotManager {
 	
 	/* Hier wird festgelegt, dass zur Speicherung eine Datenbank verwendet wird!*/
@@ -94,6 +100,15 @@ public class DepotManager {
 	public ArrayList<WertpapiertransaktionTO> wertpapierHistorieFuerDepot(int depotnummer) throws AnwendungskernException {
 		try{
 			return this.einDatenverwalter.wertpapierHistorieFuerDepot(depotnummer);
+		}catch (DatenhaltungsException e){
+			e.printStackTrace();
+			throw new AnwendungskernException();
+		}
+	}
+	
+	public double depotWert(int depotnummer) throws AnwendungskernException{
+		try{ 
+			return this.einDatenverwalter.depotWert(depotnummer);
 		}catch (DatenhaltungsException e){
 			e.printStackTrace();
 			throw new AnwendungskernException();

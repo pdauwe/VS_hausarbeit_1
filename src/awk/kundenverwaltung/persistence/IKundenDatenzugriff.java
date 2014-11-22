@@ -7,6 +7,12 @@ import awk.DatenhaltungsException;
 import awk.kundenverwaltung.entity.KundeTO;
 import awk.kundenverwaltung.entity.PrivatkundeTO;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public interface IKundenDatenzugriff {
 	
 	public void kundendatenAnlegen(KundeTO kundeTO) throws DatenhaltungsException;

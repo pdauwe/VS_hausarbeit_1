@@ -2,6 +2,12 @@ package awk.depotverwaltung.entity.internal;
 
 import awk.depotverwaltung.entity.WertpapierTO;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class Wertpapier {
 
 	private int nummer;

@@ -5,6 +5,12 @@ import java.util.Date;
 
 import awk.kundenverwaltung.entity.PrivatkundeTO;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class Privatkunde extends Kunde implements Serializable{
 	
 	/**

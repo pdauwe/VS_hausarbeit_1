@@ -10,6 +10,12 @@ import awk.kundenverwaltung.entity.internal.Privatkunde;
 import awk.kundenverwaltung.type.Adresse;
 import awk.kundenverwaltung.usecase.IKundenPflegen;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class KundenPflegen implements IKundenPflegen{
 	
 	

@@ -7,6 +7,12 @@ import awk.kundenverwaltung.usecase.impl.KundenPflegenRemote;
 import awk.kundenverwaltung.usecase.impl.KundenSuchenRemote;
 import awk.kundenverwaltung.usecase.impl.KundenlisteErstellenRemote;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class KundenverwaltungRemoteFactory implements IKundenverwaltungRemoteFactory{
 	
 	@Override

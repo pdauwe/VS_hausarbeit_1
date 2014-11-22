@@ -21,6 +21,12 @@ import javax.swing.border.EmptyBorder;
 import awk.AnwendungskernException;
 import awk.kundenverwaltung.usecase.IKundenPflegenRemote;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class Kundenanlegen extends JFrame {
 
 	/**
@@ -165,19 +171,22 @@ public class Kundenanlegen extends JFrame {
 		contentPane.add(jb_anlegen);
 		{
 			tf_Geburtsdatum_Tag = new JTextField();
+			tf_Geburtsdatum_Tag.setToolTipText("Tag");
 			contentPane.add(tf_Geburtsdatum_Tag);
 			tf_Geburtsdatum_Tag.setBounds(142, 209, 38, 22);
 			tf_Geburtsdatum_Tag.setSize(40, 22);
 		}
 		{
 			tf_Geburtsdatum_Monat = new JTextField();
+			tf_Geburtsdatum_Monat.setToolTipText("Monat");
 			contentPane.add(tf_Geburtsdatum_Monat);
 			tf_Geburtsdatum_Monat.setBounds(197, 209, 40, 22);
 		}
 		{
 			tf_Geburtsdatum_Jahr = new JTextField();
+			tf_Geburtsdatum_Jahr.setToolTipText("Jahr");
 			contentPane.add(tf_Geburtsdatum_Jahr);
-			tf_Geburtsdatum_Jahr.setBounds(257, 209, 40, 22);
+			tf_Geburtsdatum_Jahr.setBounds(257, 209, 71, 22);
 		}
 		{
 			punkt = new JLabel();
@@ -240,7 +249,6 @@ public class Kundenanlegen extends JFrame {
 		String benutzername = tf_Benutzername.getText();
 		String passwort = tf_Passwort.getText();
 		Date geburtsdatum = this.generateBirthday(tf_Geburtsdatum_Tag.getText(), tf_Geburtsdatum_Monat.getText(), tf_Geburtsdatum_Jahr.getText());
-		System.out.println(geburtsdatum);
 		
 		boolean ok = false;
 		String geschlecht = tf_geschlecht.getText();

@@ -2,6 +2,12 @@ package awk.depotverwaltung.entity;
 
 import java.io.Serializable;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class BestandContainerTO implements Serializable{
 
 	/**

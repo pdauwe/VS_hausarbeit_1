@@ -8,6 +8,12 @@ import javax.swing.table.AbstractTableModel;
 
 import awk.depotverwaltung.entity.BestandContainerTO;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class KundenDepotModel extends AbstractTableModel{
 
 	/**
@@ -19,9 +25,15 @@ public class KundenDepotModel extends AbstractTableModel{
 	
 	public KundenDepotModel(Collection<BestandContainerTO> papiere){
 		for(BestandContainerTO wpt : papiere){
-			this.bcs.add(wpt);
+			if(wpt.getMenge() > 0){
+				this.bcs.add(wpt);
+			}
 		}
-		JOptionPane.showMessageDialog(null, this.bcs);
+		
+		if(this.bcs.size() == 0){
+			JOptionPane.showMessageDialog(null, "Kein Bestand gefunden");
+		}
+		
 	}
 	
 	

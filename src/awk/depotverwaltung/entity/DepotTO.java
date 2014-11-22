@@ -2,12 +2,19 @@ package awk.depotverwaltung.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 
 import awk.AnwendungskernException;
 import awk.depotverwaltung.entity.internal.Depot;
 import awk.depotverwaltung.entity.internal.Wertpapiertransaktion;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class DepotTO implements Serializable{
 
 	/**
@@ -18,7 +25,7 @@ public class DepotTO implements Serializable{
 	private int inhaberNr;
 	private String inhaberNachname;
 	private String inhaberVorname;
-	private String eroeffnungsdatum;
+	private Date eroeffnungsdatum;
 	private Collection<WertpapiertransaktionTO> wertpapiertransaktionen;
 	
 	public DepotTO(){
@@ -84,11 +91,11 @@ public class DepotTO implements Serializable{
 		this.inhaberVorname = inhaberVorname;
 	}
 
-	public String getEroeffnungsdatum() {
+	public Date getEroeffnungsdatum() {
 		return eroeffnungsdatum;
 	}
 
-	public void setEroeffnungsdatum(String eroeffnungsdatum) {
+	public void setEroeffnungsdatum(Date eroeffnungsdatum) {
 		this.eroeffnungsdatum = eroeffnungsdatum;
 	}
 	

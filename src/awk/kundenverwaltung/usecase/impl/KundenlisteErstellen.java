@@ -6,6 +6,12 @@ import awk.AnwendungskernException;
 import awk.kundenverwaltung.entity.PrivatkundeTO;
 import awk.kundenverwaltung.usecase.IKundenlisteErstellen;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class KundenlisteErstellen implements IKundenlisteErstellen {
 
 	@Override

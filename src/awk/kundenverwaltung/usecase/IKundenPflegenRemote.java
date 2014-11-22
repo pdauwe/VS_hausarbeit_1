@@ -6,6 +6,12 @@ import java.util.Date;
 
 import awk.AnwendungskernException;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public interface IKundenPflegenRemote extends Remote{
 	
 	public boolean privatkundeAnlegenR(

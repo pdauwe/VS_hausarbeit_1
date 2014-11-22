@@ -6,6 +6,12 @@ import awk.AnwendungskernException;
 import awk.kundenverwaltung.entity.KundeTO;
 import awk.kundenverwaltung.usecase.IKundenSuchenRemote;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class KundenSuchenRemote implements IKundenSuchenRemote{
 
 	@Override

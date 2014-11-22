@@ -1,11 +1,19 @@
 package dlg.kundenverwaltung.tablemodels;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 import awk.depotverwaltung.entity.WertpapiertransaktionTO;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class WertpapierHistorieModel extends AbstractTableModel {
 
 	/**
@@ -16,6 +24,11 @@ public class WertpapierHistorieModel extends AbstractTableModel {
 	
 	public WertpapierHistorieModel(ArrayList<WertpapiertransaktionTO> wpts){
 		this.wpts = wpts;
+		
+		if(this.wpts.size() == 0){
+			JOptionPane.showMessageDialog(null, "Keine Historie gefunden");
+		}
+		
 	}
 	
 	
@@ -39,7 +52,7 @@ public class WertpapierHistorieModel extends AbstractTableModel {
 		case 1: return wpts.get(rowIndex).getWertpapierTO().getBezeichnung();
 		case 2: return wpts.get(rowIndex).getMenge();
 		case 3: return wpts.get(rowIndex).getPreis();
-		case 4: return wpts.get(rowIndex).getDate();
+		case 4: return new SimpleDateFormat("dd.MM.yyyy").format(wpts.get(rowIndex).getDate());
 		case 5: return wpts.get(rowIndex).getTyp();
 		case 6: return wpts.get(rowIndex).getBoersenplatz();
 		}

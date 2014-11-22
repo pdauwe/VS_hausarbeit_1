@@ -5,6 +5,12 @@ import awk.kundenverwaltung.entity.KundeTO;
 import awk.kundenverwaltung.entity.internal.Kunde;
 import awk.kundenverwaltung.usecase.IKundeninformationFuerNr;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class KundeninformationFuerNr implements IKundeninformationFuerNr {
 
 	@Override

@@ -10,6 +10,12 @@ import awk.AnwendungskernException;
 import awk.kundenverwaltung.entity.PrivatkundeTO;
 import awk.kundenverwaltung.usecase.IKundenlisteErstellenRemote;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class KundenlisteTableModel extends AbstractTableModel {
 
 	/**

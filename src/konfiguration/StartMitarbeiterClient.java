@@ -13,6 +13,12 @@ import awk.depotverwaltung.usecase.IWertpapiertransaktionBuchenRemote;
 import awk.kundenverwaltung.usecase.IKundenPflegenRemote;
 import awk.kundenverwaltung.usecase.IKundenlisteErstellenRemote;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class StartMitarbeiterClient {
 
 	

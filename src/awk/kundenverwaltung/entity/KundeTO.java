@@ -6,6 +6,12 @@ import java.util.Collection;
 
 import awk.kundenverwaltung.entity.internal.Kunde;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public abstract class KundeTO implements Serializable{
 	
 	private static final long serialVersionUID = -7558883996516598760L;

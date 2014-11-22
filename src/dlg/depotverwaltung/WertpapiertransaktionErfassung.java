@@ -20,8 +20,17 @@ import awk.depotverwaltung.usecase.IWertpapiertransaktionBuchenRemote;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.rmi.RemoteException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class WertpapiertransaktionErfassung extends JFrame {
 
 	/**
@@ -31,7 +40,7 @@ public class WertpapiertransaktionErfassung extends JFrame {
 	private JPanel contentPane;
 	private JTextField tfDepotnummer;
 	private JTextField tfMenge;
-	private JTextField tfDatum;
+	private JTextField tfDatum_Tag;
 	private JTextField tfPreis;
 	private JRadioButton rdbtnKauf;
 	private JRadioButton rdbtnVerkauf;
@@ -40,6 +49,8 @@ public class WertpapiertransaktionErfassung extends JFrame {
 
 	private ArrayList<WertpapierTO> wertpapiere;
 	private IWertpapiertransaktionBuchenRemote wptBuchen;
+	private JTextField tfDatum_Monat;
+	private JTextField tfDatum_Jahr;
 	
 	/**
 	 * Launch the application.
@@ -107,10 +118,11 @@ public class WertpapiertransaktionErfassung extends JFrame {
 		lblDatum.setBounds(6, 80, 46, 16);
 		contentPane.add(lblDatum);
 		
-		tfDatum = new JTextField();
-		tfDatum.setBounds(112, 74, 180, 28);
-		contentPane.add(tfDatum);
-		tfDatum.setColumns(10);
+		tfDatum_Tag = new JTextField();
+		tfDatum_Tag.setToolTipText("Tag");
+		tfDatum_Tag.setBounds(112, 74, 45, 28);
+		contentPane.add(tfDatum_Tag);
+		tfDatum_Tag.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Preis:");
 		lblNewLabel.setBounds(6, 120, 34, 16);
@@ -180,6 +192,31 @@ public class WertpapiertransaktionErfassung extends JFrame {
 		JLabel lblTransaktion = new JLabel("Transaktion:");
 		lblTransaktion.setBounds(6, 197, 79, 16);
 		contentPane.add(lblTransaktion);
+		
+		tfDatum_Monat = new JTextField();
+		tfDatum_Monat.setToolTipText("Monat");
+		tfDatum_Monat.setBounds(169, 74, 45, 28);
+		contentPane.add(tfDatum_Monat);
+		tfDatum_Monat.setColumns(10);
+		
+		tfDatum_Jahr = new JTextField();
+		tfDatum_Jahr.setToolTipText("Jahr");
+		tfDatum_Jahr.setBounds(226, 74, 94, 28);
+		contentPane.add(tfDatum_Jahr);
+		tfDatum_Jahr.setColumns(10);
+		
+		JLabel label = new JLabel(".");
+		label.setBounds(158, 80, 13, 16);
+		contentPane.add(label);
+		
+		JLabel label_1 = new JLabel(".");
+		label_1.setBounds(215, 80, 13, 16);
+		contentPane.add(label_1);
+	}
+	
+	private Date generateDatum (String tag, String monat, String jahr) throws ParseException{
+		String dateString = tag + "-" + monat + "-" + jahr;
+		return new SimpleDateFormat("dd-MM-yyyy").parse(dateString);
 	}
 	
 	private void actionPerformedInhalteErfassen(ActionEvent e) throws RemoteException{
@@ -187,12 +224,17 @@ public class WertpapiertransaktionErfassung extends JFrame {
 		char art = (this.rdbtnKauf.isSelected()) ? 'K' : 'V';
 		int depotnummer = Integer.parseInt(this.tfDepotnummer.getText());
 		int menge = Integer.parseInt(this.tfMenge.getText());
-		double preis = Double.parseDouble(this.tfPreis.getText());
+		double preis = (this.rdbtnKauf.isSelected()) ? Double.parseDouble(this.tfPreis.getText()) : Double.parseDouble(this.tfPreis.getText()) * -1;		
 		int boersenplatz = this.cbBoersenplatz.getSelectedIndex();
 		WertpapierTO wp = (WertpapierTO)this.cbWertpapiere.getSelectedItem();
+		Date datum = new Date();
 		
-		
-		String datum = this.tfDatum.getText();
+		try{
+			datum = this.generateDatum(tfDatum_Tag.getText(), tfDatum_Monat.getText(), tfDatum_Jahr.getText());
+		}
+		catch(Exception e1){
+			e1.printStackTrace();
+		}
 		
 		boolean ok = false;
 		try{
@@ -213,7 +255,7 @@ public class WertpapiertransaktionErfassung extends JFrame {
 	 * */
 	private void actionPerformedInhalteLoeschen(ActionEvent e) throws Exception{
 		this.tfDepotnummer.setText("");
-		this.tfDatum.setText("");
+		this.tfDatum_Tag.setText("");
 		this.tfMenge.setText("");
 		this.tfPreis.setText("");
 		this.cbBoersenplatz.setSelectedIndex(0);
@@ -234,6 +276,4 @@ public class WertpapiertransaktionErfassung extends JFrame {
 		bps.add(tokyo);
 		return bps;
 	}
-	
-	
 }

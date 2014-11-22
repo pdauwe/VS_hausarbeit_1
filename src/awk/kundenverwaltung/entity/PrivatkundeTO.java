@@ -7,6 +7,12 @@ import java.util.Date;
 import awk.kundenverwaltung.entity.internal.Kunde;
 import awk.kundenverwaltung.entity.internal.Privatkunde;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class PrivatkundeTO extends KundeTO {
 
 	private static final long serialVersionUID = -6690944127375207095L;

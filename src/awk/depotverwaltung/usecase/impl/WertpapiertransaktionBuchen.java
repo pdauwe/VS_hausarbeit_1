@@ -18,6 +18,12 @@ import awk.kundenverwaltung.factory.IKundenverwaltungFactory;
 import awk.kundenverwaltung.factory.impl.KundenverwaltungFactory;
 import awk.kundenverwaltung.usecase.IKundeninformationFuerNr;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class WertpapiertransaktionBuchen implements IWertpapiertransaktionBuchen {
 
 
@@ -45,25 +51,20 @@ public class WertpapiertransaktionBuchen implements IWertpapiertransaktionBuchen
 	}
 	
 	@Override
-	public boolean wertpapierBuchen (int depotnr, Wertpapier wertpapier, double preis, char art, int menge, int boersenplatz, String datum) throws AnwendungskernException {
+	public boolean wertpapierBuchen (int depotnr, Wertpapier wertpapier, double preis, char art, int menge, int boersenplatz, Date datum) throws AnwendungskernException {
 		
 		DepotManager einDepotManager = DepotManager.getDepotManager();
 		Depot einDepot = einDepotManager.depotSuchenByNr(depotnr);
 		if(einDepot == null){
 			return false; 
 		}else{
-			String today = "";
-			// Wenn kein Datum angegeben wurde, wird das heute Datum verwendet.
-			if(datum == null || datum.isEmpty()){
-				today = new Date().toString();
-			}else{
-				today = datum;
-			}
-			
 			try{
 				int vorgangsnummer = einDepotManager.getDatenverwalter().generiereVorgangsnummer();
-				Wertpapiertransaktion wpt = new Wertpapiertransaktion(einDepot, art, preis, menge, vorgangsnummer+1, today, wertpapier, boersenplatz);
-				einDepotManager.getDatenverwalter().wertpapiertransaktionAnlegen(depotnr, wpt.toWertpapiertransaktionTO());
+				Wertpapiertransaktion wpt = new Wertpapiertransaktion(einDepot, art, preis, menge, vorgangsnummer+1, datum, wertpapier, boersenplatz);
+				boolean ok = einDepotManager.getDatenverwalter().wertpapiertransaktionAnlegen(depotnr, wpt.toWertpapiertransaktionTO());
+				if(!ok){
+					return false;
+				}
 			}catch (DatenhaltungsException e){
 				e.printStackTrace();
 				throw new AnwendungskernException();
@@ -107,5 +108,15 @@ public class WertpapiertransaktionBuchen implements IWertpapiertransaktionBuchen
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public double depotWert(int depotnummer) throws AnwendungskernException{
+		try{
+			DepotManager dm = DepotManager.getDepotManager();
+			return dm.depotWert(depotnummer);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return 0;
 	}
 }

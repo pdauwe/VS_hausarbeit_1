@@ -22,6 +22,12 @@ import java.rmi.RemoteException;
 
 import javax.swing.Box;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class Depotanlage extends JFrame {
 
 	/**

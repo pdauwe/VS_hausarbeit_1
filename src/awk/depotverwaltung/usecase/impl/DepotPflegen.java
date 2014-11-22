@@ -9,6 +9,12 @@ import awk.kundenverwaltung.factory.impl.KundenverwaltungFactory;
 import awk.kundenverwaltung.usecase.IKundeninformationFuerNr;
 
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class DepotPflegen implements IDepotPflegen{
 	
 	public DepotPflegen( ) {
@@ -26,7 +32,7 @@ public class DepotPflegen implements IDepotPflegen{
 			return 0;
 		else {
 			int max = einDepotManager.naechsteDepotnummerErmitteln();
-			Depot einDepot = new Depot(max+1,kundenNr);
+			Depot einDepot = new Depot(max,kundenNr);
 			einDepotManager.depotHinzufuegen(einDepot);
 			
 			return einDepot.getDepotNr();

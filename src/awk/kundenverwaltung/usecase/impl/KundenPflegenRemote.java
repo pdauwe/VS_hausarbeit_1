@@ -6,6 +6,12 @@ import java.util.Date;
 import awk.AnwendungskernException;
 import awk.kundenverwaltung.usecase.IKundenPflegenRemote;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class KundenPflegenRemote implements IKundenPflegenRemote{
 	
 	

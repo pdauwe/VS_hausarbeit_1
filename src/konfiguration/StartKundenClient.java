@@ -10,6 +10,12 @@ import dlg.menue.KundenAnmeldenMenue;
 import awk.depotverwaltung.usecase.IWertpapiertransaktionBuchenRemote;
 import awk.kundenverwaltung.usecase.IKundenSuchenRemote;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class StartKundenClient {
 
 	public static void main(String[] args) throws AccessException, RemoteException, NotBoundException {

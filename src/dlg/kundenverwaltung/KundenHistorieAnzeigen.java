@@ -13,6 +13,12 @@ import dlg.kundenverwaltung.tablemodels.WertpapierHistorieModel;
 import awk.AnwendungskernException;
 import awk.depotverwaltung.usecase.IWertpapiertransaktionBuchenRemote;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class KundenHistorieAnzeigen extends JFrame {
 
 	/**

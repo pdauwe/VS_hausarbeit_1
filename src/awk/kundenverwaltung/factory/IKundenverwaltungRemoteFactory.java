@@ -8,6 +8,12 @@ import awk.kundenverwaltung.usecase.IKundenSuchenRemote;
 import awk.kundenverwaltung.usecase.IKundenlisteErstellenRemote;
 
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public interface IKundenverwaltungRemoteFactory extends Remote {
 	
 	IKundenPflegenRemote getKundenPflegenRemote() throws RemoteException;

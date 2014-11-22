@@ -1,9 +1,12 @@
 package awk.depotverwaltung.entity.internal;
 
-
-/*
+/* 
+ * Philip Dauwe
+ * 579407
+ * 
  * Diese Klasse wird nur für den Dialog zur Erstellung einer Wertpapiertransaktion genutzt.
  */
+
 public class Boersenplatz {
 
 	int nummer;

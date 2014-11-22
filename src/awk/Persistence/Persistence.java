@@ -8,6 +8,12 @@ import java.sql.Statement;
 /* 
  * Die Klasse fasst alle Methoden zusammen, die direkt mit der DB zu tun haben
  */
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class Persistence {
 	 
 	public static Connection getConnection(){

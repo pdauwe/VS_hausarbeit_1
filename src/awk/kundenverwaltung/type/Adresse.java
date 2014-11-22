@@ -2,6 +2,12 @@ package awk.kundenverwaltung.type;
 
 import java.io.Serializable;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class Adresse implements Serializable{
 	/**
 	 * 

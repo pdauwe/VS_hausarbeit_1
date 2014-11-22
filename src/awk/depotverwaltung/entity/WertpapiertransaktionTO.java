@@ -1,7 +1,14 @@
 package awk.depotverwaltung.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class WertpapiertransaktionTO implements Serializable{
 
 	/**
@@ -12,7 +19,7 @@ public class WertpapiertransaktionTO implements Serializable{
 	char typ;
 	double preis;
 	int menge;
-	String date;
+	Date date;
 	DepotTO depotTO;
 	WertpapierTO wertpapierTO;
 	int boersenplatz;
@@ -25,7 +32,7 @@ public class WertpapiertransaktionTO implements Serializable{
 		
 	}
 	
-	public WertpapiertransaktionTO(DepotTO depotTO, char typ, double preis, int menge, int vorgangsnummer, String date, WertpapierTO wertpapierTO, int boersenplatz) {
+	public WertpapiertransaktionTO(DepotTO depotTO, char typ, double preis, int menge, int vorgangsnummer, Date date, WertpapierTO wertpapierTO, int boersenplatz) {
 		this.typ = typ;
 		this.preis = preis;
 		this.depotTO = depotTO;
@@ -65,11 +72,11 @@ public class WertpapiertransaktionTO implements Serializable{
 		this.menge = menge;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 

@@ -7,6 +7,12 @@ import awk.depotverwaltung.usecase.IWertpapiertransaktionBuchenRemote;
 import awk.depotverwaltung.usecase.impl.DepotPflegenRemote;
 import awk.depotverwaltung.usecase.impl.WertpapiertransaktionBuchenRemote;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class DepotverwaltungRemoteFactory implements IDepotverwaltungRemoteFactory{
 	
 	@Override

@@ -5,6 +5,12 @@ import awk.kundenverwaltung.entity.KundeTO;
 import awk.kundenverwaltung.entity.internal.Kunde;
 import awk.kundenverwaltung.usecase.IKundenSuchen;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class KundenSuchen implements IKundenSuchen{
 
 	@Override

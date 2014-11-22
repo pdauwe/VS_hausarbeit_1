@@ -8,6 +8,12 @@ import awk.kundenverwaltung.entity.PrivatkundeTO;
 import awk.kundenverwaltung.usecase.IKundenlisteErstellen;
 import awk.kundenverwaltung.usecase.IKundenlisteErstellenRemote;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class KundenlisteErstellenRemote implements IKundenlisteErstellenRemote{
 
 	@Override

@@ -9,13 +9,19 @@ import awk.AnwendungskernException;
 import awk.depotverwaltung.entity.DepotTO;
 import awk.depotverwaltung.entity.WertpapiertransaktionTO;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class Depot{
 	
 	/**
 	 * 
 	 */
 	private final int depotNr;
-	private String eroeffnungsdatum;
+	private Date eroeffnungsdatum;
 	
 	private Collection<Wertpapiertransaktion> wertpapiertransaktionen;
 	
@@ -24,8 +30,7 @@ public class Depot{
 	public Depot(int depotnummer, int kundennummer) throws AnwendungskernException {
 		this.depotNr = depotnummer;
 		this.inhaberNr = kundennummer;
-		Date now = new Date();
-		this.eroeffnungsdatum = now.toString();
+		this.eroeffnungsdatum = new Date();
 		wertpapiertransaktionen = new ArrayList<Wertpapiertransaktion>();
 	}
 	
@@ -66,11 +71,11 @@ public class Depot{
 		return this.depotNr;
 	}
 
-	public String getEroeffnungsdatum() {
+	public Date getEroeffnungsdatum() {
 		return eroeffnungsdatum;
 	}
 
-	public void setEroeffnungsdatum(String eroeffnungsdatum) {
+	public void setEroeffnungsdatum(Date eroeffnungsdatum) {
 		this.eroeffnungsdatum = eroeffnungsdatum;
 	}
 

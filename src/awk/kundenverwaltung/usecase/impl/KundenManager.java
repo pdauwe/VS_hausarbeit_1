@@ -11,6 +11,12 @@ import awk.kundenverwaltung.persistence.IKundenDatenzugriff;
 import awk.kundenverwaltung.persistence.impl.KundenDatenzugriff_DAO_Db_Einzelsatz;
 
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class KundenManager {
 	
 	/* Hier wird festgelegt, dass zur Speicherung eine Datei verwendet wird!*/

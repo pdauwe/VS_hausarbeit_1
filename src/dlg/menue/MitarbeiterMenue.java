@@ -19,6 +19,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class MitarbeiterMenue extends JFrame {
 
 	/**
@@ -30,14 +36,19 @@ public class MitarbeiterMenue extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(final IKundenPflegenRemote kundenPflegen,
+	public static void main(
+			final IKundenPflegenRemote kundenPflegen,
 			final IDepotPflegenRemote depotPflegen,
-			final IWertpapiertransaktionBuchenRemote wertpapiertransaktionBuchen, final IKundenlisteErstellenRemote kundenlisteErstellenRemote) {
+			final IWertpapiertransaktionBuchenRemote wertpapiertransaktionBuchen,
+			final IKundenlisteErstellenRemote kundenlisteErstellenRemote) {
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
 				try {
-					MitarbeiterMenue frame = new MitarbeiterMenue(kundenPflegen, depotPflegen, wertpapiertransaktionBuchen, kundenlisteErstellenRemote);
+					MitarbeiterMenue frame = new MitarbeiterMenue(
+							kundenPflegen, depotPflegen,
+							wertpapiertransaktionBuchen,
+							kundenlisteErstellenRemote);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,14 +64,13 @@ public class MitarbeiterMenue extends JFrame {
 			final IKundenPflegenRemote kundenPflegen,
 			final IDepotPflegenRemote depotPflegen,
 			final IWertpapiertransaktionBuchenRemote wertpapiertransaktionBuchen,
-			final IKundenlisteErstellenRemote kundenlisteErstellenRemote
-			) {
+			final IKundenlisteErstellenRemote kundenlisteErstellenRemote) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
+
 		JButton btnKundenAnlegen = new JButton("Kunden anlegen");
 		btnKundenAnlegen.addActionListener(new ActionListener() {
 			@Override
@@ -70,7 +80,7 @@ public class MitarbeiterMenue extends JFrame {
 		});
 		contentPane.setLayout(new GridLayout(0, 1, 0, 0));
 		contentPane.add(btnKundenAnlegen);
-		
+
 		JButton btnDepotAnlegen = new JButton("Depot anlegen");
 		btnDepotAnlegen.addActionListener(new ActionListener() {
 			@Override
@@ -79,12 +89,14 @@ public class MitarbeiterMenue extends JFrame {
 			}
 		});
 		contentPane.add(btnDepotAnlegen);
-		
-		JButton btnWertpapiertransaktion = new JButton("Neue Wertpapiertransaktion anlegen");
+
+		JButton btnWertpapiertransaktion = new JButton(
+				"Neue Wertpapiertransaktion anlegen");
 		btnWertpapiertransaktion.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				WertpapiertransaktionErfassung.main(wertpapiertransaktionBuchen);
+				WertpapiertransaktionErfassung
+						.main(wertpapiertransaktionBuchen);
 			}
 		});
 		contentPane.add(btnWertpapiertransaktion);

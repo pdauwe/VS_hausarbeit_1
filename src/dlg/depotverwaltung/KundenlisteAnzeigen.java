@@ -11,6 +11,12 @@ import javax.swing.JTable;
 import dlg.depotverwaltung.tablemodels.KundenlisteTableModel;
 import awk.kundenverwaltung.usecase.IKundenlisteErstellenRemote;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class KundenlisteAnzeigen extends JFrame {
 
 	/**

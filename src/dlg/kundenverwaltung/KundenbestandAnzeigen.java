@@ -21,7 +21,14 @@ import awk.kundenverwaltung.entity.KundeTO;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.rmi.RemoteException;
+import javax.swing.JTextField;
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class KundenbestandAnzeigen extends JFrame {
 
 	/**
@@ -33,6 +40,7 @@ public class KundenbestandAnzeigen extends JFrame {
 	private KundeTO kunde;
 	private IWertpapiertransaktionBuchenRemote wpbuchen;
 	private JTable tblBestand;
+	private JTextField tfWert;
 	
 	/**
 	 * Launch the application.
@@ -105,22 +113,31 @@ public class KundenbestandAnzeigen extends JFrame {
 		contentPane.add(btnAnzeigen);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(6, 99, 438, 196);
+		scrollPane.setBounds(6, 99, 438, 110);
 		contentPane.add(scrollPane);
 		
 		tblBestand = new JTable();
 		scrollPane.setViewportView(tblBestand);
+		
+		JLabel lblWert = new JLabel("Wert:");
+		lblWert.setBounds(6, 221, 61, 16);
+		contentPane.add(lblWert);
+		
+		tfWert = new JTextField();
+		tfWert.setEditable(false);
+		tfWert.setBounds(79, 215, 134, 28);
+		contentPane.add(tfWert);
+		tfWert.setColumns(10);
 	}
 	
 	public void actionPerformedComboBoxChanged(ActionEvent e) throws RemoteException{
 		try{
 			this.tblBestand.setModel(new KundenDepotModel(wpbuchen.wertpapierBestandFuerDepot((int)this.cbDepots.getSelectedItem())));
+			this.tfWert.setText(String.valueOf(wpbuchen.depotWert((int)this.cbDepots.getSelectedItem())));
 		}catch(AnwendungskernException e1){
 			e1.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Fehler!");
 		}
-		
-		//JOptionPane.showMessageDialog(null, "TEST: " + this.cbDepots.getSelectedItem());
 	}
 	
 	public void actionPerformedHistorieAnzeigen(ActionEvent e) throws RemoteException{

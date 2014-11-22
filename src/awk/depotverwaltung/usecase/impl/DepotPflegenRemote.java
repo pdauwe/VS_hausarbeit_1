@@ -5,6 +5,12 @@ import awk.AnwendungskernException;
 import awk.depotverwaltung.usecase.IDepotPflegenRemote;
 
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class DepotPflegenRemote implements IDepotPflegenRemote{
 	
 

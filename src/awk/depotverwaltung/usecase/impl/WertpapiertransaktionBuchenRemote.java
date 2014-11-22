@@ -2,6 +2,7 @@ package awk.depotverwaltung.usecase.impl;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import awk.AnwendungskernException;
 import awk.depotverwaltung.entity.BestandContainerTO;
@@ -11,6 +12,12 @@ import awk.depotverwaltung.entity.WertpapiertransaktionTO;
 import awk.depotverwaltung.usecase.IWertpapiertransaktionBuchenRemote;
 
 
+/*
+ * 
+ * Philip Dauwe
+ * 579407
+ * 
+ */
 public class WertpapiertransaktionBuchenRemote implements IWertpapiertransaktionBuchenRemote {
 
 
@@ -22,7 +29,7 @@ public class WertpapiertransaktionBuchenRemote implements IWertpapiertransaktion
 
 	@Override
 	public boolean wertpapierBuchenR(int depotnr, WertpapierTO wertpapier,
-			double preis, char art, int menge, int boersenplatz, String datum) throws AnwendungskernException,
+			double preis, char art, int menge, int boersenplatz, Date datum) throws AnwendungskernException,
 			RemoteException {
 		WertpapiertransaktionBuchen wertpapiertransaktionBuchen = new WertpapiertransaktionBuchen();
 		return wertpapiertransaktionBuchen.wertpapierBuchen(depotnr, wertpapier.toWertpapier(), preis, art, menge, boersenplatz,datum);
@@ -44,6 +51,11 @@ public class WertpapiertransaktionBuchenRemote implements IWertpapiertransaktion
 	public ArrayList<WertpapiertransaktionTO> wertpapierHistorieFuerDepot(int depotnummer) throws AnwendungskernException, RemoteException{
 		WertpapiertransaktionBuchen wpbuchen = new WertpapiertransaktionBuchen();
 		return wpbuchen.wertpapierHistorieFuerDepot(depotnummer);
+	}
+	
+	public double depotWert(int depotnummer) throws AnwendungskernException, RemoteException{
+		WertpapiertransaktionBuchen wpbuchen = new WertpapiertransaktionBuchen();
+		return wpbuchen.depotWert(depotnummer);
 	}
 	
 	
