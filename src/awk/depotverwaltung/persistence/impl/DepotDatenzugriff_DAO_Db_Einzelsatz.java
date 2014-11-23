@@ -101,7 +101,7 @@ public class DepotDatenzugriff_DAO_Db_Einzelsatz implements IDepotDatenzugriff {
 
 			if (wertpapiertransaktionTO.getTyp() == 'V') {
 				if (this.wertpapierMengeInDepot(depotnummer,
-						wertpapiertransaktionTO.getWertpapierTO().getNummer()) > 0) {
+						wertpapiertransaktionTO.getWertpapierTO().getNummer()) == 0) {
 					return false;
 				}
 			}
